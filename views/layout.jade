@@ -1,7 +1,99 @@
 doctype html
-html
+//if lt IE 7html.no-js.ie6.oldie(lang='en')
+//if IE 7html.no-js.ie7.oldie(lang='en')
+//if IE 8html.no-js.ie8.oldie(lang='en')
+//if IE 9html.no-js.ie9.oldie(lang='en')
+// [if gt IE 8] <!
+html.no-js(dir='ltr', lang='en-US')
+  // <![endif]
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    meta(charset='utf-8')
+    // Set the viewport width to device width for mobile
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    meta(name='author', content='failedteam')
+    meta(name='Description', content='ABC Kitchen')
+    title ABC Kitchen
+    link(href='css/reset.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='css/contact.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='css/styles.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='css/flexslider.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='css/jquery.fancybox.css', rel='stylesheet', type='text/css', media='screen')
+    // [if gt IE 8] <!
+    link(href='css/retina-responsive.css', rel='stylesheet', type='text/css', media='screen')
+    // <![endif]
+    //if !IE
+      link(href='css/retina-responsive.css', rel='stylesheet', type='text/css', media='screen')
+    //if gt IE 6
+      link(href='css/styles-ie.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='css/print.css', rel='stylesheet', type='text/css', media='print')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,700,600,800', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=PT+Mono:400', rel='stylesheet', type='text/css')
+    //libs js
+    script(src="libs/angular/angular.min.js")
+    script(src="libs/angular-route/angular-route.min.js")
+    //custom angular
+    script( src="js/controllers/MainCtrl.js")
+    script( src="js/controllers/NerdCtrl.js")
+    script( src="js/services/NerdService.js")
+    script( src="js/controllers/GeekCtrl.js")
+    script( src="js/services/GeekService.js")
+    script( src="js/appRoutes.js")
+    script( src="js/app.js")
+  body(ng-app='sampleApp', ng-controller="NerdController")
+    #wrap
+      // Preloader
+      //
+        <div id="preloader">
+        <div id="status">
+        <div class="parent">
+        <div class="child">loading</div>
+        </div>
+        </div>
+        </div>
+      header#wrapper
+        .container.clearfix
+          h1#logo
+            a(href='index') ABC Kitchen
+          // start navi
+          #nav-button
+            span.nav-bar
+            span.nav-bar
+            span.nav-bar
+          #options.clearfix
+            ul
+              li
+                a(href='index') Trang chủ
+              li
+                a(href='about') Thông tin
+              li
+                a(href='gallery') Hình ảnh
+              li
+                a(href='menu') Thực đơn
+              li
+                a(href='') Đặt món
+              li
+                a(href='blog') Tin tức
+              li
+                a(href='contact') Liên hệ
+          // end nav
+      // end header
+      // angular dynamic content
+      #content(ng-view)
+        // end content
+      // end wrap
+      footer
+        .container
+          .centered
+            ul.social.clearfix
+              li.twitter
+                a(href='#', onclick='return false') Thăm chúng tôi tại Twitter
+              li.behance
+                a(href='#', onclick='return false') Thăm chúng tôi tại Behance
+              li.facebook
+                a(href='#', onclick='return false') Thăm chúng tôi tại Facebook
+            p.small  © 2015, ABC Kitchen. All Rights Reserved.
+      // BACK TO TOP BUTTON
+      #backtotop
+        ul
+          li
+            a#toTop(href='#', onclick='return false') Trở về đầu trang

@@ -1,0 +1,46 @@
+//
+   Created by PHI on 5/17/2015.
+
+.container
+   #container.clearfix
+      .element.clearfix.col1-3.triple.white1.home.contact
+         h2 Liên hệ
+         #contact
+            form#contactform(method='post', action='http://ppp-templates.de/sh/contact.php', name='contactform', autocomplete='off')
+               fieldset
+                  label(for='name', accesskey='U') Name
+                  input#name(name='name', type='text', size='30', title='Tên *')
+                  label(for='email', accesskey='E') Email
+                  input#email(name='email', type='text', size='30', title='Email *')
+                  label(for='phone', accesskey='P') Phone
+                  input#phone(name='phone', type='text', size='30', title='Số điện thoại')
+                  label(for='comments', accesskey='C') Comments
+                  textarea#comments(name='comments', cols='40', rows='3', title='Nội dung *')
+                  span.break
+                  p.hide
+                     | Chúng tôi sẽ sớm liên hệ lại với bạn.
+                     br
+                     |                 * Nội dung bắt buộc
+                  span#message
+                  input#submit.submit(type='submit', value='» Gửi đi')
+      .element.clearfix.col2-3.home.contact
+         iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d930.9497121443834!2d105.7830445!3d21.040733099999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab34c4d3aa2b%3A0x3a15fad5752bbd47!2zR2nhuqNuZyDEkcaw4budbmcgR8SQMiwgVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOZ2_huqFpIG5n4buvLCBE4buLY2ggVuG7jW5nIEjhuq11LCBD4bqndSBHaeG6pXksIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1427131759750', width='600', height='450', frameborder='0', style='border:0')
+      .element.clearfix.col1-3.auto.white.home.contact
+         h2 Giờ mở cửa
+         h3 Thứ 2 đến Thứ 6
+         p 10am - 3pm & 5pm - 11pm
+         h3 Thứ 7 & Chủ nhật
+         p 11am - 8pm
+      .element.clearfix.col1-3.half.white3.home.contact
+         p.no-h2
+            | ABC Kitchen
+            br
+            |             Giảng Đường GĐ2, Đại học Quốc Gia Hà Nội
+            br
+            |             Xuân Thủy, Cầu Giấy, Hà Nội
+         p
+            | Email:
+            a(href='mailto:hello@domain.com', title='send email') abckitchen@abc.com
+            br
+            |             Số điện thoại: (043) xxx xxx
+// end container
