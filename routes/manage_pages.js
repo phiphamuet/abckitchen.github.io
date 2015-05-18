@@ -1,19 +1,21 @@
 var express = require('express');
 var menu=require('./menu');
 var index=require('./index');
-var about=require('./about');
-var gallery=require('./gallery');
-var blog=require('./blog');
+var reviews=require('./reviews');
 var contact=require('./contact');
 var users = require('./users');
+var news=require('./news');
+var reservations=require('./reservations');
+var home=require('./home');
 var router=express.Router();
 
+router.use('/reservations',reservations);
+router.use('/news',news);
 router.use('/index',index);
 router.use('/',index);
-router.use('/about',about);
-router.use('/gallery',gallery);
-router.use('/blog',blog);
+router.use('/reviews',reviews);
 router.use('/user',users);
 router.use('/contact',contact);
 router.use('/menu',menu);
+router.use('/home',home);
 module.exports = router;

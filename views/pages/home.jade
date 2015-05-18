@@ -1,95 +1,596 @@
-//
-   Created by PHI on 5/16/2015.
-.container
-   #container.clearfix
-      .element.clearfix.col2-3.home
-         .flexslider
-            .images
-               ul.slides
-                  li
-                     img(src='images/pic1.jpg', alt='')
-                  li
-                     img(src='images/pic1b.jpg', alt='')
-      .element.clearfix.col1-3.white1.home
-         h2 ABC Kitchen
-         p
-            | Là nhà ăn có chất lượng và dịch vụ tốt nhất trong khuôn viên Đại Học Quốc Gia Hà Nội.
-         p
-            | Chúng tôi rất hân hạnh mang tới cho quý khách những món buffet ngon và hấp dẫn nhất cho bữa ăn của bạn.
-         p.small.bottom
-            a(href='#filter=.contact')
-               | Đặt món
-               span.arrow →
-      .element.clearfix.col1-3.home.gallery.all.foods
-         a.popup(href='images/pic2.jpg', data-title='Image Title', data-fancybox-group='group1')
-            .images
-               .parent
-                  .child
-                     .icons.zoom
-               img(src='images/pic2.jpg', alt='')
-      .element.clearfix.col1-3.half.home
-         a(href='gallery', data-title='')
-            .images
-               .parent.text
-                  .child
-                     span Hình ảnh
-               .dots
-               .overlay
-               img(src='images/gallery.jpg', alt='')
-      .element.clearfix.col1-3.home.gallery.all.foods
-         a.popup(href='images/pic3.jpg', data-title='Image Title', data-fancybox-group='group1')
-            .images
-               .parent
-                  .child
-                     .icons.zoom
-               img(src='images/pic3.jpg', alt='')
-      .element.clearfix.col1-3.white2.home.about
-         h2 Thông tin
-         p
-            | ABC Kitchen có những đầu bếp chất lượng tốt. Mang tới những món ăn hòa quyện hương vị đặc trưng của Việt Nam.
-         p  Đến với chúng tôi quý khách chắc chắn sẽ có một bữa ăn hoàn hảo và hấp dẫn.
-         p.small.bottom
-            a(href='#filter=.contact')
-               | Thông tin liên hệ
-               span.arrow →
-      .element.clearfix.col1-3.half.home
-         a(href='menu', data-title='')
-            .images
-               .parent.text
-                  .child
-                     span Thực đơn
-               .dots
-               .overlay
-               img(src='images/menu.jpg', alt='')
-      .element.clearfix.col1-3.half.home
-         a(href='menu', data-title='')
-            .images
-               .parent.text
-                  .child
-                     span Món ăn đặc biệt
-               .dots
-               .overlay
-               img(src='images/deserts.jpg', alt='')
-      .element.clearfix.col1-3.half.white3.home
-         span.quotation-mark “
-         blockquote.no-h2
-            | Món ăn rất tuyệt. Đó thực sự là một sự thưởng thức.
-            span Nguyên / 02.2015
-      .element.clearfix.col2-3.home.about
-         a.video-popup(data-title='Image Title', href='http://player.vimeo.com/video/48792900?title=0&byline=0&portrait=0&color=ffffff')
-            .images
-               .parent
-                  .child
-                     .icons.video
-               img(src='images/pic4.jpg', alt='')
-      .element.clearfix.col1-3.half.home
-         a(href='', data-title='')
-            .images
-               .parent.text
-                  .child
-                     span Đặt món
-               .dots
-               .overlay
-               img(src='images/table.jpg', alt='')
-// end container
-
+// banner
+.banner
+  .container
+     .banner-text
+        h1 This Template Is Awesome
+        .bnr-text-info
+           h6 Pabulum restaurant home page website template
+// //banner
+// dishes
+.dishes1
+  .container
+     // banner-text Slider starts Here
+     script(src='js/responsiveslides.min.js')
+     script.
+        // You can also use "$(window).load(function() {"
+        $(function () {
+           // Slideshow 4
+           $("#slider3").responsiveSlides({
+              auto: true,
+              pager: true,
+              nav: false,
+              speed: 500,
+              namespace: "callbacks",
+              before: function () {
+                 $('.events').append("<li>before event fired.</li>");
+              },
+              after: function () {
+                 $('.events').append("<li>after event fired.</li>");
+              }
+           });
+        });
+     // //End-slider-script
+     #top.callbacks_container
+        .title
+           h3 FEATURED DISHES
+        ul#slider3.rslides
+           li
+              .dishes
+                 .col-md-3.dishes-grids
+                    img(src='images/img2.jpg', alt='', title='')
+                    .dishes-text
+                       p Fugiat nulla sint
+                       h4.rs $ 30
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img3.jpg', alt='', title='')
+                    .dishes-text
+                       p Daute irure dolor
+                       h4.rs $24
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img4.jpg', alt='', title='')
+                    .dishes-text
+                       p Officia deserunt
+                       h4.rs $60
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img5.jpg', alt='', title='')
+                    .dishes-text
+                       p Pim minim veniam
+                       h4.rs $17
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .clearfix
+           li
+              .dishes
+                 .col-md-3.dishes-grids
+                    img(src='images/img28.jpg', alt='', title='')
+                    .dishes-text
+                       p Fugiat nulla sint
+                       h4.rs $30
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img29.jpg', alt='', title='')
+                    .dishes-text
+                       p Daute irure dolor
+                       h4.rs $24
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img30.jpg', alt='', title='')
+                    .dishes-text
+                       p Officia mollit
+                       h4.rs $60
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img31.jpg', alt='', title='')
+                    .dishes-text
+                       p Pim minim veniam
+                       h4.rs $17
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .clearfix
+           li
+              .dishes
+                 .col-md-3.dishes-grids
+                    img(src='images/img32.jpg', alt='', title='')
+                    .dishes-text
+                       p Fugiat nulla sint
+                       h4.rs $30
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img33.jpg', alt='', title='')
+                    .dishes-text
+                       p Daute irure dolor
+                       h4.rs $24
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img34.jpg', alt='', title='')
+                    .dishes-text
+                       p Officia demollit
+                       h4.rs $60
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img35.jpg', alt='', title='')
+                    .dishes-text
+                       p Pim minim veniam
+                       h4.rs $17
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .clearfix
+           li
+              .dishes
+                 .col-md-3.dishes-grids
+                    img(src='images/img36.jpg', alt='', title='')
+                    .dishes-text
+                       p Fugiat nulla sint
+                       h4.rs $30
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img37.jpg', alt='', title='')
+                    .dishes-text
+                       p Daute irure dolor
+                       h4.rs $24
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img38.jpg', alt='', title='')
+                    .dishes-text
+                       p Deserunt mollit
+                       h4.rs $60
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                 .col-md-3.dishes-grids
+                    img(src='images/img39.jpg', alt='', title='')
+                    .dishes-text
+                       p Pim minim veniam
+                       h4.rs $17
+                       ul
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a(href='#')
+                          li
+                             a.gry-str(href='#')
+                          li
+                             a.gry-str(href='#')
+                 .clearfix
+// //dishes
+// banner-bottom
+.banner-bottom
+  .container
+     .menu-tag
+        h4 The Menu
+     .load_more
+        ul#myList
+           li
+              .l_g
+                 .l_g_r
+                    .col-md-6.menu-grids
+                       .menu-text
+                          .menu-text-left
+                             h4 Voluptate cillum fugiat.
+                             h6 Cheese, tomato, mushrooms, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $ 50
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Metus varius laoreet.
+                             h6 Chicken, mozzarella cheese, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $62
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Donec sodales magna.
+                             h6 Tuna, Sweetcorn, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $25
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Saugue velit cursus.
+                             h6 Pineapple, Minced Beef, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $30
+                          .clearfix
+                    .col-md-6.menu-grids
+                       .menu-text
+                          .menu-text-left
+                             h4 Arcu pede enim justo.
+                             h6 Tuna, Sweetcorn, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $50
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Cras dapibussemper nisi.
+                             h6 Pineapple, Minced Beef, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $62
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Quam semper libero.
+                             h6 Cheese, tomato, mushrooms, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $25
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Nam eget dui Etiam.
+                             h6 Chicken, mozzarella cheese, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $30
+                          .clearfix
+                    .clearfix
+           li
+              .l_g
+                 .l_g_r.g_r
+                    .col-md-6.menu-grids
+                       .menu-text
+                          .menu-text-left
+                             h4 Voluptate cillum fugiat.
+                             h6 Cheese, tomato, mushrooms, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $50
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Metus varius laoreet.
+                             h6 Chicken, mozzarella cheese, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $62
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Donec sodales magna.
+                             h6 Tuna, Sweetcorn, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $25
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Saugue velit cursus.
+                             h6 Pineapple, Minced Beef, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $30
+                          .clearfix
+                    .col-md-6.menu-grids
+                       .menu-text
+                          .menu-text-left
+                             h4 Arcu pede enim justo.
+                             h6 Tuna, Sweetcorn, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $50
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Cras dapibussemper nisi.
+                             h6 Pineapple, Minced Beef, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $62
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Quam semper libero.
+                             h6 Cheese, tomato, mushrooms, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $25
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Nam eget dui Etiam.
+                             h6 Chicken, mozzarella cheese, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $30
+                          .clearfix
+                    .clearfix
+           li
+              .l_g
+                 .l_g_r.g_r
+                    .col-md-6.menu-grids
+                       .menu-text
+                          .menu-text-left
+                             h4 Voluptate cillum fugiat.
+                             h6 Cheese, tomato, mushrooms, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $50
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Metus varius laoreet.
+                             h6 Chicken, mozzarella cheese, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $62
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Donec sodales magna.
+                             h6 Tuna, Sweetcorn, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $25
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Saugue velit cursus.
+                             h6 Pineapple, Minced Beef, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $30
+                          .clearfix
+                    .col-md-6.menu-grids
+                       .menu-text
+                          .menu-text-left
+                             h4 Arcu pede enim justo.
+                             h6 Tuna, Sweetcorn, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $50
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Cras dapibussemper nisi.
+                             h6 Pineapple, Minced Beef, Cheese.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $62
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Quam semper libero.
+                             h6 Cheese, tomato, mushrooms, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $25
+                          .clearfix
+                       .menu-text
+                          .menu-text-left
+                             h4 Nam eget dui Etiam.
+                             h6 Chicken, mozzarella cheese, onions.
+                          .menu-text-midle
+                             span.line
+                          .menu-text-right
+                             h4 $30
+                          .clearfix
+                    .clearfix
+        #loadMore load more
+        #showLess show less
+// //banner-bottom
+// gallery
+.gallery
+  .container
+     .title
+        h3 THE GALLERY
+     .gallery-grids
+        .gallery-grids-left.glry-img.glry-first
+           a.mask.b-link-stripe.b-animate-go.swipebox(href='images/img6.jpg', title='Image Title')
+              img.img-responsive.zoom-img(src='images/img6.jpg', alt='')
+        .gallery-grids-left
+           .glry-img
+              a.swipebox(href='images/img7.jpg', title='Image Title')
+                 img.img-responsive.zoom-img(src='images/img7.jpg', alt='')
+           .glry-img
+              a.swipebox(href='images/img8.jpg', title='Image Title')
+                 img.img-responsive.zoom-img(src='images/img8.jpg', alt='')
+        .gallery-grids-left
+           .glry-img
+              a.swipebox(href='images/img9.jpg', title='Image Title')
+                 img.img-responsive.zoom-img(src='images/img9.jpg', alt='')
+           .glry-img
+              a.swipebox(href='images/img10.jpg', title='Image Title')
+                 img.img-responsive.zoom-img(src='images/img10.jpg', alt='')
+        .clearfix
+        // swipebox
+        link(rel='stylesheet', href='css/swipebox.css')
+        script(src='js/jquery.swipebox.min.js')
+        script(type='text/javascript').
+           jQuery(function ($) {
+              $(".swipebox").swipebox();
+           });
+        // //swipebox Ends
+        script.
+           $(document).ready(function () {
+              size_li = $("#myList li").size();
+              x=1;
+              $('#myList li:lt('+x+')').show();
+              $('#loadMore').click(function () {
+                 x= (x+1 <= size_li) ? x+1 : size_li;
+                 $('#myList li:lt('+x+')').show();
+              });
+              $('#showLess').click(function () {
+                 x=(x-1<0) ? 1 : x-1;
+                 $('#myList li').not(':lt('+x+')').hide();
+              });
+           });
+// //gallery

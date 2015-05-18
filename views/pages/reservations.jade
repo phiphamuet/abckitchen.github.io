@@ -1,0 +1,83 @@
+//
+   Created by PHI on 5/18/2015.
+
+// reservation
+.reservation
+   .container
+      .menu-title.reserve-title
+         h3 Make Reservations
+      p.rsvp
+         | Lorem Ipsum is simply dummy text of the printing and typesetting industry,it has been the industry's standard dummy text ith desktop publishing software like Aldus PageMaker.
+      .reservation-form
+         .col-md-4.reservation-left
+            h4 Menu
+            ul
+               li
+                  a(href='menu') Salads
+               li
+                  a(href='menu') Non-veg
+               li
+                  a(href='menu') Specials
+               li
+                  a(href='menu') Main Dishes
+            h4 Featured Menu Items
+            .reservation-grids
+               .rsvn-grids-left
+                  img(src='images/img24.jpg', alt='', title='')
+               .rsvn-grids-right
+                  h5
+                     a(href='news') Soluta nobis der
+                  p  In this paneer patties wrapped and served with mustard.
+               .clearfix
+            .reservation-grids
+               .rsvn-grids-left
+                  img(src='images/img25.jpg', alt='', title='')
+               .rsvn-grids-right
+                  h5
+                     a(href='news') Soluta nobis der
+                  p  In this paneer patties wrapped and served with mustard.
+               .clearfix
+            .reservation-grids
+               .rsvn-grids-left
+                  img(src='images/img26.jpg', alt='', title='')
+               .rsvn-grids-right
+                  h5
+                     a(href='news') Soluta nobis der
+                  p  In this paneer patties wrapped and served with mustard.
+               .clearfix
+         .col-md-8.reservation-right
+            form
+               h5 How many members?
+               .dropdown-button
+                  select.dropdown(tabindex='10', data-settings='{"wrapperClass":"flat"}')
+                     option(value='1') 01 member
+                     option(value='2') 02 members
+                     option(value='3') 03 members
+                     option(value='4') 04 members
+                     option(value='5') 05 members
+                     option(value='6') 06 members
+                     option(value='7') 07 members
+                     option(value='8') 08 members
+                     option(value='9') 09 members
+                     option(value='9') 10 members
+                     option(value='9') 10+ members
+               h5 When would you like to come?
+               input#datepicker.date(type='text', value='Select Date', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Select Date';}")
+               lable Select Time :
+               input(type='time', value='Time', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Time';}", required='')
+               h5 Contact detailes & Special Requests
+               input(type='text', value='Name', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Name';}", required='')
+               input(type='email', value='Email', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Email';}", required='')
+               input(type='text', value='Telephone', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Telephone';}", required='')
+               textarea(type='text', onfocus="this.value = '' ;", onblur="if (this.value == '') {this.value = 'Special Request...';}", required='')  Special Request...
+               button.btn1.btn-1.btn-1e RESERVE NOW
+            // -strat-date-piker--
+            link(rel='stylesheet', href='css/jquery-ui.css')
+            script(src='js/jquery-ui.js')
+            script.
+               $(function() {
+                  $( "#datepicker,#datepicker1" ).datepicker();
+               });
+            // -/End-date-piker--
+         .clearfix
+// //reservation

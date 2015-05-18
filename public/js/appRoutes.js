@@ -4,33 +4,37 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
 		// home page
 		.when('/', {
-			templateUrl: 'home',
+			templateUrl: 'home/lazyload',
 			controller: 'MainController'
 		})
 
 		.when('/index', {
-			templateUrl: 'home',
-			controller: 'NerdController'
+			templateUrl: 'home/lazyload',
+			controller: 'MainController'
 		})
 
-		.when('/about', {
-			templateUrl: 'about',
-			controller: 'GeekController'
+		.when('/news', {
+			templateUrl: 'news/lazyload',
+			controller: ''
 		})
-		.when('/gallery',{
-			templateUrl:'gallery',
+		.when('/reviews',{
+			templateUrl:'reviews/lazyload',
+			controller: ''
+		})
+		.when('/reservations',{
+			templateUrl:'reservations/lazyload',
 			controller: ''
 		})
 		.when('/menu',{
-			templateUrl: 'menu',
+			templateUrl: 'menu/lazyload',
 			controller:''
 		})
-		.when('/blog',{
-			templateUrl: 'blog',
+		.when('/contact',{
+			templateUrl: 'contact/lazyload',
 			controller: ''
 		})
-		.when('/contact',{
-			templateUrl: 'contact',
+		.when('/home',{
+			templateUrl: 'home/lazyload',
 			controller: ''
 		});
 
