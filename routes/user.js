@@ -3,7 +3,9 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('layout');
 });
-
+router.get('/lazyload', function(req, res, next) {
+  res.render('pages/user');
+});
 module.exports = router;

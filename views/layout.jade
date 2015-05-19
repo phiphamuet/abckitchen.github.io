@@ -1,28 +1,20 @@
 //
    Created by PHI on 5/18/2015.
-
-//
-   Created by PHI on 5/18/2015.
 doctype html
-//
-  Author: W3layouts
-  Author URL: http://w3layouts.com
-  License: Creative Commons Attribution 3.0 Unported
-  License URL: http://creativecommons.org/licenses/by/3.0/
 html
    head
       title
-         | Pabulum a Food Category Flat bootstrap Responsive website Template | Home :: w3layouts
+         | ABC Kitchen
       link(href='css/bootstrap.css', type='text/css', rel='stylesheet', media='all')
       link(href='css/style.css', type='text/css', rel='stylesheet', media='all')
       // web-font
       link(href='http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,800,400italic', rel='stylesheet', type='text/css')
+      link(href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,vietnamese' rel='stylesheet' type='text/css')
       // //web-font
       // Custom Theme files
       meta(name='viewport', content='width=device-width, initial-scale=1')
       meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-      meta(name='keywords', content='Pabulum Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, \
-    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design')
+      meta(name='keywords', content='ABCKitchen! Best kitchen in VNU!')
       script(type='application/x-javascript').
          addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
@@ -43,8 +35,9 @@ html
       script(src="libs/angular-route/angular-route.js")
       script(src="js/controllers/AboutCtrl.js")
       script(src="js/controllers/MainCtrl.js")
+      script(src="js/controllers/UserCtrl.js")
       script(src="js/services/AboutService.js")
-      script(src="js/services/GeekService.js")
+      script(src="js/services/UserService.js")
       script(src="js/appRoutes.js")
       script(src="js/app.js")
       script(type='text/javascript').
@@ -81,20 +74,23 @@ html
                   img(src='images/menu-icon.png', alt='')
                ul.nav1.cl-effect-5
                   li
-                     a.active(href='index')
-                        span(data-hover='OurStory') OurStory
+                     a(href='index')
+                        span(data-hover='Trang chủ') Trang chủ
                   li
                      a(href='menu')
-                        span(data-hover='Menu')  Menu
+                        span(data-hover='Thực đơn')  Thực đơn
                   li
                      a(href='reservations')
-                        span(data-hover='Reservations') Reservations
+                        span(data-hover='Đặt hàng') Đặt hàng
                   li
                      a(href='news')
-                        span(data-hover='News') News
+                        span(data-hover='Tin tức') Tin tức
                   li
                      a(href='reviews')
-                        span(data-hover='Reviews')  Reviews
+                        span(data-hover='Đánh giá')  Đánh giá
+                  li
+                     a(href='login')
+                        span(data-hover='Đăng nhập')  Đăng nhập
                // script-for-menu
                script.
                   $("span.menu").click(function () {
@@ -111,32 +107,32 @@ html
          .container
             .col-md-3.footer-left
                ul
-                  li New York Restaurant
-                  li 3926 Anmoore Road
-                  li New York, NY 10014
-                  li 718-749-1714
+                  li ABC KitChen
+                  li Đối diện kí túc xá Ngoại Ngữ
+                  li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
+                  li 04 xx xx xx xx
             .col-md-3.footer-left
                ul
-                  li France Restaurant
-                  li 68, rue  de la Couronne
-                  li 75002 PARIS
-                  li 02.94.23.69.56
+                  li ABC KitChen 2
+                  li Đối diện kí túc xá Ngoại Ngữ
+                  li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
+                  li 04 xx xx xx xx
             .col-md-3.footer-left
                ul
                   li
-                     a(href='#') Blog
+                     a(href='#') Tin tức
                   li
-                     a(href='#') Careers
+                     a(href='#') Tuyển dụng
                   li
-                     a(href='#') Privacy Policy
+                     a(href='#') Quy định
                   li
-                     a(href='contact') Contact
+                     a(href='contact') Liên hệ
             .col-md-3.footer-right
                a(href='index')
                   img(src='images/footer-logo.png', alt='logo')
                p
-                  | © 2015 All rights reserved | Design by
-                  a(href='http://w3layouts.com/')  W3layouts
+                  | © 2015 All rights reserved | Thiết kế bởi
+                  a(href='http://failedteam.com/')  FailedTeam
             .clearfix
       // //footer
       // smooth-scrolling-of-move-up

@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 // catch 404 and forward to error handler
