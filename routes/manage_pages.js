@@ -1,21 +1,21 @@
 var express = require('express');
 var menu=require('./menu');
 var index=require('./index');
-var reviews=require('./reviews');
 var contact=require('./contact');
 var user = require('./user');
 var news=require('./news');
 var reservations=require('./reservations');
 var home=require('./home');
 var login=require('./login');
+var admin=require('./admin');
 var router=express.Router();
 
+router.use('/admin',admin);
 router.use('/login',login);
 router.use('/reservations',reservations);
 router.use('/news',news);
 router.use('/index',index);
 router.use('/',index);
-router.use('/reviews',reviews);
 router.use('/user',user);
 router.use('/contact',contact);
 router.use('/menu',menu);

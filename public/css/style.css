@@ -44,7 +44,7 @@ body a:hover{
 }
 .top-nav {
 	float:right;
-	width: 67%;
+	width: 55%;
 }
 span.menu {
 	display: none;
@@ -792,7 +792,7 @@ overflow:hidden;
 .menu-title h3:before {
   position: absolute;
   top: 40%;
-  left: 26%;
+  left: 23%;
   width: 14%;
   height: 1px;
   background: red;
@@ -801,17 +801,17 @@ overflow:hidden;
 .menu-title h3:after {
   position: absolute;
   top: 40%;
-  right: 25%;
+  right: 22%;
   width: 14%;
   height: 1px;
   background: red;
   content: '';
 }
 .menu-title.menu-ttl-spl h3:before {
-  left: 22%;
+  left: 20%;
 }
 .menu-title.menu-ttl-spl h3:after {
-  right: 22%;
+  right: 19.5%;
 }
 /*--//menu-page--*/
 
@@ -844,7 +844,7 @@ overflow:hidden;
   font-size: 2em;
   font-weight: 600;
   color: #3b3b3b;
-  font-family: 'WCManoNegraBta-webfont';
+  font-family: 'nabila';
 }
 .reservation-left li {
   padding: 0;

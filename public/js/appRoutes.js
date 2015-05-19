@@ -39,11 +39,15 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		})
 		.when('/login',{
 			templateUrl: 'login/lazyload',
-			controller:''
+			controller:'LoginController'
 		})
 		.when('/user',{
 			templateUrl: 'user/lazyload',
 			controller:	'UserController'
+		})
+		.when('/admin',{
+			templateUrl: 'user/lazyload',
+			controller:	''
 		});
 
 	$locationProvider.html5Mode({
