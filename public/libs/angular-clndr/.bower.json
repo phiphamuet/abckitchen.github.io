@@ -1,0 +1,31 @@
+{
+  "name": "angular-clndr",
+  "description": "Angular directive for the CLNDR.js package.",
+  "author": "10KB",
+  "main": [
+    "./angular-clndr.js",
+    "./angular-clndr.css"
+  ],
+  "ignore": [
+    "src",
+    "Gruntfile.coffee",
+    "package.json",
+    "CNAME"
+  ],
+  "dependencies": {
+    "angular": ">=1",
+    "clndr": ">=1.2"
+  },
+  "homepage": "https://github.com/10KB/angular-clndr",
+  "version": "0.3.1",
+  "_release": "0.3.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.3.1",
+    "commit": "db1beaf294e3037e498705e2d48497c7f138dab8"
+  },
+  "_source": "git://github.com/10KB/angular-clndr.git",
+  "_target": "~0.3.1",
+  "_originalSource": "angular-clndr",
+  "_direct": true
+}
