@@ -1,9 +1,11 @@
 /**
  * Created by PHI on 5/19/2015.
  */
-angular.module('LoginCtrl', [])
+angular.module('LoginCtrl', ['LoginService'])
     .controller('LoginController',['$scope','Login',
-        $scope.login=function($scope,Login) {
-            Login($scope.form);
+        function($scope,Login){
+            $scope.login=function() {
+                Login($scope.form);
+            }
         }
     ]);
