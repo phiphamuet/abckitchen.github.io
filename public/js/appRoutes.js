@@ -46,7 +46,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller:	'UserController'
 		})
 		.when('/admin',{
-			templateUrl: 'user/lazyload',
+			templateUrl: 'admin/lazyload',
 			controller:	''
 		});
 

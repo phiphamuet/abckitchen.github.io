@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var connect=require('./model/config');
 var routes = require('./routes/manage_pages');
-
+var session=require('express-session');
 var app = express();
 
 // view engine setup
@@ -21,6 +21,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
+app.use(session({
+  secret:'that su deo ai biet',
+  resave: false,
+  saveUninitialized: true,
+  cookie:{
+    maxAge: 2628000000
+  }
+}));
 app.use('/', routes);
 
 // catch 404 and forward to error handler

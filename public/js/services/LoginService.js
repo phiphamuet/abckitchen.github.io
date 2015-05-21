@@ -6,7 +6,7 @@ angular.module('LoginService', []).factory('Login', ['$http','$location', functi
         $http.post('/login',value)
             .success(function(data){
                 if(data.type=='error'){
-
+                    console.log(data);
                 }else{
                     $location.path('/user');
                 }

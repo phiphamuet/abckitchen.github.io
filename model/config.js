@@ -10,4 +10,5 @@ var mysqlConfig={
     database: 'nha_hang'
 };
 var pool=mysql.createConnection(mysqlConfig);
+pool.connect();
 module.exports=pool;
