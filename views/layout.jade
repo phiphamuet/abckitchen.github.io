@@ -37,6 +37,7 @@ html
       script(src="js/controllers/MainCtrl.js")
       script(src="js/controllers/UserCtrl.js")
       script(src="js/controllers/LoginCtrl.js")
+      script(src="js/controllers/LogoutCtrl.js")
       script(src="js/services/AboutService.js")
       script(src="js/services/UserService.js")
       script(src="js/services/LoginService.js")
@@ -81,9 +82,9 @@ html
                   li
                      a(href='menu')
                         span(data-hover='Thực đơn')  Thực đơn
-                  li
-                     a(href='reservations')
-                        span(data-hover='Đặt hàng') Đặt hàng
+                  //li
+                  //   a(href='reservations')
+                  //      span(data-hover='Đặt hàng') Đặt hàng
                   li
                      a(href='news')
                         span(data-hover='Tin tức') Tin tức
@@ -91,8 +92,10 @@ html
                   //   a(href='reviews')
                   //      span(data-hover='Đánh giá')  Đánh giá
                   li
-                     a(href='login')
+                     a(href='login', ng-if="authenticate==false")
                         span(data-hover='Đăng nhập')  Đăng nhập
+                     a(href='logout', ng-if="authenticate==true")
+                        span(data-hover='Đăng xuất')  Đăng xuất
                // script-for-menu
                script.
                   $("span.menu").click(function () {

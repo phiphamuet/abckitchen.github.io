@@ -12,7 +12,10 @@ router.get('/', function(req, res, next) {
     res.render('layout');
 });
 router.get('/lazyload', function(req, res, next) {
-    res.render('pages/login');
+    if(req.session.username){
+        res.redirect('/user');
+    }
+    else res.render('pages/login');
 });
 router.post('/',function(req,res,next){
     console.log(req.body);
@@ -21,13 +24,13 @@ router.post('/',function(req,res,next){
             console.log(rows);
             if(err) throw err;
             else if(isNull(rows)){
-                res.json({type:'error',content:'Tài khoản không tồn tại'})
+                res.json({type:'error',content:'Tài khoản không tồn tại!'})
             }else{
                 if(rows[0].password==crypto.createHash('md5').update(req.body.password+secretKey).digest('hex')){
                     req.session.username=req.body.username;
                     res.json({type:'success',username:req.session.username});
                 }else{
-                    res.json({type:'error',content:'Mật khẩu không đúng!'});
+                    res.json({type:'error',content:'Mật khẩu không chính xác!'});
                 }
             }
         })

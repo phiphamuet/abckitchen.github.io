@@ -5,49 +5,82 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		// home page
 		.when('/', {
 			templateUrl: 'home/lazyload',
-			controller: 'MainController'
+			controller: 'MainController',
+			data:{
+				requireLogin: false
+			}
 		})
 
 		.when('/index', {
 			templateUrl: 'home/lazyload',
-			controller: 'MainController'
+			controller: 'MainController',
+			data:{
+				requireLogin: false
+			}
 		})
 
 		.when('/news', {
 			templateUrl: 'news/lazyload',
-			controller: ''
+			controller: '',
+			data:{
+				requireLogin: false
+			}
 		})
 		.when('/reviews',{
 			templateUrl:'reviews/lazyload',
-			controller: ''
+			controller: '',
+			data:{
+				requireLogin: false
+			}
 		})
-		.when('/reservations',{
-			templateUrl:'reservations/lazyload',
-			controller: ''
-		})
+		//.when('/reservations',{
+		//	templateUrl:'reservations/lazyload',
+		//	controller: ''
+		//})
 		.when('/menu',{
 			templateUrl: 'menu/lazyload',
-			controller:''
+			controller:'',
+			data:{
+				requireLogin: false
+			}
 		})
 		.when('/contact',{
 			templateUrl: 'contact/lazyload',
-			controller: ''
+			controller: '',
+			data:{
+				requireLogin: false
+			}
 		})
 		.when('/home',{
 			templateUrl: 'home/lazyload',
-			controller: ''
+			controller: '',
+			data:{
+				requireLogin: false
+			}
 		})
 		.when('/login',{
 			templateUrl: 'login/lazyload',
-			controller:'LoginController'
+			controller:'LoginController',
+			data:{
+				requireLogin: false
+			}
 		})
 		.when('/user',{
 			templateUrl: 'user/lazyload',
-			controller:	'UserController'
+			controller:	'UserController',
+			data:{
+				requireLogin: true
+			}
 		})
 		.when('/admin',{
 			templateUrl: 'admin/lazyload',
-			controller:	''
+			controller:	'',
+			data:{
+				requireLogin: false
+			}
+		})
+		.when('/logout',{
+			controller:'LogoutController'
 		});
 
 	$locationProvider.html5Mode({
