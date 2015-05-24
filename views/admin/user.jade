@@ -1,7 +1,7 @@
 extends layout
 block content
         // start: Header
-        .container-fluid-full
+        .container-fluid-full(ng-app="User")
             .row-fluid
                 // start: Main Menu
                 #sidebar-left.span2
@@ -52,13 +52,13 @@ block content
                             i.icon-angle-right
                         li
                             a(href='#') Tables
-                    .row-fluid.sortable
+                    .row-fluid.sortable( ng-controller="getList")
                         .box.span12
                             .box-header(data-original-title='')
                                 h2
                                     i.halflings-icon.white.user
                                     span.break
-                                    | Members
+                                    | Người dùng
                                 .box-icon
                                     a.btn-setting(href='#')
                                         i.halflings-icon.white.wrench
@@ -67,32 +67,19 @@ block content
                                     a.btn-close(href='#')
                                         i.halflings-icon.white.remove
                             .box-content
-                                table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+                                table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
                                     thead
                                         tr
-                                            th Username
-                                            th Date registered
-                                            th Role
-                                            th Status
-                                            th Actions
+                                            th Tài khoản
+                                            th Ngày sinh
+                                            th Chi phí tháng này
+                                            th Trạng thái
+                                            th Thao tác
                                     tbody
-                                        tr
-                                            td Dennis Ji
-                                            td.center 2012/01/01
-                                            td.center Member
-                                            td.center
-                                                span.label.label-success Active
-                                            td.center
-                                                a.btn.btn-success(href='#')
-                                                    i.halflings-icon.white.zoom-in
-                                                a.btn.btn-info(href='#')
-                                                    i.halflings-icon.white.edit
-                                                a.btn.btn-danger(href='#')
-                                                    i.halflings-icon.white.trash
-                                        tr
-                                            td Dennis Ji
-                                            td.center 2012/01/01
-                                            td.center Member
+                                        tr(ng-repeat="user in list")
+                                            td.sorting_1 {{user.username}}
+                                            td.center {{user.birthdate}}
+                                            td.center {{user.mobiphone}}
                                             td.center
                                                 span.label.label-success Active
                                             td.center
@@ -103,7 +90,97 @@ block content
                                                 a.btn.btn-danger(href='#')
                                                     i.halflings-icon.white.trash
                         // /span
-                // /.fluid-container
+                    script.
+                        var app=angular.module('User',['datatables','datatables.bootstrap']);
+                        app.controller('getList',function($scope,$http){
+                            $http.get('/manager/user/list')
+                                .success(function(data){
+                                    data.forEach(function(val){
+                                        var now=new Date(val.birthdate);
+                                        val.birthdate=now.toLocaleDateString();
+                                    })
+                                    $scope.list=data;
+                                })
+                                .error(function(data){
+                                    console.log(data);
+                                })
+                        });
+                        app.controller('controlUser',function($scope,$http){
+                            $scope.add=function(){
+                                $http.post('/manager/user/new',$scope.form)
+                                    .success(function(data){
+                                        $scope.rp=data.content;
+                                    })
+                                    .error(function(data){
+                                        console.log(data);
+                                    })
+                            }
+                            $scope.reset=function(){
+                                $scope.form=angular.copy({});
+                            }
+                        })
+                    .row-fluid.sortable.ui-sortable(ng-controller="controlUser")
+                        .box.span12
+                            .box-header(data-original-title='')
+                                h2
+                                    i.halflings-icon.white.edit
+                                    span.break
+                                    | Thêm người dùng
+                                .box-icon
+                                    a.btn-setting(href='#')
+                                        i.halflings-icon.white.wrench
+                                    a.btn-minimize(href='#')
+                                        i.halflings-icon.white.chevron-up
+                                    a.btn-close(href='#')
+                                        i.halflings-icon.white.remove
+                            .box-content
+                                form.form-horizontal
+                                    fieldset
+                                        .control-group
+                                            label.control-label(for='username') Tài khoản
+                                            .controls
+                                                input#username.input-xlarge.focused(type='text', placeholder="Tài khoản...",ng-model="form.username")
+                                        .control-group
+                                            label.control-label(for='fullname') Họ tên
+                                            .controls
+                                                input#fullname.input-xlarge(type='text',placeholder="Họ tên...",ng-model="form.fullname")
+                                        .control-group
+                                            label.control-label(for='birthdate') Ngày sinh
+                                            .controls
+                                                input#birthdate.input-xlarge(type='date',placeholder="Ngày sinh...",ng-model="form.birthdate")
+                                        .control-group
+                                            label.control-label(for='password') Mật khẩu
+                                            .controls
+                                                input#password.input-xlarge(type='password',ng-model="form.password")
+                                        .control-group
+                                            label.control-label(for='address') Địa chỉ
+                                            .controls
+                                                input#address.input-xlarge(type='text',placeholder="Địa chỉ...",ng-model="form.address")
+                                        .control-group
+                                            label.control-label(for='email') Email
+                                            .controls
+                                                input#email.input-xlarge(type='email',placeholder="Email...",ng-model="form.email")
+                                        .control-group
+                                            label.control-label(for='identitycard') Số CMTND
+                                            .controls
+                                                input#identitycard.input-xlarge(type='text',placeholder="0123456...",ng-model="form.identity")
+                                        .control-group
+                                            label.control-label(for='phonenumber') Số điện thoại
+                                            .controls
+                                                input#phonenumber.input-xlarge(type='text',placeholder="0123456789...",ng-model="form.phone")
+                                        .control-group
+                                            label.control-label(for='sex') Giới tính
+                                            .controls
+                                                select#sex(ng-model="form.sex")
+                                                    option(value=1) Nam
+                                                    option(value=0) Nữ
+                                        .control-group
+                                            |{{rp}}
+                                        .form-actions
+                                            button.btn.btn-primary(type='submit',ng-click="add()") Thêm
+                                            button.btn(ng-click="reset()") Làm lại
+                        // /span
+              // /.fluid-container
                 // end: Content
             // /#content.span10
         // /fluid-row
@@ -127,7 +204,6 @@ block content
         footer
             p
                 span(style='text-align:left;float:left')
-                    | © 2013
-                    a(href='http://themifycloud.com/downloads/janux-free-responsive-admin-dashboard-template/', alt='Bootstrap_Metro_Dashboard') JANUX Responsive Dashboard
-
+                    | © 2015
+                    a ABCKitChen Dashboard
                                      
