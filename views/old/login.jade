@@ -1,0 +1,82 @@
+//
+   Created by PHI on 5/24/2015.
+extends ../layout
+block content
+      script(src="libs/angular/angular.js")
+      script.
+         var app = angular.module('myApp', []);
+         app.controller('loginCtrl',function($scope,$http,$window){
+         $scope.login=function(){
+            $http.post('/login',$scope.form)
+               .success(function(data){
+                  if(data.type=='success'){
+                     $window.location.href = '/user';
+                  }else{
+                  $scope.rp=data.content;
+                  }
+               })
+               .error(function(data){
+
+               })
+            }
+         });
+      // banner
+      .reservation(ng-app="myApp",ng-controller="loginCtrl")
+         .container
+            .reservation-form
+               .col-md-12.reservation-right
+                  form
+                     |{{rp}}
+                     h5 Tài khoản
+                     input(type='text', ng-model="form.username",placeholder='Tài khoản', required='')
+                     h5 Mật khẩu
+                     input(type='password',ng-model="form.password",placeholder="Mật khẩu", required='')
+                     button.btn1.btn-1.btn-1e(ng-click="login()") LOGIN
+      .footer
+         .container
+            .col-md-3.footer-left
+               ul
+                  li ABC KitChen
+                  li Đối diện kí túc xá Ngoại Ngữ
+                  li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
+                  li 04 xx xx xx xx
+            .col-md-3.footer-left
+               ul
+                  li ABC KitChen 2
+                  li Đối diện kí túc xá Ngoại Ngữ
+                  li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
+                  li 04 xx xx xx xx
+            .col-md-3.footer-left
+               ul
+                  li
+                     a(href='#') Tin tức
+                  li
+                     a(href='#') Tuyển dụng
+                  li
+                     a(href='#') Quy định
+                  li
+                     a(href='contact') Liên hệ
+            .col-md-3.footer-right
+               a(href='index')
+                  img(src='images/footer-logo.png', alt='logo')
+               p
+                  | © 2015 All rights reserved | Thiết kế bởi
+                  a(href='http://failedteam.com/')  FailedTeam
+            .clearfix
+      // //footer
+      // smooth-scrolling-of-move-up
+      script(type='text/javascript').
+         $(document).ready(function () {
+            /*
+             var defaults = {
+             containerID: 'toTop', // fading element id
+             containerHoverID: 'toTopHover', // fading element hover id
+             scrollSpeed: 1200,
+             easingType: 'linear'
+             };
+             */
+            $().UItoTop({easingType: 'easeOutQuart'});
+         });
+      a#toTop(href='#', style='display: block;')
+         span#toTopHover(style='opacity: 1;')
+      // //smooth-scrolling-of-move-up

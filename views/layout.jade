@@ -1,5 +1,6 @@
 //
-   Created by PHI on 5/18/2015.
+   Created by PHI on 5/24/2015.
+
 doctype html
 html
    head
@@ -9,18 +10,13 @@ html
       link(href='css/style.css', type='text/css', rel='stylesheet', media='all')
       // web-font
       link(href='http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,800,400italic', rel='stylesheet', type='text/css')
-      link(href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,vietnamese' rel='stylesheet' type='text/css')
       // //web-font
       // Custom Theme files
       meta(name='viewport', content='width=device-width, initial-scale=1')
       meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-      meta(name='keywords', content='ABCKitchen! Best kitchen in VNU!')
+      meta(name='keywords', content='ABC Kitchen')
       script(type='application/x-javascript').
-         addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-         }, false); function hideURLbar() {
-            window.scrollTo(0, 1);
-         }
+         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
       script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
       // //Custom Theme files
       // js
@@ -31,41 +27,29 @@ html
       script(type='text/javascript', src='js/move-top.js')
       script(type='text/javascript', src='js/easing.js')
       script(type='text/javascript', src='js/modernizr.custom.53451.js')
-      script(src="libs/angular/angular.js")
-      script(src="libs/angular-route/angular-route.js")
-      script(src="js/controllers/AboutCtrl.js")
-      script(src="js/controllers/MainCtrl.js")
-      script(src="js/controllers/UserCtrl.js")
-      script(src="js/controllers/LoginCtrl.js")
-      script(src="js/controllers/LogoutCtrl.js")
-      script(src="js/services/AboutService.js")
-      script(src="js/services/UserService.js")
-      script(src="js/services/LoginService.js")
-      script(src="js/appRoutes.js")
-      script(src="js/app.js")
       script(type='text/javascript').
-         jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
+         jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){
                event.preventDefault();
-               $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+               $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
             });
          });
       // //end-smoth-scrolling
-      //script.
-      //   $(document).ready(function () {
-      //      size_li = $("#myList li").size();
-      //      x = 1;
-      //      $('#myList li:lt(' + x + ')').show();
-      //      $('#loadMore').click(function () {
-      //         x = (x + 1 <= size_li) ? x + 1 : size_li;
-      //         $('#myList li:lt(' + x + ')').show();
-      //      });
-      //      $('#showLess').click(function () {
-      //         x = (x - 1 < 0) ? 1 : x - 1;
-      //         $('#myList li').not(':lt(' + x + ')').hide();
-      //      });
-      //   });
-   body(ng-app="sampleApp",ng-controller="MainController")
+      script.
+         $(document).ready(function () {
+            size_li = $("#myList li").size();
+            x=1;
+            $('#myList li:lt('+x+')').show();
+            $('#loadMore').click(function () {
+               x= (x+1 <= size_li) ? x+1 : size_li;
+               $('#myList li:lt('+x+')').show();
+            });
+            $('#showLess').click(function () {
+               x=(x-1<0) ? 1 : x-1;
+               $('#myList li').not(':lt('+x+')').hide();
+            });
+         });
+   body
       // header
       .header
          .container
@@ -84,75 +68,21 @@ html
                         span(data-hover='Thực đơn')  Thực đơn
                   //li
                   //   a(href='reservations')
-                  //      span(data-hover='Đặt hàng') Đặt hàng
+                  //      span(data-hover='Reservations') Reservations
                   li
                      a(href='news')
                         span(data-hover='Tin tức') Tin tức
-                  //li
-                  //   a(href='reviews')
-                  //      span(data-hover='Đánh giá')  Đánh giá
                   li
-                     a(href='login', ng-if="authenticate==false")
-                        span(data-hover='Đăng nhập')  Đăng nhập
-                     a(href='logout', ng-if="authenticate==true")
-                        span(data-hover='Đăng xuất')  Đăng xuất
+                     a(href=link)
+                        span(data-hover=req)  #{req}
                // script-for-menu
                script.
-                  $("span.menu").click(function () {
-                     $("ul.nav1").slideToggle(300, function () {
+                  $( "span.menu" ).click(function() {
+                     $( "ul.nav1" ).slideToggle( 300, function() {
                         // Animation complete.
                      });
                   });
                // /script-for-menu
             .clearfix
       // //header
-      div(ng-view)
-      // footer
-      .footer
-         .container
-            .col-md-3.footer-left
-               ul
-                  li ABC KitChen
-                  li Đối diện kí túc xá Ngoại Ngữ
-                  li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
-                  li 04 xx xx xx xx
-            .col-md-3.footer-left
-               ul
-                  li ABC KitChen 2
-                  li Đối diện kí túc xá Ngoại Ngữ
-                  li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
-                  li 04 xx xx xx xx
-            .col-md-3.footer-left
-               ul
-                  li
-                     a(href='#') Tin tức
-                  li
-                     a(href='#') Tuyển dụng
-                  li
-                     a(href='#') Quy định
-                  li
-                     a(href='contact') Liên hệ
-            .col-md-3.footer-right
-               a(href='index')
-                  img(src='images/footer-logo.png', alt='logo')
-               p
-                  | © 2015 All rights reserved | Thiết kế bởi
-                  a(href='http://failedteam.com/')  FailedTeam
-            .clearfix
-      // //footer
-      // smooth-scrolling-of-move-up
-      script(type='text/javascript').
-         $(document).ready(function () {
-            /*
-             var defaults = {
-             containerID: 'toTop', // fading element id
-             containerHoverID: 'toTopHover', // fading element hover id
-             scrollSpeed: 1200,
-             easingType: 'linear'
-             };
-             */
-            $().UItoTop({easingType: 'easeOutQuart'});
-         });
-      a#toTop(href='#', style='display: block;')
-         span#toTopHover(style='opacity: 1;')
-      // //smooth-scrolling-of-move-up
+block content

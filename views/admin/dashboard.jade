@@ -1,0 +1,513 @@
+//
+   Created by PHI on 5/24/2015.
+
+extends layout
+block content
+      // start: Header
+      .container-fluid-full
+         .row-fluid
+            // start: Main Menu
+            #sidebar-left.span2
+               .nav-collapse.sidebar-nav
+                  ul.nav.nav-tabs.nav-stacked.main-menu
+                     li
+                        a(href='/manager')
+                           i.icon-dashboard
+                           span.hidden-tablet  Dashboard
+                     li
+                        a(href='/manager/user')
+                           i.icon-edit
+                           span.hidden-tablet  Quản lí người dùng
+                     li
+                        a(href='/manager/menu')
+                           i.icon-tasks
+                           span.hidden-tablet  Quản lí thực đơn
+                     li
+                        a(href='/manager/track')
+                           i.icon-eye-open
+                           span.hidden-tablet  Theo dõi người dùng
+                     li
+                        a(href='/manager/statistic')
+                           i.icon-bar-chart
+                           span.hidden-tablet  Thống kê đăng ký ăn
+                     //li
+                     //   a(href='/manager/chart')
+                     //      i.icon-bar-chart
+                     //      span.hidden-tablet  Biểu đồ
+                     li
+                        a(href='/manager/calculate')
+                           i.icon-shopping-cart
+                           span.hidden-tablet  Tính phí
+                     li
+                        a(href='/manager/accounting')
+                           i.icon-calendar
+                           span.hidden-tablet  Kế toán
+            // end: Main Menu
+            noscript
+               .alert.alert-block.span10
+                  h4.alert-heading Warning!
+                  p
+                     | You need to have
+                     a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
+                     |  enabled to use this site.
+            // start: Content
+            #content.span10
+               ul.breadcrumb
+                  li
+                     i.icon-home
+                     a(href='') Home
+                     i.icon-angle-right
+                  li
+                     a(href='#') Dashboard
+               .row-fluid
+                  .span3.statbox.purple(ontablet='span6', ondesktop='span3')
+                     .boxchart 5,6,7,2,0,4,2,4,8,2,3,3,2
+                     .number
+                        | 854
+                        i.icon-arrow-up
+                     .title visits
+                     .footer
+                        a(href='#')  read full report
+                  .span3.statbox.green(ontablet='span6', ondesktop='span3')
+                     .boxchart 1,2,6,4,0,8,2,4,5,3,1,7,5
+                     .number
+                        | 123
+                        i.icon-arrow-up
+                     .title sales
+                     .footer
+                        a(href='#')  read full report
+                  .span3.statbox.blue.noMargin(ontablet='span6', ondesktop='span3')
+                     .boxchart 5,6,7,2,0,-4,-2,4,8,2,3,3,2
+                     .number
+                        | 982
+                        i.icon-arrow-up
+                     .title orders
+                     .footer
+                        a(href='#')  read full report
+                  .span3.statbox.yellow(ontablet='span6', ondesktop='span3')
+                     .boxchart 7,2,2,2,1,-4,-2,4,8,,0,3,3,5
+                     .number
+                        | 678
+                        i.icon-arrow-down
+                     .title visits
+                     .footer
+                        a(href='#')  read full report
+               .row-fluid
+                  .span8.widget.blue(ontablet='span7', ondesktop='span8')
+                     #stats-chart2(style='height:282px')
+                  .sparkLineStats.span4.widget.green(ontablet='span5', ondesktop='span4')
+                     ul.unstyled
+                        li
+                           span.sparkLineStats3
+                           |                             Pageviews:
+                           span.number 781
+                        li
+                           span.sparkLineStats4
+                           |                             Pages / Visit:
+                           span.number 2,19
+                        li
+                           span.sparkLineStats5
+                           |                             Avg. Visit Duration:
+                           span.number 00:02:58
+                        li
+                           span.sparkLineStats6
+                           |                             Bounce Rate:
+                           span.number 59,83%
+                        li
+                           span.sparkLineStats7
+                           |                             % New Visits:
+                           span.number 70,79%
+                        li
+                           span.sparkLineStats8
+                           |                             % Returning Visitor:
+                           span.number 29,21%
+                     .clearfix
+                  // End .sparkStats
+               .row-fluid
+                  .widget.blue.span5(ontablet='span6', ondesktop='span5')
+                     h2
+                        span.glyphicons.globe
+                           i
+                        |  Demographics
+                     hr
+                     .content
+                        .verticalChart
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 37%
+                              .title US
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 16%
+                              .title PL
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 12%
+                              .title GB
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 9%
+                              .title DE
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 7%
+                              .title NL
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 6%
+                              .title CA
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 5%
+                              .title FI
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 4%
+                              .title RU
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 3%
+                              .title AU
+                           .singleBar
+                              .bar
+                                 .value
+                                    span 1%
+                              .title N/A
+                           .clearfix
+                  // /span
+                  .widget.span3.red(ontablet='span6', ondesktop='span3')
+                     h2
+                        span.glyphicons.pie_chart
+                           i
+                        |  Browsers
+                     hr
+                     .content
+                        .browserStat.big
+                           img(src='/img/browser-chrome-big.png', alt='Chrome')
+                           span 34%
+                        .browserStat.big
+                           img(src='/img/browser-firefox-big.png', alt='Firefox')
+                           span 34%
+                        .browserStat
+                           img(src='/img/browser-ie.png', alt='Internet Explorer')
+                           span 34%
+                        .browserStat
+                           img(src='/img/browser-safari.png', alt='Safari')
+                           span 34%
+                        .browserStat
+                           img(src='/img/browser-opera.png', alt='Opera')
+                           span 34%
+                  .widget.yellow.span4.noMargin(ontablet='span12', ondesktop='span4')
+                     h2
+                        span.glyphicons.fire
+                           i
+                        |  Server Load
+                     hr
+                     .content
+                        #serverLoad2(style='height:224px;')
+               .row-fluid
+                  .box.black.span4(ontablet='span6', ondesktop='span4')
+                     .box-header
+                        h2
+                           i.halflings-icon.white.list
+                           span.break
+                           | Weekly Stat
+                        .box-icon
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        ul.dashboard-list.metro
+                           li
+                              a(href='#')
+                                 i.icon-arrow-up.green
+                                 strong 92
+                                 | 									New Comments
+                           li
+                              a(href='#')
+                                 i.icon-arrow-down.red
+                                 strong 15
+                                 | 							  New Registrations
+                           li
+                              a(href='#')
+                                 i.icon-minus.blue
+                                 strong 36
+                                 | 							  New Articles
+                           li
+                              a(href='#')
+                                 i.icon-comment.yellow
+                                 strong 45
+                                 | 							  User reviews
+                           li
+                              a(href='#')
+                                 i.icon-arrow-up.green
+                                 strong 112
+                                 | 							  New Comments
+                           li
+                              a(href='#')
+                                 i.icon-arrow-down.red
+                                 strong 31
+                                 | 							  New Registrations
+                           li
+                              a(href='#')
+                                 i.icon-minus.blue
+                                 strong 93
+                                 | 							  New Articles
+                           li
+                              a(href='#')
+                                 i.icon-comment.yellow
+                                 strong 256
+                                 | 							  User reviews
+                  // /span
+                  .box.black.span4(ontablet='span6', ondesktop='span4')
+                     .box-header
+                        h2
+                           i.halflings-icon.white.user
+                           span.break
+                           | Last Users
+                        .box-icon
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        ul.dashboard-list.metro
+                           li.green
+                              a(href='#')
+                                 img.avatar(alt='Dennis Ji', src='/img/avatar.jpg')
+                              strong Name:
+                              |  Dennis Ji
+                              br
+                              strong Since:
+                              |  Jul 25, 2012 11:09
+                              br
+                              strong Status:
+                              |  Approved
+                           li.yellow
+                              a(href='#')
+                                 img.avatar(alt='Dennis Ji', src='/img/avatar.jpg')
+                              strong Name:
+                              |  Dennis Ji
+                              br
+                              strong Since:
+                              |  Jul 25, 2012 11:09
+                              br
+                              strong Status:
+                              |  Pending
+                           li.red
+                              a(href='#')
+                                 img.avatar(alt='Dennis Ji', src='/img/avatar.jpg')
+                              strong Name:
+                              |  Dennis Ji
+                              br
+                              strong Since:
+                              |  Jul 25, 2012 11:09
+                              br
+                              strong Status:
+                              |  Banned
+                           li.blue
+                              a(href='#')
+                                 img.avatar(alt='Dennis Ji', src='/img/avatar.jpg')
+                              strong Name:
+                              |  Dennis Ji
+                              br
+                              strong Since:
+                              |  Jul 25, 2012 11:09
+                              br
+                              strong Status:
+                              |  Updated
+                  // /span
+                  .box.black.span4.noMargin(ontablet='span12', ondesktop='span4')
+                     .box-header
+                        h2
+                           i.halflings-icon.white.check
+                           span.break
+                           | To Do List
+                        .box-icon
+                           a.btn-setting(href='#')
+                              i.halflings-icon.white.wrench
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        .todo.metro
+                           ul.todo-list
+                              li.red
+                                 a.action.icon-check-empty(href='#')
+                                 | 									Windows Phone 8 App
+                                 strong today
+                              li.red
+                                 a.action.icon-check-empty(href='#')
+                                 | 									New frontend layout
+                                 strong today
+                              li.yellow
+                                 a.action.icon-check-empty(href='#')
+                                 | 									Hire developers
+                                 strong tommorow
+                              li.yellow
+                                 a.action.icon-check-empty(href='#')
+                                 | 									Windows Phone 8 App
+                                 strong tommorow
+                              li.green
+                                 a.action.icon-check-empty(href='#')
+                                 | 									New frontend layout
+                                 strong this week
+                              li.green
+                                 a.action.icon-check-empty(href='#')
+                                 | 									Hire developers
+                                 strong this week
+                              li.blue
+                                 a.action.icon-check-empty(href='#')
+                                 | 									New frontend layout
+                                 strong this month
+                              li.blue
+                                 a.action.icon-check-empty(href='#')
+                                 | 									Hire developers
+                                 strong this month
+               //.row-fluid.hideInIE8.circleStats
+               //   .span2(ontablet='span4', ondesktop='span2')
+               //      .circleStatsItemBox.yellow
+               //         .header Disk Space Usage
+               //         span.percent percent
+               //         .circleStat
+               //            input.whiteCircle(type='text', value='58')
+               //         .footer
+               //            span.count
+               //               span.number 20000
+               //               span.unit MB
+               //            span.sep  /
+               //            span.value
+               //               span.number 50000
+               //               span.unit MB
+               //   .span2(ontablet='span4', ondesktop='span2')
+               //      .circleStatsItemBox.green
+               //         .header Bandwidth
+               //         span.percent percent
+               //         .circleStat
+               //            input.whiteCircle(type='text', value='78')
+               //         .footer
+               //            span.count
+               //               span.number 5000
+               //               span.unit GB
+               //            span.sep  /
+               //            span.value
+               //               span.number 5000
+               //               span.unit GB
+               //   .span2(ontablet='span4', ondesktop='span2')
+               //      .circleStatsItemBox.red
+               //         .header Memory
+               //         span.percent percent
+               //         .circleStat
+               //            input.whiteCircle(type='text', value='100')
+               //         .footer
+               //            span.count
+               //               span.number 64
+               //               span.unit GB
+               //            span.sep  /
+               //            span.value
+               //               span.number 64
+               //               span.unit GB
+               //   .span2.noMargin(ontablet='span4', ondesktop='span2')
+               //      .circleStatsItemBox.pink
+               //         .header CPU
+               //         span.percent percent
+               //         .circleStat
+               //            input.whiteCircle(type='text', value='83')
+               //         .footer
+               //            span.count
+               //               span.number 64
+               //               span.unit GHz
+               //            span.sep  /
+               //            span.value
+               //               span.number 3.2
+               //               span.unit GHz
+               //   .span2(ontablet='span4', ondesktop='span2')
+               //      .circleStatsItemBox.blue
+               //         .header Memory
+               //         span.percent percent
+               //         .circleStat
+               //            input.whiteCircle(type='text', value='100')
+               //         .footer
+               //            span.count
+               //               span.number 64
+               //               span.unit GB
+               //            span.sep  /
+               //            span.value
+               //               span.number 64
+               //               span.unit GB
+               //   .span2(ontablet='span4', ondesktop='span2')
+               //      .circleStatsItemBox.green
+               //         .header Memory
+               //         span.percent percent
+               //         .circleStat
+               //            input.whiteCircle(type='text', value='100')
+               //         .footer
+               //            span.count
+               //               span.number 64
+               //               span.unit GB
+               //            span.sep  /
+               //            span.value
+               //               span.number 64
+               //               span.unit GB
+               //.row-fluid
+               //   a.quick-button.metro.yellow.span2
+               //      i.icon-group
+               //      p Users
+               //      span.badge 237
+               //   a.quick-button.metro.red.span2
+               //      i.icon-comments-alt
+               //      p Comments
+               //      span.badge 46
+               //   a.quick-button.metro.blue.span2
+               //      i.icon-shopping-cart
+               //      p Orders
+               //      span.badge 13
+               //   a.quick-button.metro.green.span2
+               //      i.icon-barcode
+               //      p Products
+               //   a.quick-button.metro.pink.span2
+               //      i.icon-envelope
+               //      p Messages
+               //      span.badge 88
+               //   a.quick-button.metro.black.span2
+               //      i.icon-calendar
+               //      p Calendar
+               //   .clearfix
+               // /row
+            // /.fluid-container
+            // end: Content
+         // /#content.span10
+      // /fluid-row
+      #myModal.modal.hide.fade
+         .modal-header
+            button.close(type='button', data-dismiss='modal') ×
+            h3 Settings
+         .modal-body
+            p Here settings can be configured...
+         .modal-footer
+            a.btn(href='#', data-dismiss='modal') Close
+            a.btn.btn-primary(href='#') Save changes
+      #common-Modal1.common-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+         .modal-content
+            ul.list-inline.item-details
+               li
+                  a(href='http://themifycloud.com') Admin templates
+               li
+                  a(href='http://themescloud.org') Bootstrap themes
+      .clearfix
+      footer
+         p
+            span(style='text-align:left;float:left')
+               | © 2013
+               a(href='http://themifycloud.com/downloads/janux-free-responsive-admin-dashboard-template/', alt='Bootstrap_Metro_Dashboard') JANUX Responsive Dashboard

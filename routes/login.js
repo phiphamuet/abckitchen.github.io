@@ -9,13 +9,11 @@ var crypto=require('crypto');
 var secretKey=require('./../model/secretKey');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('layout');
-});
-router.get('/lazyload', function(req, res, next) {
-    if(req.session.username){
+    if(!req.session.username){
+        res.render('old/login',{link:'login',req:'Đăng nhập'});
+    }else{
         res.redirect('/user');
     }
-    else res.render('pages/login');
 });
 router.post('/',function(req,res,next){
     console.log(req.body);

@@ -1,0 +1,223 @@
+//
+   Created by PHI on 5/24/2015.
+
+extends layout
+block content
+      // start: Header
+      .container-fluid-full
+         .row-fluid
+            // start: Main Menu
+            #sidebar-left.span2
+               .nav-collapse.sidebar-nav
+                  ul.nav.nav-tabs.nav-stacked.main-menu
+                     li
+                        a(href='/manager')
+                           i.icon-dashboard
+                           span.hidden-tablet  Dashboard
+                     li
+                        a(href='/manager/user')
+                           i.icon-edit
+                           span.hidden-tablet  Quản lí người dùng
+                     li
+                        a(href='/manager/menu')
+                           i.icon-tasks
+                           span.hidden-tablet  Quản lí thực đơn
+                     li
+                        a(href='/manager/track')
+                           i.icon-eye-open
+                           span.hidden-tablet  Theo dõi người dùng
+                     li
+                        a(href='/manager/statistic')
+                           i.icon-bar-chart
+                           span.hidden-tablet  Thống kê đăng ký ăn
+                     //li
+                     //   a(href='/manager/chart')
+                     //      i.icon-bar-chart
+                     //      span.hidden-tablet  Biểu đồ
+                     li
+                        a(href='/manager/calculate')
+                           i.icon-shopping-cart
+                           span.hidden-tablet  Tính phí
+                     li
+                        a(href='/manager/accounting')
+                           i.icon-calendar
+                           span.hidden-tablet  Kế toán
+            // end: Main Menu
+            noscript
+               .alert.alert-block.span10
+                  h4.alert-heading Warning!
+                  p
+                     | You need to have
+                     a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
+                     |  enabled to use this site.
+            // start: Content
+            #content.span10
+               ul.breadcrumb
+                  li
+                     i.icon-home
+                     a(href='/manager') Home
+                     i.icon-angle-right
+                  li
+                     a(href='#') Charts
+               .row-fluid
+                  .box
+                     .box-header
+                        h2
+                           i.halflings-icon.white.list-alt
+                           span.break
+                           | Chart with points
+                        .box-icon
+                           a.btn-setting(href='#')
+                              i.halflings-icon.white.wrench
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        #sincos.center(style='height:300px;')
+                        p#hoverdata
+                           | Mouse position at (
+                           span#x 0
+                           | ,
+                           span#y 0
+                           | ).
+                           span#clickdata
+                  .box
+                     .box-header
+                        h2
+                           i.halflings-icon.white.list-alt
+                           span.break
+                           | Flot
+                        .box-icon
+                           a.btn-setting(href='#')
+                              i.halflings-icon.white.wrench
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        #flotchart.center(style='height:300px')
+                  .box
+                     .box-header
+                        h2
+                           i.halflings-icon.white.list-alt
+                           span.break
+                           | Stack Example
+                        .box-icon
+                           a.btn-setting(href='#')
+                              i.halflings-icon.white.wrench
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        #stackchart.center(style='height:300px;')
+                        p.stackControls.center
+                           input.btn(type='button', value='With stacking')
+                           input.btn(type='button', value='Without stacking')
+                        p.graphControls.center
+                           input.btn-primary(type='button', value='Bars')
+                           input.btn-primary(type='button', value='Lines')
+                           input.btn-primary(type='button', value='Lines with steps')
+               // /row
+               .row-fluid.sortable
+                  .box.span6
+                     .box-header
+                        h2
+                           i.halflings-icon.white.list-alt
+                           span.break
+                           | Pie
+                        .box-icon
+                           a.btn-setting(href='#')
+                              i.halflings-icon.white.wrench
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        #piechart(style='height:300px')
+                  .box.span6
+                     .box-header(data-original-title='')
+                        h2
+                           i.halflings-icon.white.list-alt
+                           span.break
+                           | Donut
+                        .box-icon
+                           a.btn-setting(href='#')
+                              i.halflings-icon.white.wrench
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        #donutchart(style='height: 300px;')
+               // /row
+               hr
+               .row-fluid.sortable
+                  .box.span12
+                     .box-header
+                        h2
+                           i.halflings-icon.white.list-alt
+                           span.break
+                           | Realtime
+                        .box-icon
+                           a.btn-setting(href='#')
+                              i.halflings-icon.white.wrench
+                           a.btn-minimize(href='#')
+                              i.halflings-icon.white.chevron-up
+                           a.btn-close(href='#')
+                              i.halflings-icon.white.remove
+                     .box-content
+                        #realtimechart(style='height:190px;')
+                        p
+                           | You can update a chart periodically to get a real-time effect by using a timer to insert the new data in the plot and redraw it.
+                        p
+                           | Time between updates:
+                           input#updateInterval(type='text', value='', style='text-align: right; width:5em')
+                           |  milliseconds
+               // /row
+               .row-fluid
+                  .widget.span6(ontablet='span6', ondesktop='span6')
+                     h2
+                        span.glyphicons.facebook
+                           i
+                        | Facebook Fans
+                     hr
+                     .content
+                        #facebookChart(style='height:300px')
+                  // /span
+                  .widget.span6(ontablet='span6', ondesktop='span6')
+                     h2
+                        span.glyphicons.twitter
+                           i
+                        | Twitter Followers
+                     hr
+                     .content
+                        #twitterChart(style='height:300px')
+                  // /span
+            // /.fluid-container
+            // end: Content
+         // /#content.span10
+      // /fluid-row
+      #myModal.modal.hide.fade
+         .modal-header
+            button.close(type='button', data-dismiss='modal') ×
+            h3 Settings
+         .modal-body
+            p Here settings can be configured...
+         .modal-footer
+            a.btn(href='#', data-dismiss='modal') Close
+            a.btn.btn-primary(href='#') Save changes
+      #common-Modal1.common-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+         .modal-content
+            ul.list-inline.item-details
+               li
+                  a(href='http://themifycloud.com') Admin templates
+               li
+                  a(href='http://themescloud.org') Bootstrap themes
+      .clearfix
+      footer
+         p
+            span(style='text-align:left;float:left')
+               | © 2013
+               a(href='http://themifycloud.com/downloads/janux-free-responsive-admin-dashboard-template/', alt='Bootstrap_Metro_Dashboard') JANUX Responsive Dashboard

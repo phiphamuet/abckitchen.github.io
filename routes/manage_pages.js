@@ -9,8 +9,10 @@ var home=require('./home');
 var login=require('./login');
 var admin=require('./admin');
 var logout=require('./logout');
+var manager=require('./admin/manager');
 var router=express.Router();
 
+router.use('/manager',manager);
 router.use('/logout',logout);
 router.use('/admin',admin);
 router.use('/login',login);

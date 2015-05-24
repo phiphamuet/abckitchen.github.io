@@ -1,91 +1,17 @@
 //
    Created by PHI on 5/18/2015.
 
-doctype html
-//
-  Author: W3layouts
-  Author URL: http://w3layouts.com
-  License: Creative Commons Attribution 3.0 Unported
-  License URL: http://creativecommons.org/licenses/by/3.0/
-html
-   head
-      title
-         | Pabulum a Food Category Flat bootstrap Responsive website Template | Menu :: w3layouts
-      link(href='css/bootstrap.css', type='text/css', rel='stylesheet', media='all')
-      link(href='css/style.css', type='text/css', rel='stylesheet', media='all')
-      // web-font
-      link(href='http://fonts.googleapis.com/css?family=Neuton:200,300,400,700,800,400italic', rel='stylesheet', type='text/css')
-      // //web-font
-      // Custom Theme files
-      meta(name='viewport', content='width=device-width, initial-scale=1')
-      meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-      meta(name='keywords', content='Pabulum Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, \
-    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design')
-      script(type='application/x-javascript').
-         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
-      script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-      // //Custom Theme files
-      // js
-      script(src='js/jquery.min.js')
-      script(src='js/modernizr.custom.js')
-      // //js
-      // start-smoth-scrolling
-      script(type='text/javascript', src='js/move-top.js')
-      script(type='text/javascript', src='js/easing.js')
-      script(type='text/javascript', src='js/modernizr.custom.53451.js')
-      script(type='text/javascript').
-         jQuery(document).ready(function($) {
-            $(".scroll").click(function(event){
-               event.preventDefault();
-               $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-            });
-         });
-      // //end-smoth-scrolling
-   body
-      // header
-      .header
-         .container
-            .header-logo
-               a(href='index')
-                  img(src='images/logo.png', alt='logo')
-            .top-nav
-               span.menu
-                  img(src='images/menu-icon.png', alt='')
-               ul.nav1.cl-effect-5
-                  li
-                     a(href='index')
-                        span(data-hover='OurStory') OurStory
-                  li
-                     a.active(href='menu')
-                        span(data-hover='Menu')  Menu
-                  li
-                     a(href='reservations')
-                        span(data-hover='Reservations') Reservations
-                  li
-                     a(href='news')
-                        span(data-hover='News') News
-                  li
-                     a(href='reviews')
-                        span(data-hover='Reviews')  Reviews
-               // script-for-menu
-               script.
-                  $( "span.menu" ).click(function() {
-                     $( "ul.nav1" ).slideToggle( 300, function() {
-                        // Animation complete.
-                     });
-                  });
-               // /script-for-menu
-            .clearfix
-      // //header
+extends ../layout
+block content
       .menu-page
          .container
             .menu-title
-               h3 MAIN MENU
+               h3 Thực đơn chính
             .menu-page-grids
                .col-md-4.menu-grids-info
                   img(src='images/img12.jpg', alt='', title='')
                   h4
-                     a(href='#') Voluptate cillum fugiat.
+                     a(href='#') Nộm tôm hải sản.
                   p
                      | Lorem Ipsum passages, and more recently with desktop publishing software like Aldus including versions of Lorem Ipsum.
                   .menu-rate
@@ -134,7 +60,7 @@ html
                      h5 $09
                .clearfix
             .menu-title.menu-ttl-spl
-               h3 SUMMER SPECIALS
+               h3 Những món đặc biệt
             .menu-page-grids
                .col-md-6.menu-spl
                   img(src='images/img18.jpg', alt='', title='')
@@ -158,37 +84,37 @@ html
          .container
             .col-md-3.footer-left
                ul
-                  li New York Restaurant
-                  li 3926 Anmoore Road
-                  li New York, NY 10014
-                  li 718-749-1714
+                  li ABC KitChen
+                  li Đối diện kí túc xá Ngoại Ngữ
+                  li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
+                  li 04 xx xx xx xx
             .col-md-3.footer-left
                ul
-                  li France Restaurant
-                  li 68, rue  de la Couronne
-                  li 75002 PARIS
-                  li 02.94.23.69.56
+                  li ABC KitChen 2
+                  li Đối diện kí túc xá Ngoại Ngữ
+                  li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
+                  li 04 xx xx xx xx
             .col-md-3.footer-left
                ul
                   li
-                     a(href='#') Blog
+                     a(href='#') Tin tức
                   li
-                     a(href='#') Careers
+                     a(href='#') Tuyển dụng
                   li
-                     a(href='#') Privacy Policy
+                     a(href='#') Quy định
                   li
-                     a(href='contact') Contact
+                     a(href='contact') Liên hệ
             .col-md-3.footer-right
                a(href='index')
                   img(src='images/footer-logo.png', alt='logo')
                p
-                  | © 2015 All rights reserved | Design by
-                  a(href='http://w3layouts.com/')  W3layouts
+                  | © 2015 All rights reserved | Thiết kế bởi
+                  a(href='http://failedteam.com/')  FailedTeam
             .clearfix
       // //footer
       // smooth-scrolling-of-move-up
       script(type='text/javascript').
-         $(document).ready(function() {
+         $(document).ready(function () {
             /*
              var defaults = {
              containerID: 'toTop', // fading element id
@@ -197,7 +123,7 @@ html
              easingType: 'linear'
              };
              */
-            $().UItoTop({ easingType: 'easeOutQuart' });
+            $().UItoTop({easingType: 'easeOutQuart'});
          });
       a#toTop(href='#', style='display: block;')
          span#toTopHover(style='opacity: 1;')

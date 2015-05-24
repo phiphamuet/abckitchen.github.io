@@ -1,0 +1,110 @@
+//
+   Created by PHI on 5/24/2015.
+
+extends layout
+block content
+      // start: Header
+      .container-fluid-full
+         .row-fluid
+            // start: Main Menu
+            #sidebar-left.span2
+               .nav-collapse.sidebar-nav
+                  ul.nav.nav-tabs.nav-stacked.main-menu
+                     li
+                        a(href='/manager')
+                           i.icon-dashboard
+                           span.hidden-tablet  Dashboard
+                     li
+                        a(href='/manager/user')
+                           i.icon-edit
+                           span.hidden-tablet  Quản lí người dùng
+                     li
+                        a(href='/manager/menu')
+                           i.icon-tasks
+                           span.hidden-tablet  Quản lí thực đơn
+                     li
+                        a(href='/manager/track')
+                           i.icon-eye-open
+                           span.hidden-tablet  Theo dõi người dùng
+                     li
+                        a(href='/manager/statistic')
+                           i.icon-bar-chart
+                           span.hidden-tablet  Thống kê đăng ký ăn
+                     //li
+                     //   a(href='/manager/chart')
+                     //      i.icon-bar-chart
+                     //      span.hidden-tablet  Biểu đồ
+                     li
+                        a(href='/manager/calculate')
+                           i.icon-shopping-cart
+                           span.hidden-tablet  Tính phí
+                     li
+                        a(href='/manager/accounting')
+                           i.icon-calendar
+                           span.hidden-tablet  Kế toán
+            // end: Main Menu
+            noscript
+               .alert.alert-block.span10
+                  h4.alert-heading Warning!
+                  p
+                     | You need to have
+                     a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
+                     |  enabled to use this site.
+            // start: Content
+            #content.span10
+               ul.breadcrumb
+                  li
+                     i.icon-home
+                     a(href='/manager') Home
+                     i.icon-angle-right
+                  li
+                     a(href='#') Calendar
+               .row-fluid.sortable
+                  .box.span12
+                     .box-header(data-original-title='')
+                        h2
+                           i.halflings-icon.white.calendar
+                           span.break
+                           | Calendar
+                     .box-content
+                        #external-events.span3.hidden-phone.hidden-tablet
+                           h4 Draggable Events
+                           .external-event.badge Default
+                           .external-event.badge.badge-success Completed
+                           .external-event.badge.badge-warning Warning
+                           .external-event.badge.badge-important Important
+                           .external-event.badge.badge-info Info
+                           .external-event.badge.badge-inverse Other
+                           p
+                              label(for='drop-remove')
+                                 input#drop-remove(type='checkbox')
+                                 |  remove after drop
+                        #calendar.span9
+                        .clearfix
+               // /row
+            // /.fluid-container
+            // end: Content
+         // /#content.span10
+      // /fluid-row
+      #myModal.modal.hide.fade
+         .modal-header
+            button.close(type='button', data-dismiss='modal') ×
+            h3 Settings
+         .modal-body
+            p Here settings can be configured...
+         .modal-footer
+            a.btn(href='#', data-dismiss='modal') Close
+            a.btn.btn-primary(href='#') Save changes
+      #common-Modal1.common-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+         .modal-content
+            ul.list-inline.item-details
+               li
+                  a(href='http://themifycloud.com') Admin templates
+               li
+                  a(href='http://themescloud.org') Bootstrap themes
+      .clearfix
+      footer
+         p
+            span(style='text-align:left;float:left')
+               | © 2013
+               a(href='http://themifycloud.com/downloads/janux-free-responsive-admin-dashboard-template/', alt='Bootstrap_Metro_Dashboard') JANUX Responsive Dashboard
