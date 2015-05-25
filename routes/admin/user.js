@@ -7,6 +7,7 @@ var connection=require('./../../model/config.js');
 var isNull=require('./../isNull');
 var async=require('async');
 var admin_not_logged_in=require('./admin_not_logged_in');
+var crypto=require('crypto');
 router.get('/',admin_not_logged_in,function(req,res,next){
     res.render('admin/user',{admin:req.session.admin});
 });
@@ -43,7 +44,7 @@ router.post('/new',function(req,res){
                     var date=new Date(req.body.birthdate);
                     var newUser={
                             username:req.body.username,
-                            password:req.body.password,
+                            password:crypto.createHash('md5').update(req.body.password+secretKey).digest('hex'),
                             fullname:req.body.fullname,
                             birthdate:date,
                             gender:req.body.sex,
