@@ -87,38 +87,31 @@ block content
                                                     i.halflings-icon.white.zoom-in
                                                 a.btn.btn-info(href='#')
                                                     i.halflings-icon.white.edit
-                                                a.btn.btn-danger(href='#')
+                                                a.btn.btn-danger(ng-click="openDelete('lg',user.username)")
                                                     i.halflings-icon.white.trash
                         // /span
-                    script.
-                        var app=angular.module('User',['datatables','datatables.bootstrap']);
-                        app.controller('getList',function($scope,$http){
-                            $http.get('/manager/user/list')
-                                .success(function(data){
-                                    data.forEach(function(val){
-                                        var now=new Date(val.birthdate);
-                                        val.birthdate=now.toLocaleDateString();
-                                    })
-                                    $scope.list=data;
-                                })
-                                .error(function(data){
-                                    console.log(data);
-                                })
-                        });
-                        app.controller('controlUser',function($scope,$http){
-                            $scope.add=function(){
-                                $http.post('/manager/user/new',$scope.form)
-                                    .success(function(data){
-                                        $scope.rp=data.content;
-                                    })
-                                    .error(function(data){
-                                        console.log(data);
-                                    })
-                            }
-                            $scope.reset=function(){
-                                $scope.form=angular.copy({});
-                            }
-                        })
+                    script(src="/js/page/admin_user.js")
+                    script(type='text/ng-template', id='delete').
+                        <div class="modal-header">
+                        <h3 class="modal-title">Thông báo</h3>
+                        </div>
+                        <div class="modal-body">
+                        <h3>Bạn có chắc chắn xóa tài khoản:<span style="color:red"> {{user}}</span>?</h3>
+                        </div>
+                        <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="ok()">Xóa</button>
+                        <button class="btn btn-warning" ng-click="cancel()">Quay Lại</button>
+                        </div>
+                    script(type='text/ng-template', id='response').
+                        <div class="modal-header">
+                        <h3 class="modal-title">Thông báo</h3>
+                        </div>
+                        <div class="modal-body">
+                        <h3>{{content}}</h3>
+                        </div>
+                        <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="ok()">OK</button>
+                        </div>
                     .row-fluid.sortable.ui-sortable(ng-controller="controlUser")
                         .box.span12
                             .box-header(data-original-title='')

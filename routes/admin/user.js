@@ -8,6 +8,7 @@ var isNull=require('./../isNull');
 var async=require('async');
 var admin_not_logged_in=require('./admin_not_logged_in');
 var crypto=require('crypto');
+var secretKey=require('./../../model/secretKey');
 router.get('/',admin_not_logged_in,function(req,res,next){
     res.render('admin/user',{admin:req.session.admin});
 });
@@ -61,6 +62,19 @@ router.post('/new',function(req,res){
                         };
                     });
                 }
+            }
+        })
+    }else{
+        res.json({type:'error',content:'Bạn đã nhập thiếu thông tin'});
+    }
+});
+router.delete('/delete/:username',admin_not_logged_in,function(req,res,next){
+    console.log(req.params);
+    if(req.params.username){
+        connection.query('DELETE FROM USER WHERE USERNAME="'+req.params.username+'"',function(err,rows,field){
+            if(err) console.log(err);
+            else{
+                res.json({type:'success',content:'Đã xóa người dùng!'});
             }
         })
     }else{
