@@ -78,16 +78,16 @@ block content
                                     tbody
                                         tr(ng-repeat="user in list")
                                             td.sorting_1 {{user.username}}
-                                            td.center {{user.birthdate}}
+                                            td.center {{user.birthdate_show}}
                                             td.center {{user.mobiphone}}
                                             td.center
                                                 span.label.label-success Active
                                             td.center
                                                 a.btn.btn-success(href='#')
                                                     i.halflings-icon.white.zoom-in
-                                                a.btn.btn-info(href='#')
+                                                a.btn.btn-info(href='#')(ng-click="openEdit('lg',user)")
                                                     i.halflings-icon.white.edit
-                                                a.btn.btn-danger(ng-click="openDelete('lg',user.username)")
+                                                a.btn.btn-danger(ng-click="openDelete('lg',user)")
                                                     i.halflings-icon.white.trash
                         // /span
                     script(src="/js/page/admin_user.js")
@@ -111,6 +111,78 @@ block content
                         </div>
                         <div class="modal-footer">
                         <button class="btn btn-primary" ng-click="ok()">OK</button>
+                        </div>
+                    script(type='text/ng-template', id='edit').
+                        <div class="modal-header">
+                        <h3 class="modal-title">Chỉnh sửa thông tin</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <fieldset>
+                                    <div class="control-group">
+                                        <label for="username" class="control-label">Tài khoản</label>
+                                        <div class="controls">
+                                            <input id="username" type="text" placeholder="Tài khoản..." ng-model="form.username" class="input-xlarge focused"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="fullname" class="control-label">Họ tên</label>
+                                        <div class="controls">
+                                            <input id="fullname" type="text" placeholder="Họ tên..." ng-model="form.fullname" class="input-xlarge"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="birthdate" class="control-label">Ngày sinh</label>
+                                        <div class="controls">
+                                            <input id="birthdate" type="date" placeholder="Ngày sinh..." ng-model="form.birthdate" class="input-xlarge"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="password" class="control-label">Mật khẩu</label>
+                                        <div class="controls">
+                                            <input id="password" type="password" ng-model="form.change_password" class="input-xlarge"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="address" class="control-label">Địa chỉ</label>
+                                        <div class="controls">
+                                            <input id="address" type="text" placeholder="Địa chỉ..." ng-model="form.address" class="input-xlarge"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="email" class="control-label">Email</label>
+                                        <div class="controls">
+                                            <input id="email" type="email" placeholder="Email..." ng-model="form.email" class="input-xlarge"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="identitycard" class="control-label">Số CMTND</label>
+                                        <div class="controls">
+                                            <input id="identitycard" type="text" placeholder="0123456..." ng-model="form.identitycard" class="input-xlarge"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="phonenumber" class="control-label">Số điện thoại</label>
+                                        <div class="controls">
+                                            <input id="phonenumber" type="text" placeholder="0123456789..." ng-model="form.mobiphone" class="input-xlarge"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="sex" class="control-label">Giới tính</label>
+                                        <div class="controls">
+                                            <select id="sex" ng-model="form.gender">
+                                                <option value="1">Nam</option>
+                                                <option value="0">Nữ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">{{rp}}</div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="ok()">Xác Nhận</button>
+                        <button class="btn btn-warning" ng-click="cancel()">Quay Lại</button>
                         </div>
                     .row-fluid.sortable.ui-sortable(ng-controller="controlUser")
                         .box.span12
