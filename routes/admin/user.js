@@ -139,6 +139,7 @@ router.put('/update',admin_not_logged_in,function(req,res,next){
                             req.body.mobiphone,'password',updateUser.password,'id',req.body.id];
                         sql=mysql.format(sql,inserts);
                     }
+                    console.log(sql);
                     connection.query(sql,function(err,result){
                         if(err) console.log(err);
                         else{
