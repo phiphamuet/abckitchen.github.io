@@ -68,7 +68,8 @@ block content
                            | Calendar
                      .box-content
                         #external-events.span3.hidden-phone.hidden-tablet
-                           h4 Draggable Events
+                           h4 Món ăn
+                           .external-event.badge.badge-success.ui-draggable(ng-repeat="dish in dishes") {{dish.ten_mon}}
                            .external-event.badge Default
                            .external-event.badge.badge-success Completed
                            .external-event.badge.badge-warning Warning
@@ -81,11 +82,57 @@ block content
                                  |  remove after drop
                         #calendar.span9
                         .clearfix
-               // /row
-            // /.fluid-container
-            // end: Content
-         // /#content.span10
-      // /fluid-row
+               script.
+                  var app=angular.module('calendarDemoApp', ['ui.calendar', 'ui.bootstrap']);
+                  app.controller('CalendarCtrl',function ($scope, $compile, uiCalendarConfig) {
+                     var date = new Date();
+                     var d = date.getDate();
+                     var m = date.getMonth();
+                     var y = date.getFullYear();
+                     /* event sources array*/
+                     $scope.eventSources={
+
+                     };
+                  });
+                  /* EOF */
+               .row-fluid.sortable
+                  .box.span12
+                     .box-header
+                        h2 Nothing
+                     .box-content
+                        div(role='main', ng-app='calendarDemoApp')
+                           .container
+                              section#directives-calendar(ng-controller='CalendarCtrl')
+                                 .page-header
+                                    h1 UI-Calendar
+                                 .well
+                                    .row-fluid
+                                       .span4
+                                          h3 Món ăn
+                                          .btn-group.calTools
+
+                                          ul.unstyled
+                                             li(ng-repeat='e in events')
+                                                .alert.alert-info
+                                                   a.close(ng-click='remove($index)')
+                                                      i.icon-remove
+                                                   b
+                                                      input(ng-model='e.title')
+                                                   |                                     {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}}
+                                       .span8
+                                          tabset
+                                             tab(select="renderCalender('myCalendar1');")
+                                                tab-heading
+                                                   i.glyphicon.glyphicon-bell
+                                                   |  Lịch
+                                                .alert-success.calAlert(ng-show="alertMessage != undefined && alertMessage != ''")
+                                                   h4 {{alertMessage}}
+                                                .btn-toolbar
+                                                   .btn-group
+                                                      button.btn.btn-success(ng-click="changeView('agendaDay', 'myCalendar1')") Hôm nay
+                                                      button.btn.btn-success(ng-click="changeView('agendaWeek', 'myCalendar1')") Tuần này
+                                                      button.btn.btn-success(ng-click="changeView('month', 'myCalendar1')") Tháng này
+                                                .calendar(ng-model='eventSources', calendar='myCalendar1', ui-calendar='uiConfig.calendar')
       #myModal.modal.hide.fade
          .modal-header
             button.close(type='button', data-dismiss='modal') ×

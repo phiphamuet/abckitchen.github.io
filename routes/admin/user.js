@@ -13,11 +13,13 @@ var secretKey=require('./../../model/secretKey');
 router.get('/',admin_not_logged_in,function(req,res,next){
     res.render('admin/user',{admin:req.session.admin});
 });
+//get list user
 router.get('/list',admin_not_logged_in,function(req,res){
     connection.query('SELECT * from user',function(err,rows,fields){
-        res.json(rows);
+        res.json({type:'success',content:rows});
     });
 });
+//create new user
 router.post('/new',function(req,res){
         console.log(req.body);
     if(req.body.username&&req.body.birthdate&&req.body.fullname&&req.body.password&&req.body.address&&req.body.email&&req.body.identity&&req.body.phone&&req.body.sex){
@@ -69,6 +71,7 @@ router.post('/new',function(req,res){
         res.json({type:'error',content:'Bạn đã nhập thiếu thông tin'});
     }
 });
+//delte user
 router.delete('/delete/:username',admin_not_logged_in,function(req,res,next){
     console.log(req.params);
     if(req.params.username){
@@ -82,6 +85,7 @@ router.delete('/delete/:username',admin_not_logged_in,function(req,res,next){
         res.json({type:'error',content:'Bạn đã nhập thiếu thông tin'});
     }
 });
+//update info user
 router.put('/update',admin_not_logged_in,function(req,res,next){
    console.log(req.body);
     if(req.body.id&&req.body.username&&req.body.birthdate&&req.body.fullname&&req.body.password&&req.body.address&&req.body.email&&req.body.identitycard&&req.body.mobiphone&&req.body.gender){
