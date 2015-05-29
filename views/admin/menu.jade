@@ -81,6 +81,10 @@ block content
                                  |  remove after drop
                         #calendar.span9
                         .clearfix
+               script.
+                  $.get("/manager/menu/list",function(data,status){
+                     console.log(data + status);
+                  });
                // /row
             // /.fluid-container
             // end: Content

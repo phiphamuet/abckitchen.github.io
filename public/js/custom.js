@@ -731,6 +731,7 @@ function circle_progess() {
 			'bgColor': 'rgba(255,255,255,0.5)',
 	        'fgColor': 'rgba(255,255,255,0.9)',
 	        'dynamicDraw': true,
+	        'dynamicDraw': true,
 	        'thickness': 0.2,
 	        'tickColorizeValues': true
 	    });
@@ -770,7 +771,6 @@ function circle_progess() {
 /* ---------- Calendars ---------- */
 
 function calendars(){
-	
 
 	$('#external-events div.external-event').each(function() {
 
