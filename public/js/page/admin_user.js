@@ -7,12 +7,18 @@ app.controller('getList',function($scope,$http,$modal){
     $scope.listUser=function(){
         $http.get('/manager/user/list')
             .success(function(data){
-                data.forEach(function(val){
-                    var now=new Date(val.birthdate);
-                    val.birthdate=now;
-                    val.birthdate_show=now.toLocaleDateString();
-                })
-                $scope.list=data;
+                if(data.type=='success'){
+                    var content=data.content;
+                    content.forEach(function(val){
+                        var now=new Date(val.birthdate);
+                        val.birthdate=now;
+                        val.birthdate_show=now.toLocaleDateString();
+                    })
+                    $scope.list=content;
+                }
+                else{
+
+                }
             })
             .error(function(data){
                 console.log(data);

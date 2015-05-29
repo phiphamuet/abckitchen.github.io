@@ -1,0 +1,9 @@
+diff a/public/js/custom.js b/public/js/custom.js	(rejected hunks)
+@@ -772,7 +772,6 @@
+ function calendars(){
+ 
+ 
+-		var eventObject = {
+ 	
+ 
+ 	var date = new Date();
