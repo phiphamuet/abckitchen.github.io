@@ -31,4 +31,8 @@ router.get('/list',admin_not_logged_in,function(req,res,next){
         }
     });
 });
+router.post('/sync',admin_not_logged_in,function(req,res,next){
+    console.log(req.body);
+    res.json("nothing");
+});
 module.exports = router;
