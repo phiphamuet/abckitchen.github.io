@@ -84,6 +84,14 @@ block content
                script.
                   $.get("/manager/menu/list",function(data,status){
                      data.content.forEach(function(value){
+                        var event={};
+                        event.title=value.ten_mon;
+                        event.start=new Date(value.ngay);
+                        $('#calendar').fullCalendar('renderEvent', event, true);
+                     })
+                  });
+                  $.get("/manager/menu/dish",function(data,status){
+                     data.content.forEach(function(value){
                         $("#external-events").append("<div class='external-event badge'>"+value.ten_mon+"</div>");
                         $('#external-events div.external-event').each(function() {
 
