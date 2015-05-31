@@ -937,6 +937,13 @@ function calendars(){
 				$(this).remove();
 			}
 
+		},
+		loading: function (bool) {
+			console.log("test");
+			if (!bool) {
+				jQuery('.fc-left').append('<div id="calendarTrash" class="calendar-trash"><img src="/images/cal-trash.png"></img></div>');
+
+			}
 		}
 	});
 
