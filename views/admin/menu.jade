@@ -65,10 +65,10 @@ block content
                         h2
                            i.halflings-icon.white.calendar
                            span.break
-                           | Calendar
+                           | Thực đơn hàng ngày
                      .box-content
                         #external-events.span3.hidden-phone.hidden-tablet
-                           h4 Draggable Events
+                           h4 Món ăn
                            .external-event.badge Default
                            .external-event.badge.badge-success Completed
                            .external-event.badge.badge-warning Warning
@@ -80,42 +80,41 @@ block content
                                  input#drop-remove(type='checkbox')
                                  |  remove after drop
                         #calendar.span9
+                        .span9
+                           br
+                           button#sync.btn.btn-primary Đồng bộ
                         .clearfix
                script.
-                  $('#calendar').fullCalendar({
-                     header: {
-                        left: 'title',
-                        right: 'prev,next today,month,agendaWeek,agendaDay'
-                     },
-                     editable: true,
-                     droppable: true, // this allows things to be dropped onto the calendar !!!
-                     drop: function(date, allDay) { // this function is called when something is dropped
+                  $.get("/manager/menu/list",function(data,status){
+                     data.content.forEach(function(value){
+                        var event={};
+                        event.id=value.id;
+                        event.title=value.ten_mon;
+                        event.ma_mon=value.ma_mon;
+                        event.start=new Date(value.ngay);
+                        $('#calendar').fullCalendar('renderEvent', event, true);
+                     })
+                  });
+                  $("#sync").click(function(){
 
-                        // retrieve the dropped element's stored Event Object
-                        var originalEventObject = $(this).data('eventObject');
-
-                        // we need to copy it, so that multiple events don't have a reference to the same object
-                        var copiedEventObject = $.extend({}, originalEventObject);
-
-                        // assign it the date that was reported
-                        copiedEventObject.start = date;
-                        copiedEventObject.allDay = allDay;
-
-                        // render the event on the calendar
-                        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                     $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-                        // is the "remove after drop" checkbox checked?
-                        if ($('#drop-remove').is(':checked')) {
-                           // if so, remove the element from the "Draggable Events" list
-                           $(this).remove();
-                     }
-                        console.log($('#calendar').fullCalendar('clientEvents'));
-                     }
+                     var data=[];
+                     var source=$("#calendar").fullCalendar("clientEvents");
+                     source.forEach(function(value){
+                        var event={};
+                        event.id=value.id;
+                        event.ma_mon=value.ma_mon;
+                        event.ten_mon=value.title;
+                        event.ngay=value.start;
+                        data.push(event);
+                     })
+                     console.log(JSON.stringify(data));
+                     $.post("/manager/menu/sync",{content:JSON.stringify(data)},function(result){
+                        console.log(result);
+                     });
                   });
                   $.get("/manager/menu/dish",function(data,status){
                      data.content.forEach(function(value){
-                        $("#external-events").append("<div class='external-event badge'>"+value.ten_mon+"</div>");
+                        $("#external-events").append("<div class='external-event badge badge-success' ma_mon='"+value.ma_mon+"'>"+value.ten_mon+"</div>");
                         $('#external-events div.external-event').each(function() {
 
                            // it doesn't need to have a start or end
