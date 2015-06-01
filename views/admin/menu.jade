@@ -69,21 +69,31 @@ block content
                      .box-content
                         #external-events.span3.hidden-phone.hidden-tablet
                            h4 Món ăn
-                           .external-event.badge Default
-                           .external-event.badge.badge-success Completed
-                           .external-event.badge.badge-warning Warning
-                           .external-event.badge.badge-important Important
-                           .external-event.badge.badge-info Info
-                           .external-event.badge.badge-inverse Other
-                           p
-                              label(for='drop-remove')
-                                 input#drop-remove(type='checkbox')
-                                 |  remove after drop
+                           //.external-event.badge Default
+                           //.external-event.badge.badge-success Completed
+                           //.external-event.badge.badge-warning Warning
+                           //.external-event.badge.badge-important Important
+                           //.external-event.badge.badge-info Info
+                           //.external-event.badge.badge-inverse Other
+                           //p
+                           //   label(for='drop-remove')
+                           //      input#drop-remove(type='checkbox')
+                           //      |  remove after drop
                         #calendar.span9
                         .span9
                            br
                            button#sync.btn.btn-primary Đồng bộ
                         .clearfix
+               style.
+                  div.calendar-trash>img {
+                     float: left;
+                     width:50px;
+                     height:50px;
+                     cursor: pointer;
+                  }
+                  div.calendar-trash:focus {
+                     outline: -webkit-focus-ring-color auto 5px;
+                  }
                script.
                   $.get("/manager/menu/list",function(data,status){
                      data.content.forEach(function(value){
@@ -107,9 +117,8 @@ block content
                         event.ngay=value.start;
                         data.push(event);
                      })
-                     console.log(JSON.stringify(data));
                      $.post("/manager/menu/sync",{content:JSON.stringify(data)},function(result){
-                        console.log(result);
+                        alert("ABC Kitchen: "+result);
                      });
                   });
                   $.get("/manager/menu/dish",function(data,status){
@@ -135,6 +144,32 @@ block content
                         });
                      })
                   });
+                  var currentMousePos = {
+                     x: -1,
+                     y: -1
+                  };
+                  jQuery(document).ready(function(){
+                     jQuery(document).on("mousemove", function (event) {
+                        currentMousePos.x = event.pageX;
+                        currentMousePos.y = event.pageY;
+                     });
+                  });
+                  function isElemOverDiv() {
+                     var trashEl = jQuery('#calendarTrash');
+
+                     var ofs = trashEl.offset();
+
+                     var x1 = ofs.left;
+                     var x2 = ofs.left + trashEl.outerWidth(true);
+                     var y1 = ofs.top;
+                     var y2 = ofs.top + trashEl.outerHeight(true);
+
+                     if (currentMousePos.x >= x1 && currentMousePos.x <= x2 &&
+                        currentMousePos.y >= y1 && currentMousePos.y <= y2) {
+                        return true;
+                     }
+                     return false;
+                  }
 
                // /row
             // /.fluid-container

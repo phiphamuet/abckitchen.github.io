@@ -48,10 +48,10 @@ block content
                     ul.breadcrumb
                         li
                             i.icon-home
-                            a(href='index.html') Home
+                            a(href='/manager') Home
                             i.icon-angle-right
                         li
-                            a(href='#') Tables
+                            a(href='/manager/user') User
                     .row-fluid.sortable( ng-controller="getList")
                         .box.span12
                             .box-header(data-original-title='')
@@ -258,13 +258,6 @@ block content
             .modal-footer
                 a.btn(href='#', data-dismiss='modal') Close
                 a.btn.btn-primary(href='#') Save changes
-        #common-Modal1.common-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
-            .modal-content
-                ul.list-inline.item-details
-                    li
-                        a(href='http://themifycloud.com') Admin templates
-                    li
-                        a(href='http://themescloud.org') Bootstrap themes
         .clearfix
         footer
             p

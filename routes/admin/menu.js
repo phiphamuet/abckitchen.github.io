@@ -51,7 +51,7 @@ router.post('/sync',admin_not_logged_in,function(req,res,next){
                     };
                     connection.query('insert into thuc_don_hang_ngay set ?',newDish,function(err,result){
                         if(err) console.log(err);
-                        if(value==data[data.length-1]) cb("it's ok");
+                        if(value==data[data.length-1]) cb("Cập nhật thực đơn thành công!");
                     });
                 });
             });

@@ -944,7 +944,31 @@ function calendars(){
 				jQuery('.fc-left').append('<div id="calendarTrash" class="calendar-trash"><img src="/images/cal-trash.png"></img></div>');
 
 			}
-		}
+		},
+		eventMouseover: function (event, jsEvent) {
+			jQuery(this).mousemove(function (e) {
+				var trashEl = jQuery('#calendarTrash');
+				if (isElemOverDiv()) {
+					if (!trashEl.hasClass("to-trash")) {
+						trashEl.addClass("to-trash");
+					}
+				} else {
+					if (trashEl.hasClass("to-trash")) {
+						trashEl.removeClass("to-trash");
+					}
+
+				}
+			});
+		},
+		eventDragStop: function(event, jsEvent, ui, view) {
+			//console.log(event.id);
+			if (isElemOverDiv(ui, $('div#delete-events'))) {
+				if(confirm("Bạn có chắc xóa món ăn này không? \nNếu có hãy nhấn nút đồng bộ để cập nhật dữ liệu lên server!")){
+					$('#calendar').fullCalendar('removeEvents', event.id);
+				}
+			}
+		},
+		lang:'vi'
 	});
 
 }
@@ -964,7 +988,8 @@ function sparkline_charts() {
 	//sparklines (making loop with random data for all 7 sparkline)
 	i=1;
 	for (i=1; i<9; i++) {
-	 	var data = [[1, 3+randNum()], [2, 5+randNum()], [3, 8+randNum()], [4, 11+randNum()],[5, 14+randNum()],[6, 17+randNum()],[7, 20+randNum()], [8, 15+randNum()], [9, 18+randNum()], [10, 22+randNum()]];
+	 	//var data = [[1, 3+randNum()], [2, 5+randNum()], [3, 8+randNum()], [4, 11+randNum()],[5, 14+randNum()],[6, 17+randNum()],[7, 20+randNum()], [8, 15+randNum()], [9, 18+randNum()], [10, 22+randNum()]];
+		var data = [[1, 1], [2, 2], [3, 3], [4, 4],[5, 5],[6, 6],[7, 7], [8, 8], [9, 9], [10, 10]];
 	 	placeholder = '.sparkLineStats' + i;
 		
 		if (retina()) {
@@ -1183,8 +1208,8 @@ function charts() {
 	/* ---------- Chart with points ---------- */
 	if($("#facebookChart").length)
 	{	
-		var likes = [[1, 5+randNumFB()], [2, 10+randNumFB()], [3, 15+randNumFB()], [4, 20+randNumFB()],[5, 25+randNumFB()],[6, 30+randNumFB()],[7, 35+randNumFB()],[8, 40+randNumFB()],[9, 45+randNumFB()],[10, 50+randNumFB()],[11, 55+randNumFB()],[12, 60+randNumFB()],[13, 65+randNumFB()],[14, 70+randNumFB()],[15, 75+randNumFB()],[16, 80+randNumFB()],[17, 85+randNumFB()],[18, 90+randNumFB()],[19, 85+randNumFB()],[20, 80+randNumFB()],[21, 75+randNumFB()],[22, 80+randNumFB()],[23, 75+randNumFB()],[24, 70+randNumFB()],[25, 65+randNumFB()],[26, 75+randNumFB()],[27,80+randNumFB()],[28, 85+randNumFB()],[29, 90+randNumFB()], [30, 95+randNumFB()]];
-
+		//var likes = [[1, 5+randNumFB()], [2, 10+randNumFB()], [3, 15+randNumFB()], [4, 20+randNumFB()],[5, 25+randNumFB()],[6, 30+randNumFB()],[7, 35+randNumFB()],[8, 40+randNumFB()],[9, 45+randNumFB()],[10, 50+randNumFB()],[11, 55+randNumFB()],[12, 60+randNumFB()],[13, 65+randNumFB()],[14, 70+randNumFB()],[15, 75+randNumFB()],[16, 80+randNumFB()],[17, 85+randNumFB()],[18, 90+randNumFB()],[19, 85+randNumFB()],[20, 80+randNumFB()],[21, 75+randNumFB()],[22, 80+randNumFB()],[23, 75+randNumFB()],[24, 70+randNumFB()],[25, 65+randNumFB()],[26, 75+randNumFB()],[27,80+randNumFB()],[28, 85+randNumFB()],[29, 90+randNumFB()], [30, 95+randNumFB()]];
+		var likes=[[1, 1], [2, 2], [3, 3], [4, 4],[5, 5],[6, 6],[7, 7], [8, 8], [9, 9], [10, 10]];
 		var plot = $.plot($("#facebookChart"),
 			   [ { data: likes, label: "Fans"} ], {
 				   series: {
