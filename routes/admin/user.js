@@ -76,7 +76,10 @@ router.delete('/delete/:username',admin_not_logged_in,function(req,res,next){
     console.log(req.params);
     if(req.params.username){
         connection.query('DELETE FROM USER WHERE USERNAME="'+req.params.username+'"',function(err,rows,field){
-            if(err) console.log(err);
+            if(err) {
+                console.log(err);
+                res.json({type:'error',content:'Có lỗi xảy ra! Có thể người dùng đã đăng ký ăn!'});
+            }
             else{
                 res.json({type:'success',content:'Đã xóa người dùng!'});
             }
