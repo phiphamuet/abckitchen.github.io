@@ -60,25 +60,25 @@ block content
                   i.icon-angle-right
                li
                   a(href='#') Charts
-            .row-fluid
-               .widget.span6(ontablet='span6', ondesktop='span6')
-                  h2
-                     span.glyphicons.facebook
-                        i
-                     | Facebook Fans
-                  hr
-                  .content
-                     #facebookChart(style='height:300px')
-               // /span
-               .widget.span6(ontablet='span6', ondesktop='span6')
-                  h2
-                     span.glyphicons.twitter
-                        i
-                     | Twitter Followers
-                  hr
-                  .content
-                     #twitterChart(style='height:300px')
-               // /span
+            //.row-fluid
+            //   .widget.span6(ontablet='span6', ondesktop='span6')
+            //      h2
+            //         span.glyphicons.facebook
+            //            i
+            //         | Facebook Fans
+            //      hr
+            //      .content
+            //         #facebookChart(style='height:300px')
+            //   // /span
+            //   .widget.span6(ontablet='span6', ondesktop='span6')
+            //      h2
+            //         span.glyphicons.twitter
+            //            i
+            //         | Twitter Followers
+            //      hr
+            //      .content
+            //         #twitterChart(style='height:300px')
+            //   // /span
             .row-fluid
                .widget.span6(ontablet='span6', ondesktop='span6')
                   h2
@@ -99,133 +99,180 @@ block content
                      #realChart(style='height:300px')
                // /span
             script.
-               $(function() {
-                  if($("#registerChart").length)
-                  {
-                     //var likes = [[1, 5+randNumFB()], [2, 10+randNumFB()], [3, 15+randNumFB()], [4, 20+randNumFB()],[5, 25+randNumFB()],[6, 30+randNumFB()],[7, 35+randNumFB()],[8, 40+randNumFB()],[9, 45+randNumFB()],[10, 50+randNumFB()],[11, 55+randNumFB()],[12, 60+randNumFB()],[13, 65+randNumFB()],[14, 70+randNumFB()],[15, 75+randNumFB()],[16, 80+randNumFB()],[17, 85+randNumFB()],[18, 90+randNumFB()],[19, 85+randNumFB()],[20, 80+randNumFB()],[21, 75+randNumFB()],[22, 80+randNumFB()],[23, 75+randNumFB()],[24, 70+randNumFB()],[25, 65+randNumFB()],[26, 75+randNumFB()],[27,80+randNumFB()],[28, 85+randNumFB()],[29, 90+randNumFB()], [30, 95+randNumFB()]];
-                     var register=[[1, 1], [2, 2], [3, 3], [4, 4],[5, 5],[6, 6],[7, 7], [8, 8], [9, 9], [10, 10]];
-                     var plot = $.plot($("#registerChart"),
-                        [ { data: register, label: "Đăng kí"} ],
-                        {
-                           series: {
-                              lines: { show: true,
-                              lineWidth: 2,
-                              fill: true, fillColor: { colors: [ { opacity: 0.5 }, { opacity: 0.2 } ] }
-                              },
-                              points: { show: true,
-                              lineWidth: 2
-                              },
-                              shadowSize: 0
-                           },
-                           grid: { hoverable: true,
-                              clickable: true,
-                              tickColor: "#f9f9f9",
-                              borderWidth: 0
-                           },
-                           colors: ["#3B5998"],
-                           xaxis: {ticks:6, tickDecimals: 0},
-                           yaxis: {ticks:3, tickDecimals: 0},
+               var date=new Date();
+               var monParam=date.getMonth()+1;
+               var yearParam=date.getFullYear();
+               function daysInMonth(month, year) {
+                  return new Date(year, month, 0).getDate();
+               }
+               function makeArray(daysInMonth,month,year){
+                  var Array=[];
+                  for(i=1;i<=daysInMonth(month,year);i++){
+                     Array.push([i,0]);
+                  }
+                  return Array;
+               }
+               $.get("/manager/track/register?month="+monParam+"&year="+yearParam,function(data){
+                  var register=makeArray(daysInMonth,monParam,yearParam);
+                  if(data.type=='error'){
+                     alert(data.content);
+                  }else{
+
+                     data.content.forEach(function(object){
+                        var array = $.map(object, function (value, index) {
+                           return [value];
+                        });
+                        register.forEach(function(rgdata){
+                           if(rgdata[0]==array[0]){
+                              rgdata[1]=array[1];
+                           };
+                        });
+                     });
+                     if($("#registerChart").length)
+                     {
+                        //var likes = [[1, 5+randNumFB()], [2, 10+randNumFB()], [3, 15+randNumFB()], [4, 20+randNumFB()],[5, 25+randNumFB()],[6, 30+randNumFB()],[7, 35+randNumFB()],[8, 40+randNumFB()],[9, 45+randNumFB()],[10, 50+randNumFB()],[11, 55+randNumFB()],[12, 60+randNumFB()],[13, 65+randNumFB()],[14, 70+randNumFB()],[15, 75+randNumFB()],[16, 80+randNumFB()],[17, 85+randNumFB()],[18, 90+randNumFB()],[19, 85+randNumFB()],[20, 80+randNumFB()],[21, 75+randNumFB()],[22, 80+randNumFB()],[23, 75+randNumFB()],[24, 70+randNumFB()],[25, 65+randNumFB()],[26, 75+randNumFB()],[27,80+randNumFB()],[28, 85+randNumFB()],[29, 90+randNumFB()], [30, 95+randNumFB()]];
+                        var plot = $.plot($("#registerChart"),
+                                [ { data: register, label: "đăng kí"} ],
+                                {
+                                   series: {
+                                      lines: { show: true,
+                                         lineWidth: 2,
+                                         fill: true, fillColor: { colors: [ { opacity: 0.5 }, { opacity: 0.2 } ] }
+                                      },
+                                      points: { show: true,
+                                         lineWidth: 2
+                                      },
+                                      shadowSize: 0
+                                   },
+                                   grid: { hoverable: true,
+                                      clickable: true,
+                                      tickColor: "#f9f9f9",
+                                      borderWidth: 0
+                                   },
+                                   colors: ["#3B5998"],
+                                   xaxis: {ticks:6, tickDecimals: 0},
+                                   yaxis: {ticks:3, tickDecimals: 0},
+                                });
+
+                        function showTooltip(x, y, contents) {
+                           $('<div id="tooltip">' + contents + '</div>').css( {
+                              position: 'absolute',
+                              display: 'none',
+                              top: y + 5,
+                              left: x + 5,
+                              border: '1px solid #fdd',
+                              padding: '2px',
+                              'background-color': '#dfeffc',
+                              opacity: 0.80
+                           }).appendTo("body").fadeIn(200);
+                        }
+
+                        var previousPoint = null;
+                        $("#registerChart").bind("plothover", function (event, pos, item) {
+                           $("#x").text(pos.x.toFixed(2));
+                           $("#y").text(pos.y.toFixed(2));
+
+                           if (item) {
+                              if (previousPoint != item.dataIndex) {
+                                 previousPoint = item.dataIndex;
+
+                                 $("#tooltip").remove();
+                                 var x = item.datapoint[0],
+                                         y = item.datapoint[1];
+
+                                 showTooltip(item.pageX, item.pageY,"Có "+ y + " người "+
+                                         item.series.label + " ngày " + x + " ." );
+                              }
+                           }
+                           else {
+                              $("#tooltip").remove();
+                              previousPoint = null;
+                           }
                         });
 
-                     function showTooltip(x, y, contents) {
-                        $('<div id="tooltip">' + contents + '</div>').css( {
-                           position: 'absolute',
-                           display: 'none',
-                           top: y + 5,
-                           left: x + 5,
-                           border: '1px solid #fdd',
-                           padding: '2px',
-                           'background-color': '#dfeffc',
-                           opacity: 0.80
-                        }).appendTo("body").fadeIn(200);
                      }
-
-                     var previousPoint = null;
-                     $("#registerChart").bind("plothover", function (event, pos, item) {
-                        $("#x").text(pos.x.toFixed(2));
-                        $("#y").text(pos.y.toFixed(2));
-
-                        if (item) {
-                           if (previousPoint != item.dataIndex) {
-                              previousPoint = item.dataIndex;
-
-                              $("#tooltip").remove();
-                              var x = item.datapoint[0],
-                              y = item.datapoint[1].toFixed(2);
-
-                              showTooltip(item.pageX, item.pageY,
-                              item.series.label + " ngày " + x + " = " + y);
-                           }
-                        }
-                        else {
-                           $("#tooltip").remove();
-                           previousPoint = null;
-                           }
-                     });
-
                   }
-                  if($("#realChart").length)
-                  {
-                     var real=[[1, 1], [2, 2], [3, 3], [4, 4],[5, 5],[6, 6],[7, 7], [8, 8], [9, 9], [10, 10]];
+               })
+               $.get("/manager/track/real?month="+monParam+"&year="+yearParam,function(data) {
+                  var real = makeArray(daysInMonth, monParam, yearParam);
+                  if (data.type == 'error') {
+                     alert(data.content);
+                  } else {
 
-                     var plot = $.plot($("#realChart"),
-                          [ { data: real, label: "Thực tế"} ], {
-                             series: {
-                                lines: { show: true,
-                                   lineWidth: 2,
-                                   fill: true, fillColor: { colors: [ { opacity: 0.5 }, { opacity: 0.2 } ] }
-                                },
-                                points: { show: true,
-                                   lineWidth: 2
-                                },
-                                shadowSize: 0
-                             },
-                             grid: { hoverable: true,
-                                clickable: true,
-                                tickColor: "#f9f9f9",
-                                borderWidth: 0
-                             },
-                             colors: ["#1BB2E9"],
-                             xaxis: {ticks:6, tickDecimals: 0},
-                             yaxis: {ticks:3, tickDecimals: 0},
-                          });
-
-                     function showTooltip(x, y, contents) {
-                        $('<div id="tooltip">' + contents + '</div>').css( {
-                           position: 'absolute',
-                           display: 'none',
-                           top: y + 5,
-                           left: x + 5,
-                           border: '1px solid #fdd',
-                           padding: '2px',
-                           'background-color': '#dfeffc',
-                           opacity: 0.80
-                        }).appendTo("body").fadeIn(200);
-                     }
-
-                     var previousPoint = null;
-                     $("#realChart").bind("plothover", function (event, pos, item) {
-                        $("#x").text(pos.x.toFixed(2));
-                        $("#y").text(pos.y.toFixed(2));
-
-                        if (item) {
-                           if (previousPoint != item.dataIndex) {
-                              previousPoint = item.dataIndex;
-
-                              $("#tooltip").remove();
-                              var x = item.datapoint[0],
-                                      y = item.datapoint[1].toFixed(2);
-
-                              showTooltip(item.pageX, item.pageY,
-                                      item.series.label + " ngày " + x + " = " + y);
+                     data.content.forEach(function (object) {
+                        var array = $.map(object, function (value, index) {
+                           return [value];
+                        });
+                        real.forEach(function (rldata) {
+                           if (rldata[0] == array[0]) {
+                              rldata[1] = array[1];
                            }
-                        }
-                        else {
-                           $("#tooltip").remove();
-                           previousPoint = null;
-                        }
+                           ;
+                        });
                      });
+                     if($("#realChart").length)
+                     {
+                        //var real=[[1, 1], [2, 2], [3, 3], [4, 4],[5, 5],[6, 6],[7, 7], [8, 8], [9, 9], [10, 10]];
 
+                        var plot = $.plot($("#realChart"),
+                                [ { data: real, label: "Thực tế"} ], {
+                                   series: {
+                                      lines: { show: true,
+                                         lineWidth: 2,
+                                         fill: true, fillColor: { colors: [ { opacity: 0.5 }, { opacity: 0.2 } ] }
+                                      },
+                                      points: { show: true,
+                                         lineWidth: 2
+                                      },
+                                      shadowSize: 0
+                                   },
+                                   grid: { hoverable: true,
+                                      clickable: true,
+                                      tickColor: "#f9f9f9",
+                                      borderWidth: 0
+                                   },
+                                   colors: ["#1BB2E9"],
+                                   xaxis: {ticks:6, tickDecimals: 0},
+                                   yaxis: {ticks:3, tickDecimals: 0},
+                                });
+
+                        function showTooltip(x, y, contents) {
+                           $('<div id="tooltip">' + contents + '</div>').css( {
+                              position: 'absolute',
+                              display: 'none',
+                              top: y + 5,
+                              left: x + 5,
+                              border: '1px solid #fdd',
+                              padding: '2px',
+                              'background-color': '#dfeffc',
+                              opacity: 0.80
+                           }).appendTo("body").fadeIn(200);
+                        }
+
+                        var previousPoint = null;
+                        $("#realChart").bind("plothover", function (event, pos, item) {
+                           $("#x").text(pos.x.toFixed(2));
+                           $("#y").text(pos.y.toFixed(2));
+
+                           if (item) {
+                              if (previousPoint != item.dataIndex) {
+                                 previousPoint = item.dataIndex;
+
+                                 $("#tooltip").remove();
+                                 var x = item.datapoint[0],
+                                         y = item.datapoint[1];
+
+                                 showTooltip(item.pageX, item.pageY,
+                                        "Có "+ y + " người đến ăn ngày " + x );
+                              }
+                           }
+                           else {
+                              $("#tooltip").remove();
+                              previousPoint = null;
+                           }
+                        });
+
+                     }
                   }
                });
 
