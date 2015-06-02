@@ -275,15 +275,42 @@ block content
                      }
                   }
                });
+               var app = angular.module('abortList', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
+               app.controller('getList', function ($scope, $http, $modal) {
+                  //get user list
+                  $scope.listUser = function () {
+                     $http.get("/manager/track/abort?month="+monParam+"&year="+yearParam)
+                          .success(function (data) {
+                             if (data.type == 'success') {
+                                var content = data.content;
+                                content.forEach(function (val) {
+                                   var now = new Date(val.birthdate);
+                                   val.birthdate = now;
+                                   val.birthdate = now.toLocaleDateString();
+                                   now=new Date(val.ngay);
+                                   val.ngay= now.toLocaleDateString();
+                                })
+                                $scope.list = content;
+                             }
+                             else {
+                             }
+                          })
+                          .error(function (data) {
+                             console.log(data);
+                          })
+                  };
+                  //run
+                  $scope.listUser();
+               });
 
                // /span
-            .row-fluid.sortable
+            .row-fluid.sortable(ng-app="abortList", ng-controller="getList")
                .box.span12
                   .box-header(data-original-title='')
                      h2
                         i.halflings-icon.white.user
                         span.break
-                        | Members
+                        | Người dùng không đến ăn
                      .box-icon
                         a.btn-setting(href='#')
                            i.halflings-icon.white.wrench
@@ -292,41 +319,22 @@ block content
                         a.btn-close(href='#')
                            i.halflings-icon.white.remove
                   .box-content
-                     table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+                     table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
                         thead
                            tr
-                              th Username
-                              th Date registered
-                              th Role
-                              th Status
-                              th Actions
+                              th Ngày đăng ký
+                              th Tài khoản
+                              th Họ tên
+                              th Ngày sinh
+                              th Số điện thoại
                         tbody
-                           tr
-                              td Dennis Ji
-                              td.center 2012/01/01
-                              td.center Member
-                              td.center
-                                 span.label.label-success Active
-                              td.center
-                                 a.btn.btn-success(href='#')
-                                    i.halflings-icon.white.zoom-in
-                                 a.btn.btn-info(href='#')
-                                    i.halflings-icon.white.edit
-                                 a.btn.btn-danger(href='#')
-                                    i.halflings-icon.white.trash
-                           tr
-                              td Dennis Ji
-                              td.center 2012/01/01
-                              td.center Member
-                              td.center
-                                 span.label.label-success Active
-                              td.center
-                                 a.btn.btn-success(href='#')
-                                    i.halflings-icon.white.zoom-in
-                                 a.btn.btn-info(href='#')
-                                    i.halflings-icon.white.edit
-                                 a.btn.btn-danger(href='#')
-                                    i.halflings-icon.white.trash
+                           tr(ng-repeat="user in list")
+                              td.sorting_1 {{user.ngay}}
+                              td.center {{user.username}}
+                              td.center {{user.fullname}}
+                              td.center {{user.birthdate}}
+                              td.center {{user.sdt}}
+               // /span
          // /.fluid-container
          // end: Content
       // /#content.span10
