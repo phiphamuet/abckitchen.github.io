@@ -55,13 +55,13 @@ block content
                   i.icon-angle-right
                li
                   a(href='#') Tables
-            .row-fluid.sortable
+            .row-fluid.sortable(ng-app="calculate", ng-controller="getList")
                .box.span12
                   .box-header(data-original-title='')
                      h2
                         i.halflings-icon.white.user
                         span.break
-                        | Members
+                        | Người dùng
                      .box-icon
                         a.btn-setting(href='#')
                            i.halflings-icon.white.wrench
@@ -70,41 +70,52 @@ block content
                         a.btn-close(href='#')
                            i.halflings-icon.white.remove
                   .box-content
-                     table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+                     table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
                         thead
                            tr
-                              th Username
-                              th Date registered
-                              th Role
-                              th Status
-                              th Actions
+                              th Tài khoản
+                              th Họ tên
+                              th Ngày sinh
+                              th Chi phí
+                              th Thao tác
                         tbody
-                           tr
-                              td Dennis Ji
-                              td.center 2012/01/01
-                              td.center Member
+                           tr(ng-repeat="user in list")
+                              td.sorting_1 {{user.username}}
+                              td.center {{user.fullname}}
+                              td.center {{user.birthdate_show}}
+                              td.center {{user.amount}}
                               td.center
-                                 span.label.label-success Active
-                              td.center
-                                 a.btn.btn-success(href='#')
-                                    i.halflings-icon.white.zoom-in
-                                 a.btn.btn-info(href='#')
-                                    i.halflings-icon.white.edit
-                                 a.btn.btn-danger(href='#')
-                                    i.halflings-icon.white.trash
-                           tr
-                              td Dennis Ji
-                              td.center 2012/01/01
-                              td.center Member
-                              td.center
-                                 span.label.label-success Active
-                              td.center
-                                 a.btn.btn-success(href='#')
-                                    i.halflings-icon.white.zoom-in
-                                 a.btn.btn-info(href='#')
-                                    i.halflings-icon.white.edit
-                                 a.btn.btn-danger(href='#')
-                                    i.halflings-icon.white.trash
+            script.
+               var app = angular.module('calculate', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
+               app.controller('getList', function ($scope, $http, $modal) {
+                  //get user list
+                  var date=new Date();
+                  var month= date.getMonth()+1;
+                  var year=date.getFullYear();
+                  $scope.listUser = function () {
+                     $http.get('/manager/calculate/list?month='+month+'&year='+year)
+                             .success(function (data) {
+                                if (data.type == 'success') {
+                                   var content = data.content;
+                                   content.forEach(function (val) {
+                                      var now = new Date(val.birthdate);
+                                      val.birthdate = now;
+                                      val.birthdate_show = now.toLocaleDateString();
+                                   })
+                                   $scope.list = content;
+                                }
+                                else {
+                                }
+                             })
+                             .error(function (data) {
+                                console.log(data);
+                             })
+                  };
+                  //run
+                  $scope.listUser();
+               });
+
+               // /span
                // /span
          // /.fluid-container
          // end: Content
