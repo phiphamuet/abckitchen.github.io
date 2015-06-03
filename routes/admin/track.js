@@ -38,7 +38,7 @@ router.get('/real',admin_not_logged_in,function(req,res,next){
                 console.log(err);
                 res.json({type:'error',content:'Đã có lỗi xảy ra!'});
             }else if(isNull(rows)){
-                res.json({type:'error',content:'Không có dữ liệu thực tế đến ăn!'})
+                res.json({type:'success',content:[]});
             }else{
                 res.json({type:'success',content:rows});
             }
@@ -58,7 +58,7 @@ router.get('/abort',admin_not_logged_in,function(req,res,next){
                 console.log(err);
                 res.json({type:'error',content:'Đã có lỗi xảy ra!'});
             }else if(isNull(rows)){
-                res.json({type:'error',content:'Không có dữ liệu về việc không đến ăn!'})
+                res.json({type:'success',content:[]});
             }else{
                 res.json({type:'success',content:rows});
             }
