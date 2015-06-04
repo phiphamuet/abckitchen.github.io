@@ -50,8 +50,8 @@ router.get('/real',admin_not_logged_in,function(req,res,next){
 });
 router.get('/abort',admin_not_logged_in,function(req,res,next){
     if(req.query.month && req.query.year){
-
-        sql='select dang_ky_an.ngay as ngay, dang_ky_an.user_id as user_id, user.username as username, user.fullname as fullname, user.birthdate as birthdate, user.mobiphone as sdt from dang_ky_an left join thuc_te_an on (dang_ky_an.ngay=thuc_te_an.ngay and dang_ky_an.user_id=thuc_te_an.user_id) join user on(dang_ky_an.user_id=user.id) where thuc_te_an.id is null and month(dang_ky_an.ngay)='+req.query.month+' and year(dang_ky_an.ngay)='+req.query.year+' group by ngay';
+        var date=new Date();
+        sql='select dang_ky_an.ngay as ngay, dang_ky_an.user_id as user_id, user.username as username, user.fullname as fullname, user.birthdate as birthdate, user.mobiphone as sdt from dang_ky_an left join thuc_te_an on (dang_ky_an.ngay=thuc_te_an.ngay and dang_ky_an.user_id=thuc_te_an.user_id) join user on(dang_ky_an.user_id=user.id) where thuc_te_an.id is null and month(dang_ky_an.ngay)='+req.query.month+' and year(dang_ky_an.ngay)='+req.query.year+' and day(dang_ky_an.ngay)<='+date.getDate()+' group by ngay';
         console.log(sql);
         connection.query(sql,function(err,rows,fields){
             if(err) {

@@ -61,7 +61,7 @@ block content
                      h2
                         i.halflings-icon.white.user
                         span.break
-                        | Người dùng
+                        | Chi phí
                      .box-icon
                         a.btn-setting(href='#')
                            i.halflings-icon.white.wrench
@@ -77,7 +77,7 @@ block content
                               th Họ tên
                               th Ngày sinh
                               th Chi phí
-                              th Thao tác
+                              th Đóng phí tháng này
                         tbody
                            tr(ng-repeat="user in list")
                               td.sorting_1 {{user.username}}
@@ -85,6 +85,7 @@ block content
                               td.center {{user.birthdate_show}}
                               td.center {{user.amount}}
                               td.center
+                                 input(type="checkbox" ng-model="user.paid")
             script.
                var app = angular.module('calculate', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
                app.controller('getList', function ($scope, $http, $modal) {
