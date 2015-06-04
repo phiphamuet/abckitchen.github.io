@@ -71,6 +71,8 @@ block content
                            i.halflings-icon.white.remove
                   .box-content
                      table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
+                        input.btn.btn-primary(type="date")
+                        input.btn.btn-primary(type="submit" value="Lấy dữ liệu")
                         thead
                            tr
                               th Tài khoản
@@ -85,7 +87,8 @@ block content
                               td.center {{user.birthdate_show}}
                               td.center {{user.amount}}
                               td.center
-                                 input(type="checkbox" ng-model="user.paid")
+                                 input(type="checkbox", class="special",ng-model="user.paid", style="opacity:1; background-image: none;")
+                                 | {{user.paid}}
             script.
                var app = angular.module('calculate', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
                app.controller('getList', function ($scope, $http, $modal) {
@@ -102,6 +105,11 @@ block content
                                       var now = new Date(val.birthdate);
                                       val.birthdate = now;
                                       val.birthdate_show = now.toLocaleDateString();
+                                      if(val.paid){
+                                         val.paid=true;
+                                      }else{
+                                         val.paid=false;
+                                      }
                                    })
                                    $scope.list = content;
                                 }
