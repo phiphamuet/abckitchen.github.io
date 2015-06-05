@@ -1,210 +1,389 @@
-//
-   Created by PHI on 5/24/2015.
-
-//
-   Created by PHI on 5/24/2015.
 extends layout
 block content
-   // start: Header
-   .container-fluid-full
-      .row-fluid
-         // start: Main Menu
-         #sidebar-left.span2
-            .nav-collapse.sidebar-nav
-               ul.nav.nav-tabs.nav-stacked.main-menu
-                  li
-                     a(href='/manager')
-                        i.icon-dashboard
-                        span.hidden-tablet  Dashboard
-                  li
-                     a(href='/manager/user')
-                        i.icon-edit
-                        span.hidden-tablet  Quản lí người dùng
-                  li
-                     a(href='/manager/menu')
-                        i.icon-tasks
-                        span.hidden-tablet  Quản lí thực đơn
-                  li
-                     a(href='/manager/track')
-                        i.icon-eye-open
-                        span.hidden-tablet  Theo dõi người dùng
-                  li
-                     a(href='/manager/statistic')
-                        i.icon-bar-chart
-                        span.hidden-tablet  Thống kê đăng ký ăn
-                  li
-                     a(href='/manager/calculate')
-                        i.icon-shopping-cart
-                        span.hidden-tablet  Tính phí
-                  li
-                     a(href='/manager/accounting')
-                        i.icon-calendar
-                        span.hidden-tablet  Kế toán
-         // end: Main Menu
-         noscript
-            .alert.alert-block.span10
-               h4.alert-heading Warning!
-               p
-                  | You need to have
-                  a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
-                  |  enabled to use this site.
-         // start: Content
-         #content.span10
-            ul.breadcrumb
-               li
-                  i.icon-home
-                  a(href='/manager') Home
-                  i.icon-angle-right
-               li
-                  a(href='#') Tables
-            .row-fluid.sortable(ng-app="accounting", ng-controller="getList")
-               .box.span12
-                  .box-header(data-original-title='')
-                     h2
-                        i.halflings-icon.white.user
-                        span.break
-                        | Người dùng
-                     .box-icon
-                        a.btn-setting(href='#')
-                           i.halflings-icon.white.wrench
-                        a.btn-minimize(href='#')
-                           i.halflings-icon.white.chevron-up
-                        a.btn-close(href='#')
-                           i.halflings-icon.white.remove
-                  .box-content
-                     table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
-                        thead
-                           tr
-                              th Tài khoản
-                              th Ngày sinh
-                              th Chi phí tháng này
-                              th Trạng thái
-                              th Thao tác
-                        tbody
-                           tr(ng-repeat="user in list")
-                              td.sorting_1 {{user.username}}
-                              td.center {{user.birthdate_show}}
-                              td.center {{user.mobiphone}}
-                              td.center
-                                 span.label.label-success Active
-                              td.center
-                                 a.btn.btn-success(href='#')
-                                    i.halflings-icon.white.zoom-in
-                                 a.btn.btn-info(href='#')(ng-click="openEdit('lg',user)")
-                                    i.halflings-icon.white.edit
-                                 a.btn.btn-danger(ng-click="openDelete('lg',user)")
-                                    i.halflings-icon.white.trash
-            .row-fluid.sortable.ui-sortable(ng-controller="controlUser")
-               .box.span12
-                  .box-header(data-original-title='')
-                     h2
-                        i.halflings-icon.white.edit
-                        span.break
-                        | Thêm người dùng
-                     .box-icon
-                        a.btn-setting(href='#')
-                           i.halflings-icon.white.wrench
-                        a.btn-minimize(href='#')
-                           i.halflings-icon.white.chevron-up
-                        a.btn-close(href='#')
-                           i.halflings-icon.white.remove
-                  .box-content
-                     form.form-horizontal
-                        fieldset
-                           .control-group
-                              label.control-label(for='username') Tài khoản
-                              .controls
-                                 input#username.input-xlarge.focused(type='text', placeholder="Tài khoản...",ng-model="form.username")
-                           .control-group
-                              label.control-label(for='fullname') Họ tên
-                              .controls
-                                 input#fullname.input-xlarge(type='text',placeholder="Họ tên...",ng-model="form.fullname")
-                           .control-group
-                              label.control-label(for='birthdate') Ngày sinh
-                              .controls
-                                 input#birthdate.input-xlarge(type='date',placeholder="Ngày sinh...",ng-model="form.birthdate")
-                           .control-group
-                              label.control-label(for='password') Mật khẩu
-                              .controls
-                                 input#password.input-xlarge(type='password',ng-model="form.password")
-                           .control-group
-                              label.control-label(for='address') Địa chỉ
-                              .controls
-                                 input#address.input-xlarge(type='text',placeholder="Địa chỉ...",ng-model="form.address")
-                           .control-group
-                              label.control-label(for='email') Email
-                              .controls
-                                 input#email.input-xlarge(type='email',placeholder="Email...",ng-model="form.email")
-                           .control-group
-                              label.control-label(for='identitycard') Số CMTND
-                              .controls
-                                 input#identitycard.input-xlarge(type='text',placeholder="0123456...",ng-model="form.identity")
-                           .control-group
-                              label.control-label(for='phonenumber') Số điện thoại
-                              .controls
-                                 input#phonenumber.input-xlarge(type='text',placeholder="0123456789...",ng-model="form.phone")
-                           .control-group
-                              label.control-label(for='sex') Giới tính
-                              .controls
-                                 select#sex(ng-model="form.sex")
-                                    option(value=1) Nam
-                                    option(value=0) Nữ
-                           .control-group
-                              |{{rp}}
-                           .form-actions
-                              button.btn.btn-primary(type='submit',ng-click="add()") Thêm
-                              button.btn(ng-click="reset()") Làm lại
-            script.
-               var app=angular.module('accounting',['datatables','datatables.bootstrap','ui.bootstrap']);
-               app.controller('getList',function($scope,$http,$modal){
-                  //get user list
-                  $scope.listUser=function () {
-                  $http.get('/manager/user/list')
-                     .success(function(data){
-                        if(data.type == 'success'){
-                           var content=data.content;
-                           content.forEach(function(val){
-                              var now=new Date(val.birthdate);
-                              val.birthdate=now;
-                              val.birthdate_show=now.toLocaleDateString();
-                           })
-                           $scope.list=content;
-                        }
-                        else{
-
-                        }
-                     })
-                     .error(function(data){
-                        console.log(data);
-                     })
-                  };
-                  //run
-                  $scope.listUser();
-               });
-               // /span
-         // /.fluid-container
-         // end: Content
-      // /#content.span10
-   // /fluid-row
-   #myModal.modal.hide.fade
-      .modal-header
-         button.close(type='button', data-dismiss='modal') ×
-         h3 Settings
-      .modal-body
-         p Here settings can be configured...
-      .modal-footer
-         a.btn(href='#', data-dismiss='modal') Close
-         a.btn.btn-primary(href='#') Save changes
-   #common-Modal1.common-modal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
-      .modal-content
-         ul.list-inline.item-details
-            li
-               a(href='http://themifycloud.com') Admin templates
-            li
-               a(href='http://themescloud.org') Bootstrap themes
-   .clearfix
-   footer
-      p
-         span(style='text-align:left;float:left')
-            | © 2015
-            a ABCKitChen Dashboard
+    // start: Header
+    .container-fluid-full(ng-app="User")
+        .row-fluid
+            // start: Main Menu
+            #sidebar-left.span2
+                .nav-collapse.sidebar-nav
+                    ul.nav.nav-tabs.nav-stacked.main-menu
+                        li
+                            a(href='/manager')
+                                i.icon-dashboard
+                                span.hidden-tablet  Dashboard
+                        li
+                            a(href='/manager/user')
+                                i.icon-edit
+                                span.hidden-tablet  Quản lí người dùng
+                        li
+                            a(href='/manager/menu')
+                                i.icon-tasks
+                                span.hidden-tablet  Quản lí thực đơn
+                        li
+                            a(href='/manager/track')
+                                i.icon-eye-open
+                                span.hidden-tablet  Theo dõi người dùng
+                        li
+                            a(href='/manager/statistic')
+                                i.icon-bar-chart
+                                span.hidden-tablet  Thống kê đăng ký ăn
+                        li
+                            a(href='/manager/calculate')
+                                i.icon-shopping-cart
+                                span.hidden-tablet  Tính phí
+                        li
+                            a(href='/manager/accounting')
+                                i.icon-calendar
+                                span.hidden-tablet  Kế toán
+            // end: Main Menu
+            noscript
+                .alert.alert-block.span10
+                    h4.alert-heading Warning!
+                    p
+                        | You need to have
+                        a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
+                        |  enabled to use this site.
+            // start: Content
+            #content.span10
+                ul.breadcrumb
+                    li
+                        i.icon-home
+                        a(href='/manager') Home
+                        i.icon-angle-right
+                    li
+                        a(href='/manager/user') User
+                .row-fluid.sortable( ng-controller="getList")
+                    .box.span12
+                        .box-header(data-original-title='')
+                            h2
+                                i.halflings-icon.white.user
+                                span.break
+                                | Người dùng
+                            .box-icon
+                                a.btn-setting(href='#')
+                                    i.halflings-icon.white.wrench
+                                a.btn-minimize(href='#')
+                                    i.halflings-icon.white.chevron-up
+                                a.btn-close(href='#')
+                                    i.halflings-icon.white.remove
+                        .box-content
+                            table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
+                                thead
+                                    tr
+                                        th Tài khoản
+                                        th Ngày sinh
+                                        th Số điện thoại
+                                        th Trạng thái
+                                        th Thao tác
+                                tbody
+                                    tr(ng-repeat="user in list")
+                                        td.sorting_1 {{user.username}}
+                                        td.center {{user.birthdate_show}}
+                                        td.center {{user.mobiphone}}
+                                        td.center
+                                            span.label.label-success Active
+                                        td.center
+                                            a.btn.btn-success(href='#')
+                                                i.halflings-icon.white.zoom-in
+                                            a.btn.btn-info(href='#')(ng-click="openEdit('lg',user)")
+                                                i.halflings-icon.white.edit
+                                            a.btn.btn-danger(ng-click="openDelete('lg',user)")
+                                                i.halflings-icon.white.trash
+                    // /span
+                script.
+                   var app = angular.module('User', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
+                   app.controller('getList', function ($scope, $http, $modal) {
+                      //get user list
+                      $scope.listUser = function () {
+                         $http.get('/manager/user/list')
+                                 .success(function (data) {
+                                    if (data.type == 'success') {
+                                       var content = data.content;
+                                       content.forEach(function (val) {
+                                          var now = new Date(val.birthdate);
+                                          val.birthdate = now;
+                                          val.birthdate_show = now.toLocaleDateString();
+                                       })
+                                       $scope.list = content;
+                                    }
+                                    else {
+                                    }
+                                 })
+                                 .error(function (data) {
+                                    console.log(data);
+                                 })
+                      };
+                      //run
+                      $scope.listUser();
+                      //response to screen
+                      $scope.Response = function (size, content) {
+                         var modalInstance = $modal.open({
+                            templateUrl: 'response',
+                            controller: 'Response',
+                            size: size,
+                            resolve: {
+                               content: function () {
+                                  return content;
+                               }
+                            }
+                         });
+                      };
+                      //delete user
+                      $scope.openDelete = function (size, data) {
+                         var modalInstance = $modal.open({
+                            templateUrl: 'delete',
+                            controller: 'DeleteModalInstanceCtrl',
+                            size: size,
+                            resolve: {
+                               ans: function () {
+                                  return data;
+                               }
+                            }
+                         });
+                         modalInstance.result.then(function (data) {
+                            $http.delete('/manager/user/delete/' + data)
+                                    .success(function (response) {
+                                       $scope.Response('lg', response.content);
+                                       $scope.listUser();
+                                    }).error(function (response) {
+                                       console.log(response);
+                                    })
+                         }, function () {
+                         });
+                      };
+                      $scope.openEdit = function (size, data) {
+                         var modalInstance = $modal.open({
+                            templateUrl: 'edit',
+                            controller: 'EditModalInstanceCtrl',
+                            size: size,
+                            resolve: {
+                               items: function () {
+                                  return data;
+                               }
+                            }
+                         });
+                         modalInstance.result.then(function (data) {
+                            $http.put('/manager/user/update', data)
+                                    .success(function (response) {
+                                       $scope.listUser();
+                                       $scope.Response('lg', response.content);
+                                    }).error(function (response) {
+                                       console.log(response);
+                                    })
+                         }, function () {
+                         });
+                      };
+                   });
+                   app.controller('DeleteModalInstanceCtrl', function ($scope, $modalInstance, ans) {
+                      $scope.user = ans.username;
+                      $scope.ok = function () {
+                         var data = ans;
+                         $modalInstance.close(data.username);
+                      };
+                      $scope.cancel = function () {
+                         $modalInstance.dismiss('cancel');
+                      };
+                   });
+                   app.controller('Response', function ($scope, $modalInstance, content) {
+                      $scope.content = content;
+                      $scope.ok = function () {
+                         $modalInstance.close();
+                      };
+                   });
+                   app.controller('controlUser', function ($scope, $http) {
+                      $scope.add = function () {
+                         $http.post('/manager/user/new', $scope.form)
+                                 .success(function (data) {
+                                    $scope.rp = data.content;
+                                 })
+                                 .error(function (data) {
+                                    console.log(data);
+                                 })
+                      }
+                      $scope.reset = function () {
+                         $scope.form = angular.copy({});
+                      }
+                   });
+                   app.controller('EditModalInstanceCtrl', function ($scope, $modalInstance, items) {
+                      $scope.form = items;
+                      $scope.ok = function () {
+                         $modalInstance.close($scope.form);
+                      };
+                      $scope.cancel = function () {
+                         $modalInstance.dismiss('cancel');
+                      };
+                   });
+                script(type='text/ng-template', id='delete').
+                    <div class="modal-header">
+                    <h3 class="modal-title">Thông báo</h3>
+                    </div>
+                    <div class="modal-body">
+                    <h3>Bạn có chắc chắn xóa tài khoản:<span style="color:red"> {{user}}</span>?</h3>
+                    </div>
+                    <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="ok()">Xóa</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Quay Lại</button>
+                    </div>
+                script(type='text/ng-template', id='response').
+                    <div class="modal-header">
+                    <h3 class="modal-title">Thông báo</h3>
+                    </div>
+                    <div class="modal-body">
+                    <h3>{{content}}</h3>
+                    </div>
+                    <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                    </div>
+                script(type='text/ng-template', id='edit').
+                    <div class="modal-header">
+                    <h3 class="modal-title">Chỉnh sửa thông tin</h3>
+                    </div>
+                    <div class="modal-body">
+                    <form class="form-horizontal">
+                    <fieldset>
+                    <div class="control-group">
+                    <label for="username" class="control-label">Tài khoản</label>
+                    <div class="controls">
+                    <input id="username" type="text" placeholder="Tài khoản..." ng-model="form.username" class="input-xlarge focused"/>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label for="fullname" class="control-label">Họ tên</label>
+                    <div class="controls">
+                    <input id="fullname" type="text" placeholder="Họ tên..." ng-model="form.fullname" class="input-xlarge"/>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label for="birthdate" class="control-label">Ngày sinh</label>
+                    <div class="controls">
+                    <input id="birthdate" type="date" placeholder="Ngày sinh..." ng-model="form.birthdate" class="input-xlarge"/>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label for="password" class="control-label">Mật khẩu</label>
+                    <div class="controls">
+                    <input id="password" type="password" ng-model="form.change_password" class="input-xlarge"/>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label for="address" class="control-label">Địa chỉ</label>
+                    <div class="controls">
+                    <input id="address" type="text" placeholder="Địa chỉ..." ng-model="form.address" class="input-xlarge"/>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label for="email" class="control-label">Email</label>
+                    <div class="controls">
+                    <input id="email" type="email" placeholder="Email..." ng-model="form.email" class="input-xlarge"/>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label for="identitycard" class="control-label">Số CMTND</label>
+                    <div class="controls">
+                    <input id="identitycard" type="text" placeholder="0123456..." ng-model="form.identitycard" class="input-xlarge"/>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label for="phonenumber" class="control-label">Số điện thoại</label>
+                    <div class="controls">
+                    <input id="phonenumber" type="text" placeholder="0123456789..." ng-model="form.mobiphone" class="input-xlarge"/>
+                    </div>
+                    </div>
+                    <div class="control-group">
+                    <label for="sex" class="control-label">Giới tính</label>
+                    <div class="controls">
+                    <select id="sex" ng-model="form.gender">
+                    <option value="1">Nam</option>
+                    <option value="0">Nữ</option>
+                    </select>
+                    </div>
+                    </div>
+                    <div class="control-group">{{rp}}</div>
+                    </fieldset>
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="ok()">Xác Nhận</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Quay Lại</button>
+                    </div>
+                .row-fluid.sortable.ui-sortable(ng-controller="controlUser")
+                    .box.span12
+                        .box-header(data-original-title='')
+                            h2
+                                i.halflings-icon.white.edit
+                                span.break
+                                | Thêm người dùng
+                            .box-icon
+                                a.btn-setting(href='#')
+                                    i.halflings-icon.white.wrench
+                                a.btn-minimize(href='#')
+                                    i.halflings-icon.white.chevron-up
+                                a.btn-close(href='#')
+                                    i.halflings-icon.white.remove
+                        .box-content
+                            form.form-horizontal
+                                fieldset
+                                    .control-group
+                                        label.control-label(for='username') Tài khoản
+                                        .controls
+                                            input#username.input-xlarge.focused(type='text', placeholder="Tài khoản...",ng-model="form.username")
+                                    .control-group
+                                        label.control-label(for='fullname') Họ tên
+                                        .controls
+                                            input#fullname.input-xlarge(type='text',placeholder="Họ tên...",ng-model="form.fullname")
+                                    .control-group
+                                        label.control-label(for='birthdate') Ngày sinh
+                                        .controls
+                                            input#birthdate.input-xlarge(type='date',placeholder="Ngày sinh...",ng-model="form.birthdate")
+                                    .control-group
+                                        label.control-label(for='password') Mật khẩu
+                                        .controls
+                                            input#password.input-xlarge(type='password',ng-model="form.password")
+                                    .control-group
+                                        label.control-label(for='address') Địa chỉ
+                                        .controls
+                                            input#address.input-xlarge(type='text',placeholder="Địa chỉ...",ng-model="form.address")
+                                    .control-group
+                                        label.control-label(for='email') Email
+                                        .controls
+                                            input#email.input-xlarge(type='email',placeholder="Email...",ng-model="form.email")
+                                    .control-group
+                                        label.control-label(for='identitycard') Số CMTND
+                                        .controls
+                                            input#identitycard.input-xlarge(type='text',placeholder="0123456...",ng-model="form.identity")
+                                    .control-group
+                                        label.control-label(for='phonenumber') Số điện thoại
+                                        .controls
+                                            input#phonenumber.input-xlarge(type='text',placeholder="0123456789...",ng-model="form.phone")
+                                    .control-group
+                                        label.control-label(for='sex') Giới tính
+                                        .controls
+                                            select#sex(ng-model="form.sex")
+                                                option(value=1) Nam
+                                                option(value=0) Nữ
+                                    .control-group
+                                        | {{rp}}
+                                    .form-actions
+                                        button.btn.btn-primary(type='submit',ng-click="add()") Thêm
+                                        button.btn(ng-click="reset()") Làm lại
+                    // /span
+        // /.fluid-container
+          // end: Content
+        // /#content.span10
+    // /fluid-row
+    #myModal.modal.hide.fade
+        .modal-header
+            button.close(type='button', data-dismiss='modal') ×
+            h3 Settings
+        .modal-body
+            p Here settings can be configured...
+        .modal-footer
+            a.btn(href='#', data-dismiss='modal') Close
+            a.btn.btn-primary(href='#') Save changes
+    .clearfix
+    footer
+        p
+            span(style='text-align:left;float:left')
+                | © 2015
+                a ABCKitChen Dashboard
+                                                          
