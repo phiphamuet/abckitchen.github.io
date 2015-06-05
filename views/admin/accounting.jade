@@ -1,7 +1,7 @@
 extends layout
 block content
     // start: Header
-    .container-fluid-full(ng-app="User")
+    .container-fluid-full(ng-app="accounting")
         .row-fluid
             // start: Main Menu
             #sidebar-left.span2
@@ -51,14 +51,14 @@ block content
                         a(href='/manager') Home
                         i.icon-angle-right
                     li
-                        a(href='/manager/user') User
+                        a(href='/manager/accounting') Kế Toán
                 .row-fluid.sortable( ng-controller="getList")
                     .box.span12
                         .box-header(data-original-title='')
                             h2
                                 i.halflings-icon.white.user
                                 span.break
-                                | Người dùng
+                                | Danh sách thực phẩm
                             .box-icon
                                 a.btn-setting(href='#')
                                     i.halflings-icon.white.wrench
@@ -70,51 +70,51 @@ block content
                             table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
                                 thead
                                     tr
-                                        th Tài khoản
-                                        th Ngày sinh
-                                        th Số điện thoại
-                                        th Trạng thái
+                                        th Thực phẩm
+                                        th Số lượng
+                                        th Đơn giá
+                                        th Thành tiền
                                         th Thao tác
                                 tbody
-                                    tr(ng-repeat="user in list")
-                                        td.sorting_1 {{user.username}}
-                                        td.center {{user.birthdate_show}}
-                                        td.center {{user.mobiphone}}
-                                        td.center
-                                            span.label.label-success Active
+                                    tr(ng-repeat="food in list")
+                                        td.sorting_1 {{food.thuc_pham}}
+                                        td.center {{food.so_luong}}
+                                        td.center {{food.don_gia}}
+                                        td.center {{food.so_luong*food.don_gia}}
                                         td.center
                                             a.btn.btn-success(href='#')
                                                 i.halflings-icon.white.zoom-in
-                                            a.btn.btn-info(href='#')(ng-click="openEdit('lg',user)")
+                                            a.btn.btn-info(href='#')(ng-click="openEdit('lg',food)")
                                                 i.halflings-icon.white.edit
-                                            a.btn.btn-danger(ng-click="openDelete('lg',user)")
+                                            a.btn.btn-danger(ng-click="openDelete('lg',food)")
                                                 i.halflings-icon.white.trash
                     // /span
                 script.
-                   var app = angular.module('User', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
+                   var app = angular.module('accounting', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
                    app.controller('getList', function ($scope, $http, $modal) {
                       //get user list
-                      $scope.listUser = function () {
-                         $http.get('/manager/user/list')
-                                 .success(function (data) {
-                                    if (data.type == 'success') {
-                                       var content = data.content;
-                                       content.forEach(function (val) {
-                                          var now = new Date(val.birthdate);
-                                          val.birthdate = now;
-                                          val.birthdate_show = now.toLocaleDateString();
-                                       })
-                                       $scope.list = content;
-                                    }
-                                    else {
-                                    }
-                                 })
-                                 .error(function (data) {
-                                    console.log(data);
-                                 })
+                      $scope.list={
+                         date: new Date()
+                      };
+                      $scope.listFood = function (date) {
+                         var day=date.getDate();
+                         var month=date.getMonth()+1;
+                         var year=date.getFullYear();
+                         $http.get('/manager/accounting/list?day='+day+'&month='+month+'&year='+year)
+                              .success(function (data) {
+                                 if (data.type == 'success') {
+                                    var content = data.content;
+                                    $scope.list = content;
+                                 }
+                                 else {
+                                 }
+                              })
+                              .error(function (data) {
+                                 console.log(data);
+                              })
                       };
                       //run
-                      $scope.listUser();
+                      $scope.listFood($scope.list.date);
                       //response to screen
                       $scope.Response = function (size, content) {
                          var modalInstance = $modal.open({
@@ -144,7 +144,7 @@ block content
                             $http.delete('/manager/user/delete/' + data)
                                     .success(function (response) {
                                        $scope.Response('lg', response.content);
-                                       $scope.listUser();
+                                       $scope.listFood();
                                     }).error(function (response) {
                                        console.log(response);
                                     })
@@ -165,7 +165,7 @@ block content
                          modalInstance.result.then(function (data) {
                             $http.put('/manager/user/update', data)
                                     .success(function (response) {
-                                       $scope.listUser();
+                                       $scope.listFood();
                                        $scope.Response('lg', response.content);
                                     }).error(function (response) {
                                        console.log(response);
@@ -175,10 +175,10 @@ block content
                       };
                    });
                    app.controller('DeleteModalInstanceCtrl', function ($scope, $modalInstance, ans) {
-                      $scope.user = ans.username;
+                      $scope.food = ans.thuc_pham;
                       $scope.ok = function () {
                          var data = ans;
-                         $modalInstance.close(data.username);
+                         $modalInstance.close(data);
                       };
                       $scope.cancel = function () {
                          $modalInstance.dismiss('cancel');
@@ -190,7 +190,7 @@ block content
                          $modalInstance.close();
                       };
                    });
-                   app.controller('controlUser', function ($scope, $http) {
+                   app.controller('controlFood', function ($scope, $http) {
                       $scope.add = function () {
                          $http.post('/manager/user/new', $scope.form)
                                  .success(function (data) {
@@ -218,7 +218,7 @@ block content
                     <h3 class="modal-title">Thông báo</h3>
                     </div>
                     <div class="modal-body">
-                    <h3>Bạn có chắc chắn xóa tài khoản:<span style="color:red"> {{user}}</span>?</h3>
+                    <h3>Bạn có chắc chắn xóa thực phẩm:<span style="color:red"> {{food}}</span>?</h3>
                     </div>
                     <div class="modal-footer">
                     <button class="btn btn-primary" ng-click="ok()">Xóa</button>
@@ -242,60 +242,27 @@ block content
                     <form class="form-horizontal">
                     <fieldset>
                     <div class="control-group">
-                    <label for="username" class="control-label">Tài khoản</label>
+                    <label for="foodname" class="control-label">Thực phẩm</label>
                     <div class="controls">
-                    <input id="username" type="text" placeholder="Tài khoản..." ng-model="form.username" class="input-xlarge focused"/>
+                    <input id="foodname" type="text" placeholder="Thực phẩm..." ng-model="form.thuc_pham" class="input-xlarge focused"/>
                     </div>
                     </div>
                     <div class="control-group">
-                    <label for="fullname" class="control-label">Họ tên</label>
+                    <label for="number" class="control-label">Số lượng</label>
                     <div class="controls">
-                    <input id="fullname" type="text" placeholder="Họ tên..." ng-model="form.fullname" class="input-xlarge"/>
+                    <input id="number" type="text" placeholder="Số lượng..." ng-model="form.so_luong" class="input-xlarge"/>
                     </div>
                     </div>
                     <div class="control-group">
-                    <label for="birthdate" class="control-label">Ngày sinh</label>
+                    <label for="price" class="control-label">Đơn giá</label>
                     <div class="controls">
-                    <input id="birthdate" type="date" placeholder="Ngày sinh..." ng-model="form.birthdate" class="input-xlarge"/>
+                    <input id="price" type="number" ng-model="form.don_gia" class="input-xlarge"/>
                     </div>
                     </div>
                     <div class="control-group">
-                    <label for="password" class="control-label">Mật khẩu</label>
+                    <label for="date" class="control-label">Ngày</label>
                     <div class="controls">
-                    <input id="password" type="password" ng-model="form.change_password" class="input-xlarge"/>
-                    </div>
-                    </div>
-                    <div class="control-group">
-                    <label for="address" class="control-label">Địa chỉ</label>
-                    <div class="controls">
-                    <input id="address" type="text" placeholder="Địa chỉ..." ng-model="form.address" class="input-xlarge"/>
-                    </div>
-                    </div>
-                    <div class="control-group">
-                    <label for="email" class="control-label">Email</label>
-                    <div class="controls">
-                    <input id="email" type="email" placeholder="Email..." ng-model="form.email" class="input-xlarge"/>
-                    </div>
-                    </div>
-                    <div class="control-group">
-                    <label for="identitycard" class="control-label">Số CMTND</label>
-                    <div class="controls">
-                    <input id="identitycard" type="text" placeholder="0123456..." ng-model="form.identitycard" class="input-xlarge"/>
-                    </div>
-                    </div>
-                    <div class="control-group">
-                    <label for="phonenumber" class="control-label">Số điện thoại</label>
-                    <div class="controls">
-                    <input id="phonenumber" type="text" placeholder="0123456789..." ng-model="form.mobiphone" class="input-xlarge"/>
-                    </div>
-                    </div>
-                    <div class="control-group">
-                    <label for="sex" class="control-label">Giới tính</label>
-                    <div class="controls">
-                    <select id="sex" ng-model="form.gender">
-                    <option value="1">Nam</option>
-                    <option value="0">Nữ</option>
-                    </select>
+                    <input id="date" type="date" ng-model="form.ngay" class="input-xlarge"/>
                     </div>
                     </div>
                     <div class="control-group">{{rp}}</div>
@@ -306,13 +273,13 @@ block content
                     <button class="btn btn-primary" ng-click="ok()">Xác Nhận</button>
                     <button class="btn btn-warning" ng-click="cancel()">Quay Lại</button>
                     </div>
-                .row-fluid.sortable.ui-sortable(ng-controller="controlUser")
+                .row-fluid.sortable.ui-sortable(ng-controller="controlFood")
                     .box.span12
                         .box-header(data-original-title='')
                             h2
                                 i.halflings-icon.white.edit
                                 span.break
-                                | Thêm người dùng
+                                | Thêm thực phẩm
                             .box-icon
                                 a.btn-setting(href='#')
                                     i.halflings-icon.white.wrench
@@ -324,43 +291,21 @@ block content
                             form.form-horizontal
                                 fieldset
                                     .control-group
-                                        label.control-label(for='username') Tài khoản
+                                        label.control-label(for='foodname') Thực phẩm
                                         .controls
-                                            input#username.input-xlarge.focused(type='text', placeholder="Tài khoản...",ng-model="form.username")
+                                            input#foodname.input-xlarge.focused(type='text', placeholder="Thực phẩm...",ng-model="form.thuc_pham")
                                     .control-group
-                                        label.control-label(for='fullname') Họ tên
+                                        label.control-label(for='number') Số lượng
                                         .controls
-                                            input#fullname.input-xlarge(type='text',placeholder="Họ tên...",ng-model="form.fullname")
+                                            input#number.input-xlarge(type='text',placeholder="Số lượng...",ng-model="form.so_luong")
                                     .control-group
-                                        label.control-label(for='birthdate') Ngày sinh
+                                        label.control-label(for='price') Đơn giá
                                         .controls
-                                            input#birthdate.input-xlarge(type='date',placeholder="Ngày sinh...",ng-model="form.birthdate")
+                                           input#price.input-xlarge(type='number',ng-model="form.don_gia")
                                     .control-group
-                                        label.control-label(for='password') Mật khẩu
+                                        label.control-label(for='date') Ngày
                                         .controls
-                                            input#password.input-xlarge(type='password',ng-model="form.password")
-                                    .control-group
-                                        label.control-label(for='address') Địa chỉ
-                                        .controls
-                                            input#address.input-xlarge(type='text',placeholder="Địa chỉ...",ng-model="form.address")
-                                    .control-group
-                                        label.control-label(for='email') Email
-                                        .controls
-                                            input#email.input-xlarge(type='email',placeholder="Email...",ng-model="form.email")
-                                    .control-group
-                                        label.control-label(for='identitycard') Số CMTND
-                                        .controls
-                                            input#identitycard.input-xlarge(type='text',placeholder="0123456...",ng-model="form.identity")
-                                    .control-group
-                                        label.control-label(for='phonenumber') Số điện thoại
-                                        .controls
-                                            input#phonenumber.input-xlarge(type='text',placeholder="0123456789...",ng-model="form.phone")
-                                    .control-group
-                                        label.control-label(for='sex') Giới tính
-                                        .controls
-                                            select#sex(ng-model="form.sex")
-                                                option(value=1) Nam
-                                                option(value=0) Nữ
+                                           input#date.input-xlarge(type='date',ng-model="form.ngay")
                                     .control-group
                                         | {{rp}}
                                     .form-actions
