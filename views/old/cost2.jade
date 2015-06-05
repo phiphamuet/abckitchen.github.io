@@ -1,0 +1,59 @@
+//
+   Created by PHI on 6/6/2015.
+extends ../layout
+block content
+   // news
+   .news
+      .container
+         .menu-title
+            h3 Tin m?i nh?t
+            br
+   //
+   .footer
+      .container
+         .col-md-3.footer-left
+            ul
+               li ABC KitChen
+               li Ð?i di?n kí túc xá Ngo?i Ng?
+               li 136 Xuân Th?y, D?ch V?ng H?u, C?u Gi?y, Hà N?i ?
+               li 04 xx xx xx xx
+         .col-md-3.footer-left
+            ul
+               li ABC KitChen 2
+               li Ð?i di?n kí túc xá Ngo?i Ng?
+               li 136 Xuân Th?y, D?ch V?ng H?u, C?u Gi?y, Hà N?i ?
+               li 04 xx xx xx xx
+         .col-md-3.footer-left
+            ul
+               li
+                  a(href='#') Tin t?c
+               li
+                  a(href='#') Tuy?n d?ng
+               li
+                  a(href='#') Quy ð?nh
+               li
+                  a(href='contact') Liên h?
+         .col-md-3.footer-right
+            a(href='index')
+               img(src='images/footer-logo.png', alt='logo')
+            p
+               | © 2015 All rights reserved | Thi?t k? b?i
+               a(href='http://failedteam.com/')  FailedTeam
+         .clearfix
+   // //footer
+   // smooth-scrolling-of-move-up
+   script(type='text/javascript').
+      $(document).ready(function () {
+         /*
+          var defaults = {
+          containerID: 'toTop', // fading element id
+          containerHoverID: 'toTopHover', // fading element hover id
+          scrollSpeed: 1200,
+          easingType: 'linear'
+          };
+          */
+         $().UItoTop({easingType: 'easeOutQuart'});
+      });
+   a#toTop(href='#', style='display: block;')
+      span#toTopHover(style='opacity: 1;')
+   // //smooth-scrolling-of-move-up

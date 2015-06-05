@@ -73,8 +73,8 @@ html
                   //   a(href='reservations')
                   //      span(data-hover='Reservations') Reservations
                   li
-                     a(href='news')
-                        span(data-hover='Tin tức') Tin tức
+                     a(href='cost')
+                        span(data-hover='Chi phí') Chi phí
                   li
                      a(href='logout')
                         span(data-hover='Đăng xuất')  Đăng xuất
@@ -189,15 +189,24 @@ html
                      //   }
                      // });
                      });
+
                .col-md-6.reservation-right
-                  center
+                  .menu-title
                      //h3 Xin chào #{username}!
-                  input#date(type="date",ng-model="date",ng-change="update()")
+                     h3 ngày
+                     br
+                     input#date(type="date",ng-model="date",ng-change="update()")
                .col-md-6.reservation-right
                   center
+                     br
                      h3 {{rp}}
+                     br
                      input.btn.btn-primary(type="submit", value="Đăng ký", ng-hide="reg", ng-click="doreg()")
                      input.btn.btn-primary(type="submit", value="Hủy đăng ký",ng-hide="!reg", ng-click="unReg()")
+               .clearfix
+            .menu-title
+               h3 Thực đơn
+            .news-info
                .col-md-12#menu
                script.
                   var date=new Date();
@@ -246,9 +255,9 @@ html
                                    $scope.menu=data.content.menu;
                                    angular.element(document.querySelector('#menu')).children().remove();
                                    $scope.menu.forEach(function(val){
-                                      var string="<div class='col-md-4'><center> <h3>"+val.ten_mon+"</h3></center>" +
+                                      var string="<div class='col-md-4'><center> <h3>"+val.ten_mon+"</h3>" +
                                               "<img width='300px' height='300px' src='/images/img_data/"+val.hinh+"'>" +
-                                              "<center><h3>"+val.don_gia+"</h3></center></div>";
+                                              "<h3>"+val.don_gia+"</h3></center></div>";
                                       angular.element(document.querySelector('#menu')).append(string);
                                    })
                              }).error(function(data){
