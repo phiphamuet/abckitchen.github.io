@@ -71,58 +71,76 @@ block content
                            i.halflings-icon.white.remove
                   .box-content
                      table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
-                        input.btn.btn-primary(type="date",ng-model="date",ng-change="")
-                        | {{date}}
+                        p Chọn tháng
+                           input.btn.btn-primary(type="date",ng-model="list.date",ng-change="get()")
                         thead
                            tr
+                              th Mã tài khoản
                               th Tài khoản
                               th Họ tên
                               th Ngày sinh
                               th Chi phí
                               th Đóng phí tháng này
                         tbody
-                           tr(ng-repeat="user in list")
+                           tr(ng-repeat="user in list.content")
+                              td.center {{user.id}}
                               td.sorting_1 {{user.username}}
                               td.center {{user.fullname}}
                               td.center {{user.birthdate_show}}
                               td.center {{user.amount}}
                               td.center
                                  input(type="checkbox", class="special",ng-model="user.paid", style="opacity:1; background-image: none;")
-                                 | {{user.paid}}
                      input.btn.btn-primary(type="submit", value="Đồng bộ", ng-click="sync()")
             script.
                var app = angular.module('calculate', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
                app.controller('getList', function ($scope, $http, $modal) {
                   //get user list
+                  $scope.list={
+                     date: new Date()
+                  };
                   var date=new Date();
                   var month= date.getMonth()+1;
                   var year=date.getFullYear();
-                  $scope.listUser = function () {
+                  $scope.listUser = function (month,year) {
                      $http.get('/manager/calculate/list?month='+month+'&year='+year)
-                             .success(function (data) {
-                                if (data.type == 'success') {
-                                   var content = data.content;
-                                   content.forEach(function (val) {
-                                      var now = new Date(val.birthdate);
-                                      val.birthdate = now;
-                                      val.birthdate_show = now.toLocaleDateString();
-                                      if(val.paid){
-                                         val.paid=true;
-                                      }else{
-                                         val.paid=false;
-                                      }
-                                   })
-                                   $scope.list = content;
-                                }
-                                else {
-                                }
-                             })
-                             .error(function (data) {
-                                console.log(data);
-                             })
+                          .success(function (data) {
+                             if (data.type == 'success') {
+                                data.content.forEach(function (val) {
+                                   var now = new Date(val.birthdate);
+                                   val.birthdate = now;
+                                   val.birthdate_show = now.toLocaleDateString();
+                                   if(val.paid){
+                                      val.paid=false;
+                                   }else{
+                                      val.paid=true;
+                                   }
+                                })
+                                $scope.list.content = data.content;
+                             }
+                             else {
+                             }
+                          })
+                          .error(function (data) {
+                             console.log(data);
+                          })
                   };
+                  $scope.listUser(month,year);
+                  $scope.get=function(){
+                     if($scope.list.date==null) $scope.list.date=new Date();
+                     var month=$scope.list.date.getMonth()+1;
+                     var year=$scope.list.date.getFullYear();
+                     $scope.listUser(month,year);
+                  }
+                  $scope.sync=function(){
+                     $http.post('/manager/calculate/sync',$scope.list)
+                     .success(function(data){
+                        alert(data.content);
+                     })
+                     .error(function(data){
+                        console.log(data);
+                     });
+                  }
                   //run
-                  $scope.listUser();
                });
 
                // /span

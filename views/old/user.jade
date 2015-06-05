@@ -61,7 +61,10 @@ html
                   img(src='images/menu-icon.png', alt='')
                ul.nav1.cl-effect-5
                   li
-                     a.active(href='index')
+                     a.active(href=userlink)
+                        span(data-hover=user)  #{user}
+                  li
+                     a(href='index')
                         span(data-hover='Trang chủ') Trang chủ
                   li
                      a(href='menu')
@@ -94,7 +97,7 @@ html
             .reservation-form
                .col-md-6.reservation-right
                   center
-                     h3 Hello #{user}
+                     h3 Hello #{username}
                   link(rel="stylesheet" href="css/clndr.css")
                   //#full-clndr
                   #mini-clndr

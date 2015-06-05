@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
   if(!req.session.username){
     res.render('old/news',{link:'login',req:'Đăng nhập'});
   }else{
-    res.render('old/news',{link:'logout',req:'Đăng xuất'});
+    res.render('old/news',{link:'logout',req:'Đăng xuất',userlink:'user',user:'Cá nhân'});
   }
 });
 //router.get('/lazyload', function(req, res, next) {
