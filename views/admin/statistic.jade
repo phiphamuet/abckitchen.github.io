@@ -51,150 +51,94 @@ block content
                      a(href='http://en.wikipedia.org/wiki/JavaScript', target='_blank') JavaScript
                      |  enabled to use this site.
             // start: Content
-            #content.span10
+            #content.span10(ng-app="statistic",ng-controller="real")
                ul.breadcrumb
                   li
                      i.icon-home
                      a(href='/manager') Home
                      i.icon-angle-right
                   li
-                     a(href='#') Charts
-               .row-fluid
-                  .box
-                     .box-header
-                        h2
-                           i.halflings-icon.white.list-alt
-                           span.break
-                           | Chart with points
-                        .box-icon
-                           a.btn-setting(href='#')
-                              i.halflings-icon.white.wrench
-                           a.btn-minimize(href='#')
-                              i.halflings-icon.white.chevron-up
-                           a.btn-close(href='#')
-                              i.halflings-icon.white.remove
-                     .box-content
-                        #sincos.center(style='height:300px;')
-                        p#hoverdata
-                           | Mouse position at (
-                           span#x 0
-                           | ,
-                           span#y 0
-                           | ).
-                           span#clickdata
-                  .box
-                     .box-header
-                        h2
-                           i.halflings-icon.white.list-alt
-                           span.break
-                           | Flot
-                        .box-icon
-                           a.btn-setting(href='#')
-                              i.halflings-icon.white.wrench
-                           a.btn-minimize(href='#')
-                              i.halflings-icon.white.chevron-up
-                           a.btn-close(href='#')
-                              i.halflings-icon.white.remove
-                     .box-content
-                        #flotchart.center(style='height:300px')
-                  .box
-                     .box-header
-                        h2
-                           i.halflings-icon.white.list-alt
-                           span.break
-                           | Stack Example
-                        .box-icon
-                           a.btn-setting(href='#')
-                              i.halflings-icon.white.wrench
-                           a.btn-minimize(href='#')
-                              i.halflings-icon.white.chevron-up
-                           a.btn-close(href='#')
-                              i.halflings-icon.white.remove
-                     .box-content
-                        #stackchart.center(style='height:300px;')
-                        p.stackControls.center
-                           input.btn(type='button', value='With stacking')
-                           input.btn(type='button', value='Without stacking')
-                        p.graphControls.center
-                           input.btn-primary(type='button', value='Bars')
-                           input.btn-primary(type='button', value='Lines')
-                           input.btn-primary(type='button', value='Lines with steps')
-               // /row
-               .row-fluid.sortable
-                  .box.span6
-                     .box-header
-                        h2
-                           i.halflings-icon.white.list-alt
-                           span.break
-                           | Pie
-                        .box-icon
-                           a.btn-setting(href='#')
-                              i.halflings-icon.white.wrench
-                           a.btn-minimize(href='#')
-                              i.halflings-icon.white.chevron-up
-                           a.btn-close(href='#')
-                              i.halflings-icon.white.remove
-                     .box-content
-                        #piechart(style='height:300px')
-                  .box.span6
-                     .box-header(data-original-title='')
-                        h2
-                           i.halflings-icon.white.list-alt
-                           span.break
-                           | Donut
-                        .box-icon
-                           a.btn-setting(href='#')
-                              i.halflings-icon.white.wrench
-                           a.btn-minimize(href='#')
-                              i.halflings-icon.white.chevron-up
-                           a.btn-close(href='#')
-                              i.halflings-icon.white.remove
-                     .box-content
-                        #donutchart(style='height: 300px;')
-               // /row
-               hr
-               .row-fluid.sortable
-                  .box.span12
-                     .box-header
-                        h2
-                           i.halflings-icon.white.list-alt
-                           span.break
-                           | Realtime
-                        .box-icon
-                           a.btn-setting(href='#')
-                              i.halflings-icon.white.wrench
-                           a.btn-minimize(href='#')
-                              i.halflings-icon.white.chevron-up
-                           a.btn-close(href='#')
-                              i.halflings-icon.white.remove
-                     .box-content
-                        #realtimechart(style='height:190px;')
-                        p
-                           | You can update a chart periodically to get a real-time effect by using a timer to insert the new data in the plot and redraw it.
-                        p
-                           | Time between updates:
-                           input#updateInterval(type='text', value='', style='text-align: right; width:5em')
-                           |  milliseconds
-               // /row
-               .row-fluid
-                  .widget.span6(ontablet='span6', ondesktop='span6')
+                     a(href='#') Thống kê đến ăn
+               .row-fluid.sortable()
+               .box.span12
+                  .box-header(data-original-title='')
                      h2
-                        span.glyphicons.facebook
-                           i
-                        | Facebook Fans
-                     hr
-                     .content
-                        #facebookChart(style='height:300px')
-                  // /span
-                  .widget.span6(ontablet='span6', ondesktop='span6')
-                     h2
-                        span.glyphicons.twitter
-                           i
-                        | Twitter Followers
-                     hr
-                     .content
-                        #twitterChart(style='height:300px')
-                  // /span
+                        i.halflings-icon.white.user
+                        span.break
+                        | Quản lí người dùng
+                     .box-icon
+                        a.btn-setting(href='#')
+                           i.halflings-icon.white.wrench
+                        a.btn-minimize(href='#')
+                           i.halflings-icon.white.chevron-up
+                        a.btn-close(href='#')
+                           i.halflings-icon.white.remove
+                  .box-content
+                     table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
+                        p Chọn ngày
+                           input#control.btn.btn-primary(type="date",ng-model="list.date",ng-change="update()")
+                        thead
+                           tr
+                              th Tài khoản
+                              th Họ tên
+                              th Số điện thoại
+                              th Đến ăn
+                        tbody
+                           tr(ng-repeat="user in list.content")
+                              td.center {{user.username}}
+                              td.center {{user.fullname}}
+                              td.center {{user.sdt}}
+                              td.center
+                                 input(type="checkbox", class="special",ng-model="user.den_an", style="opacity:1; background-image: none;")
+                     input.btn.btn-primary(type="submit", value="Đồng bộ", ng-click="sync()")
+            script.
+               var app = angular.module('statistic', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
+               app.controller('real', function ($scope, $http, $modal) {
+                  //get user list
+                  $scope.list={
+                     date: new Date()
+                  }
+                  $scope.listUser = function (date) {
+                     var day=date.getDate();
+                     var month=date.getMonth()+1;
+                     var year=date.getFullYear();
+                     $http.get("/manager/statistic/list?day="+day+"&month="+month+"&year="+year)
+                             .success(function (data) {
+                                if (data.type == 'success') {
+                                   var content = data.content;
+                                   content.forEach(function(val){
+                                      if(val.den_an){
+                                         val.den_an=true;
+                                      }else{
+                                         val.den_an=false;
+                                      }
+                                   })
+                                   $scope.list.content = content;
+                                }
+                                else {
+                                }
+                             })
+                             .error(function (data) {
+                                console.log(data);
+                             })
+                  };
+                  //run
+                  $scope.listUser($scope.list.date);
+                  $scope.sync=function(){
+                     $http.post('/manager/statistic/sync',$scope.list)
+                     .success(function(data){
+                          alert(data.content);
+                          $scope.listUser($scope.list.date);
+                       })
+                     .error(function(data){
+                        console.log(data)
+                     });
+                  }
+                  $scope.update=function(){
+                     if($scope.list.date==null) $scope.list.date=new Date();
+                     $scope.listUser($scope.list.date);
+                  }
+               });
             // /.fluid-container
             // end: Content
          // /#content.span10

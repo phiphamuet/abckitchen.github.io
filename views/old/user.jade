@@ -92,13 +92,17 @@ html
       //.banner
       //   .container
       //      h3 Hello #{user}
-      .reservation
+      .reservation(style="height:800px",ng-app="user",ng-controller="reg")
          .container
             .reservation-form
-               .col-md-6.reservation-right
+               link(rel="stylesheet" href="css/glDatePicker.default.css")
+               script(src="js/glDatePicker.js")
+               script(src='/libs/angular/angular.js')
+               //.col-md-6.reservation-right
                   center
                      h3 Hello #{username}
                   link(rel="stylesheet" href="css/clndr.css")
+
                   //#full-clndr
                   #mini-clndr
                   //#clndr-3
@@ -124,6 +128,7 @@ html
                   script(src="js/underscore.js")
                   script(src="js/moment.js")
                   script(src="js/clndr.js")
+
                   script.
                      $(function () {
                      // PARDON ME while I do a little magic to keep these events relevant for the rest of time...
@@ -184,6 +189,94 @@ html
                      //   }
                      // });
                      });
+               .col-md-6.reservation-right
+                  center
+                     //h3 Xin chào #{username}!
+                  input#date(type="date",ng-model="date",ng-change="update()")
+               .col-md-6.reservation-right
+                  center
+                     h3 {{rp}}
+                     input.btn.btn-primary(type="submit", value="Đăng ký", ng-hide="reg", ng-click="doreg()")
+                     input.btn.btn-primary(type="submit", value="Hủy đăng ký",ng-hide="!reg", ng-click="unReg()")
+               .col-md-12#menu
+               script.
+                  var date=new Date();
+                  var year=date.getFullYear()+200;
+                  /*
+                  $("#date").glDatePicker({
+                     showAlways: true,
+                     allowMonthSelect: false,
+                     allowYearSelect: false,
+                     prevArrow: '◄',
+                     nextArrow: '►',
+                     selectableDateRange: [
+                        {
+                           from: new Date(),
+                           to: new Date(year,'1','1')
+                        }
+                     ]
+                  });
+                  */
+                  function isNull(target) {
+                     for (var member in target) {
+                        if (member != undefined) return false;
+                     }
+                     return true;
+                  }
+                  var app=angular.module('user',[]);
+                  app.controller('reg',function($scope,$http){
+                     var temp=new Date();
+                     $scope.date=new Date(temp.getFullYear(),temp.getMonth(),temp.getDate()+1);
+                     $scope.minday=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+($scope.date.getDate());
+                     $scope.reg=false;
+                     $scope.checkReg=function(date){
+                        var day=date.getDate();
+                        var month=date.getMonth()+1;
+                        var year=date.getFullYear();
+                        $http.get('/user/checkreg?day='+day+'&month='+month+'&year='+year)
+                             .success(function(data){
+                                   if(data.content.reg.length>0){
+                                      $scope.reg=true;
+                                      $scope.rp="Bạn đã đăng ký ăn! ";
+                                   }else{
+                                      $scope.rp="Bạn chưa đăng ký ăn!";
+                                      $scope.reg=false;
+                                   }
+                                console.log(JSON.stringify(data));
+                                   $scope.menu=data.content.menu;
+                                   angular.element(document.querySelector('#menu')).children().remove();
+                                   $scope.menu.forEach(function(val){
+                                      var string="<div class='col-md-4'><center> <h3>"+val.ten_mon+"</h3></center>" +
+                                              "<img width='300px' height='300px' src='/images/img_data/"+val.hinh+"'>" +
+                                              "<center><h3>"+val.don_gia+"</h3></center></div>";
+                                      angular.element(document.querySelector('#menu')).append(string);
+                                   })
+                             }).error(function(data){
+                                console.log(data);
+                             })
+                     }
+                     $scope.checkReg($scope.date);
+                     $scope.update=function(){
+                        if($scope.date==null|| $scope.date<(new Date(temp.getFullYear(),temp.getMonth(),temp.getDate()+1)) ) $scope.date=new Date(temp.getFullYear(),temp.getMonth(),temp.getDate()+1);
+                        $scope.checkReg($scope.date);
+                     }
+                     //dang ky
+                     $scope.doreg=function(){
+                        $http.post('/user/reg',{date:$scope.date})
+                             .success(function(data){
+                                   alert(data.content);
+                                   $scope.checkReg($scope.date);
+                             });
+                     }
+                     //huy dk
+                     $scope.unReg=function(){
+                        $http.post('/user/unreg',{date:$scope.date})
+                             .success(function(data){
+                                alert(data.content);
+                                $scope.checkReg($scope.date);
+                             });
+                     }
+                  });
       .footer
          .container
             .col-md-3.footer-left
