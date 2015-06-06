@@ -83,7 +83,7 @@ CREATE TABLE `dang_ky_an` (
   KEY `dang_ky_an_idx` (`id`),
   KEY `dang_ky_an_idx1` (`user_id`),
   CONSTRAINT `dang_ky_an` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `dang_ky_an` (
 
 LOCK TABLES `dang_ky_an` WRITE;
 /*!40000 ALTER TABLE `dang_ky_an` DISABLE KEYS */;
-INSERT INTO `dang_ky_an` VALUES ('2015-05-31',1,35),('2015-06-01',2,35),('2015-06-01',4,37),('2015-06-02',5,37),('2015-06-03',6,37),('2015-06-03',8,35),('2015-06-04',9,37),('2015-06-30',10,35);
+INSERT INTO `dang_ky_an` VALUES ('2015-05-31',1,35),('2015-06-01',2,35),('2015-06-01',4,37),('2015-06-02',5,37),('2015-06-03',6,37),('2015-06-03',8,35),('2015-06-04',9,37),('2015-06-30',10,35),('2015-06-06',11,35),('2015-06-07',14,35),('2015-06-08',15,35),('2015-06-07',16,37),('2015-06-08',17,37);
 /*!40000 ALTER TABLE `dang_ky_an` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +169,7 @@ CREATE TABLE `ke_toan` (
   `ngay` date NOT NULL,
   `thuc_pham` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +178,7 @@ CREATE TABLE `ke_toan` (
 
 LOCK TABLES `ke_toan` WRITE;
 /*!40000 ALTER TABLE `ke_toan` DISABLE KEYS */;
-INSERT INTO `ke_toan` VALUES (1,1,100000,'2015-06-05','Thịt lợn'),(2,5,5000,'2015-06-05','Rau muống');
+INSERT INTO `ke_toan` VALUES (1,2,90000,'2015-06-05','Thịt lợn'),(2,5,5000,'2015-06-05','Rau muống'),(3,5,5000,'2015-06-06','Rau muống'),(4,2,120000,'2015-06-06','Thịt bò'),(5,3,80000,'2015-06-06','Thịt lợn'),(6,5,8000,'2015-06-06','Dưa chuột'),(7,3,15000,'2015-06-06','Khoai tây');
 /*!40000 ALTER TABLE `ke_toan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,7 +320,7 @@ CREATE TABLE `thanh_toan` (
 
 LOCK TABLES `thanh_toan` WRITE;
 /*!40000 ALTER TABLE `thanh_toan` DISABLE KEYS */;
-INSERT INTO `thanh_toan` VALUES (12,'2015-05-03',35,NULL),(15,'2015-06-01',35,NULL);
+INSERT INTO `thanh_toan` VALUES (15,'2015-06-01',35,NULL);
 /*!40000 ALTER TABLE `thanh_toan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -366,7 +366,7 @@ CREATE TABLE `thuc_don_hang_ngay` (
   PRIMARY KEY (`id`),
   KEY `thuc_don_hang_ngay_idx` (`ma_mon`),
   CONSTRAINT `thuc_don_hang_ngay` FOREIGN KEY (`ma_mon`) REFERENCES `mon_an` (`ma_mon`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=336 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,7 +375,7 @@ CREATE TABLE `thuc_don_hang_ngay` (
 
 LOCK TABLES `thuc_don_hang_ngay` WRITE;
 /*!40000 ALTER TABLE `thuc_don_hang_ngay` DISABLE KEYS */;
-INSERT INTO `thuc_don_hang_ngay` VALUES ('2015-05-24',52,205),('2015-05-25',61,206),('2015-05-26',57,207),('2015-06-01',4,208),('2015-06-02',13,209),('2015-06-02',16,210),('2015-06-03',14,211),('2015-06-03',20,212),('2015-06-04',11,213),('2015-06-04',16,214),('2015-06-04',21,215),('2015-06-03',15,216),('2015-06-02',21,217),('2015-06-01',33,218),('2015-06-05',21,219),('2015-06-05',16,220),('2015-06-05',11,221),('2015-06-06',28,222),('2015-06-06',38,223),('2015-06-06',35,224),('2015-06-01',14,225),('2015-06-07',4,226),('2015-06-07',13,227),('2015-06-07',21,228),('2015-05-31',11,229),('2015-05-31',4,230);
+INSERT INTO `thuc_don_hang_ngay` VALUES ('2015-05-24',52,292),('2015-05-25',61,293),('2015-05-26',57,294),('2015-06-01',4,295),('2015-06-02',13,296),('2015-06-02',16,297),('2015-06-03',14,298),('2015-06-03',20,299),('2015-06-04',11,300),('2015-06-04',16,301),('2015-06-04',21,302),('2015-06-03',15,303),('2015-06-02',21,304),('2015-06-01',33,305),('2015-06-05',21,306),('2015-06-05',16,307),('2015-06-05',11,308),('2015-06-06',28,309),('2015-06-06',38,310),('2015-06-06',35,311),('2015-06-01',14,312),('2015-06-07',4,313),('2015-06-07',13,314),('2015-06-07',21,315),('2015-05-31',11,316),('2015-05-31',4,317),('2015-06-08',20,318),('2015-06-08',25,319),('2015-06-08',29,320),('2015-06-09',28,321),('2015-06-09',32,322),('2015-06-09',33,323),('2015-06-10',22,324),('2015-06-10',3,325),('2015-06-10',1,326),('2015-06-11',41,327),('2015-06-11',44,328),('2015-06-11',46,329),('2015-06-12',50,330),('2015-06-12',54,331),('2015-06-12',53,332),('2015-06-13',38,333),('2015-06-13',39,334),('2015-06-13',42,335);
 /*!40000 ALTER TABLE `thuc_don_hang_ngay` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,7 +418,7 @@ CREATE TABLE `thuc_te_an` (
   PRIMARY KEY (`id`),
   KEY `thuc_te_an_user_idx` (`user_id`),
   CONSTRAINT `thuc_te_an_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -427,7 +427,7 @@ CREATE TABLE `thuc_te_an` (
 
 LOCK TABLES `thuc_te_an` WRITE;
 /*!40000 ALTER TABLE `thuc_te_an` DISABLE KEYS */;
-INSERT INTO `thuc_te_an` VALUES (1,'2015-06-02',35),(2,'2015-06-02',37),(3,'2015-05-31',35);
+INSERT INTO `thuc_te_an` VALUES (3,'2015-05-31',35),(6,'2015-06-03',37);
 /*!40000 ALTER TABLE `thuc_te_an` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -490,7 +490,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (35,'thesonofdeath','ede3804575e5202a30b6e5679332e383','Phạm Hông Phi','1994-07-10',1,'PĐ-ĐP-HN','phiphamuet@gmail.com','017074129','01659772375'),(37,'phidaika94','ede3804575e5202a30b6e5679332e383','Phạm Hồng Phi','1111-11-11',1,'pd','email@xn--yah-mna.com','018392','0129229');
+INSERT INTO `user` VALUES (35,'thesonofdeath','ede3804575e5202a30b6e5679332e383','Phạm Hông Phi','1994-07-10',1,'PĐ-ĐP-HN','phiphamuet@gmail.com','017074129','01659772375'),(37,'phidaika94','ede3804575e5202a30b6e5679332e383','Phạm Hồng Phi','1111-11-11',1,'pd','email@xn--yah-mna.com','018392','0173265754');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -503,4 +503,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-06-05 22:01:53
+-- Dump completed on 2015-06-06  7:15:06

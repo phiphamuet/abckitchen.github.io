@@ -1,0 +1,92 @@
+//
+   Created by PHI on 6/6/2015.
+extends ../layout
+block content
+   // news
+   script(src='/libs/angular/angular.js')
+   .news(ng-app="cost",ng-controller="costByDay",datatable="ng")
+      .container
+         .menu-title
+            h3 Chi phí hằng tháng
+            br
+         .news-info
+            .box-content
+               table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+                  thead
+                     tr
+                        th Mã tài khoản
+                        th Ngày
+                        th Chi phí
+                  tbody
+                     tr(ng-repeat="meal in list")
+                        td.center {{meal.id}}
+                        td.sorting_1 {{meal.ngay}}
+                        td.center {{meal.gia}}
+               h3 Tổng chi phí:
+                  span(style="color:red") {{sum}} vnđ
+         script.
+            var app=angular.module("cost",[]);
+            app.controller('costByDay',function($scope,$http){
+               $scope.sum=0;
+               $http.get('/cost/list')
+               .success(function(data){
+                    data.content.forEach(function(val){
+                       var date=new Date(val.ngay);
+                       val.ngay=date.toLocaleDateString();
+                       $scope.sum+=val.gia;
+                    })
+                    console.log(data);
+                    $scope.list=data.content;
+              })
+            });
+
+
+   //
+   .footer
+      .container
+         .col-md-3.footer-left
+            ul
+               li ABC KitChen
+               li Đối diện kí túc xá Ngoại Ngữ
+               li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
+               li 04 xx xx xx xx
+         .col-md-3.footer-left
+            ul
+               li ABC KitChen 2
+               li Đối diện kí túc xá Ngoại Ngữ
+               li 136 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội ‎
+               li 04 xx xx xx xx
+         .col-md-3.footer-left
+            ul
+               li
+                  a(href='#') Tin tức
+               li
+                  a(href='#') Tuyển dụng
+               li
+                  a(href='#') Quy định
+               li
+                  a(href='contact') Liên hệ
+         .col-md-3.footer-right
+            a(href='index')
+               img(src='images/footer-logo.png', alt='logo')
+            p
+               | © 2015 All rights reserved | Thiết kế bởi
+               a(href='http://failedteam.com/')  FailedTeam
+         .clearfix
+   // //footer
+   // smooth-scrolling-of-move-up
+   script(type='text/javascript').
+      $(document).ready(function () {
+         /*
+          var defaults = {
+          containerID: 'toTop', // fading element id
+          containerHoverID: 'toTopHover', // fading element hover id
+          scrollSpeed: 1200,
+          easingType: 'linear'
+          };
+          */
+         $().UItoTop({easingType: 'easeOutQuart'});
+      });
+   a#toTop(href='#', style='display: block;')
+      span#toTopHover(style='opacity: 1;')
+   // //smooth-scrolling-of-move-up

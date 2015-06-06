@@ -23,49 +23,93 @@ router.get('/list',admin_not_logged_in,function(req,res){
     });
 });
 router.post('/new',function(req,res){
-    console.log(req.body);
-    if(req.body.phone&&req.body.sex){
-        async.parallel([
-            function(cb){
-                connection.query('select * from user where username="'+req.body.username+'"',cb);
-            },
-            function(cb){
-                connection.query('select * from user where email="'+req.body.email+'"',cb);
-            },
-            function(cb){
-                connection.query('select * from user where identitycard="'+req.body.identity+'"',cb);
-            },
-            function(cb){
-                connection.query('select * from user where mobiphone="'+req.body.phone+'"',cb);
+    if(req.body.thuc_pham&&req.body.so_luong&&req.body.don_gia&&req.body.ngay){
+        var sql='select * from ke_toan where ??=? and ??=?';
+        var insert=['thuc_pham',req.body.thuc_pham,'ngay',new Date(req.body.ngay)];
+        sql=mysql.format(sql,insert);
+        console.log(sql);
+        connection.query(sql,function(err,rows,fields){
+            if(err) {
+                console.log(err);
+                res.json({type:'error',content:'Đã có lỗi xảy ra!'});
             }
-        ],function(err,rows,fields){
-            if(err) console.log(err);
+            else if(isNull(rows)){
+                var sql2='insert into ke_toan(??,??,??,??) values(?,?,?,?)';
+                var insert2=['ngay','so_luong','don_gia','thuc_pham',new Date(req.body.ngay),req.body.so_luong,req.body.don_gia,req.body.thuc_pham];
+                sql2=mysql.format(sql2,insert2);
+                connection.query(sql2,function(err,rows2,fields2){
+                    if(err) {
+                        console.log(err);
+                        res.json({type:'error',content:'Đã có lỗi xảy ra!'});
+                    }else{
+                        res.json({type:'success',content:'Thêm thực phẩm thành công!'});
+                    }
+                })
+            }else{
+                res.json({type:'error',content:'Thực phẩm này đã có! Bạn hãy cập nhật lại ở trên!'})
+            }
+        })
+    }else{
+        res.json({type:'error',content:'Bạn đã nhập thiếu thông tin'});
+    }
+});
+//delte user
+router.delete('/delete/:id',admin_not_logged_in,function(req,res,next){
+    console.log(req.params);
+    if(req.params.id){
+        connection.query('DELETE FROM KE_TOAN WHERE ID="'+req.params.id+'"',function(err,rows,field){
+            if(err) {
+                console.log(err);
+                res.json({type:'error',content:'Có lỗi xảy ra! Có thể người dùng đã đăng ký ăn!'});
+            }
             else{
-                if(!isNull(rows[0][0])) res.json({type:'error',content:'Tài khoản đã tồn tại!'});
-                else if(!isNull(rows[1][0])) res.json({type:'error',content:'Email đã tồn tại!'});
-                else if(!isNull(rows[2][0])) res.json({type:'error',content:'Số CMTND đã tồn tại!'});
-                else if(!isNull(rows[3][0])) res.json({type:'error',content:'Số điện thoại đã tồn tại!'});
-                else{
-
-                    var date=new Date(req.body.birthdate);
-                    var newUser={
-                        username:req.body.username,
-                        password:crypto.createHash('md5').update(req.body.password+secretKey).digest('hex'),
-                        fullname:req.body.fullname,
-                        birthdate:date,
-                        gender:req.body.sex,
-                        address:req.body.address,
-                        email:req.body.email,
-                        identitycard:req.body.identity,
-                        mobiphone:req.body.phone
-                    };
-                    connection.query('insert into user set ?',newUser,function(err,result){
-                        if(err) console.log(err);
-                        else{
-                            console.log(result);
-                            res.json({type:'success',content:'Tạo người dùng thành công!'});
-                        };
-                    });
+                res.json({type:'success',content:'Đã xóa thực phẩm!'});
+            }
+        })
+    }else{
+        res.json({type:'error',content:'Bạn đã nhập thiếu thông tin'});
+    }
+});
+//update info user
+router.put('/update',admin_not_logged_in,function(req,res,next){
+    console.log(req.body);
+    if(req.body.thuc_pham&&req.body.so_luong&&req.body.don_gia&&req.body.ngay&&req.body.id){
+        var sql='select * from ke_toan where ??=? and ??=?';
+        var insert=['thuc_pham',req.body.thuc_pham,'ngay',new Date(req.body.ngay)];
+        sql=mysql.format(sql,insert);
+        console.log(sql);
+        connection.query(sql,function(err,rows,fields){
+            if(err) {
+                console.log(err);
+                res.json({type:'error',content:'Đã có lỗi xảy ra!'});
+            }
+            else if(isNull(rows)){
+                var sql2='update ke_toan set ??=?,??=?,??=?,??=? where ??=?';
+                var insert2=['ngay',new Date(req.body.ngay),'so_luong',req.body.so_luong,'don_gia',req.body.don_gia,'thuc_pham',req.body.thuc_pham,'id',req.body.id];
+                sql2=mysql.format(sql2,insert2);
+                connection.query(sql2,function(err,rows2,fields2){
+                    if(err) {
+                        console.log(err);
+                        res.json({type:'error',content:'Đã có lỗi xảy ra!'});
+                    }else{
+                        res.json({type:'success',content:'Cập nhật thực phẩm thành công!'});
+                    }
+                })
+            }else{
+                if(req.body.id==rows[0].id){
+                    var sql2='update ke_toan set ??=?,??=?,??=?,??=? where ??=?';
+                    var insert2=['ngay',new Date(req.body.ngay),'so_luong',req.body.so_luong,'don_gia',req.body.don_gia,'thuc_pham',req.body.thuc_pham,'id',req.body.id];
+                    sql2=mysql.format(sql2,insert2);
+                    connection.query(sql2,function(err,rows2,fields2){
+                        if(err) {
+                            console.log(err);
+                            res.json({type:'error',content:'Đã có lỗi xảy ra!'});
+                        }else{
+                            res.json({type:'success',content:'Cập nhật thực phẩm thành công!'});
+                        }
+                    })
+                }else{
+                    res.json({type:'error',content:'Thực phẩm này đã có! Bạn hãy cập nhật lại ở trên!'});
                 }
             }
         })

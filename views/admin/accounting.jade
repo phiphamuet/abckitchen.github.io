@@ -1,7 +1,7 @@
 extends layout
 block content
     // start: Header
-    .container-fluid-full(ng-app="accounting")
+    .container-fluid-full(ng-app="accounting",ng-controller="getList")
         .row-fluid
             // start: Main Menu
             #sidebar-left.span2
@@ -26,7 +26,7 @@ block content
                         li
                             a(href='/manager/statistic')
                                 i.icon-bar-chart
-                                span.hidden-tablet  Thống kê đăng ký ăn
+                                span.hidden-tablet  Thống kê đến ăn
                         li
                             a(href='/manager/calculate')
                                 i.icon-shopping-cart
@@ -52,7 +52,7 @@ block content
                         i.icon-angle-right
                     li
                         a(href='/manager/accounting') Kế Toán
-                .row-fluid.sortable( ng-controller="getList")
+                .row-fluid.sortable( )
                     .box.span12
                         .box-header(data-original-title='')
                             h2
@@ -68,6 +68,8 @@ block content
                                     i.halflings-icon.white.remove
                         .box-content
                             table.table.table-striped.table-bordered.bootstrap-datatable.datatable(datatable="ng")
+                                p Chọn ngày
+                                    input#control.btn.btn-primary(type="date",ng-model="list.date",ng-change="update()")
                                 thead
                                     tr
                                         th Thực phẩm
@@ -76,143 +78,156 @@ block content
                                         th Thành tiền
                                         th Thao tác
                                 tbody
-                                    tr(ng-repeat="food in list")
+                                    tr(ng-repeat="food in list.content")
                                         td.sorting_1 {{food.thuc_pham}}
                                         td.center {{food.so_luong}}
                                         td.center {{food.don_gia}}
                                         td.center {{food.so_luong*food.don_gia}}
                                         td.center
-                                            a.btn.btn-success(href='#')
-                                                i.halflings-icon.white.zoom-in
+                                            //a.btn.btn-success(href='#')
+                                            //    i.halflings-icon.white.zoom-in
                                             a.btn.btn-info(href='#')(ng-click="openEdit('lg',food)")
                                                 i.halflings-icon.white.edit
                                             a.btn.btn-danger(ng-click="openDelete('lg',food)")
                                                 i.halflings-icon.white.trash
+                            table
+                                tr
+                                    td
+                                        b(style="color:red;float:right; font-size:1.5em;") Tổng số tiền: {{sum}} vnđ
                     // /span
                 script.
-                   var app = angular.module('accounting', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
-                   app.controller('getList', function ($scope, $http, $modal) {
-                      //get user list
-                      $scope.list={
-                         date: new Date()
-                      };
-                      $scope.listFood = function (date) {
-                         var day=date.getDate();
-                         var month=date.getMonth()+1;
-                         var year=date.getFullYear();
-                         $http.get('/manager/accounting/list?day='+day+'&month='+month+'&year='+year)
-                              .success(function (data) {
-                                 if (data.type == 'success') {
-                                    var content = data.content;
-                                    $scope.list = content;
-                                 }
-                                 else {
-                                 }
-                              })
-                              .error(function (data) {
-                                 console.log(data);
-                              })
-                      };
-                      //run
-                      $scope.listFood($scope.list.date);
-                      //response to screen
-                      $scope.Response = function (size, content) {
-                         var modalInstance = $modal.open({
-                            templateUrl: 'response',
-                            controller: 'Response',
-                            size: size,
-                            resolve: {
-                               content: function () {
-                                  return content;
-                               }
-                            }
-                         });
-                      };
-                      //delete user
-                      $scope.openDelete = function (size, data) {
-                         var modalInstance = $modal.open({
-                            templateUrl: 'delete',
-                            controller: 'DeleteModalInstanceCtrl',
-                            size: size,
-                            resolve: {
-                               ans: function () {
-                                  return data;
-                               }
-                            }
-                         });
-                         modalInstance.result.then(function (data) {
-                            $http.delete('/manager/user/delete/' + data)
-                                    .success(function (response) {
-                                       $scope.Response('lg', response.content);
-                                       $scope.listFood();
-                                    }).error(function (response) {
-                                       console.log(response);
-                                    })
-                         }, function () {
-                         });
-                      };
-                      $scope.openEdit = function (size, data) {
-                         var modalInstance = $modal.open({
-                            templateUrl: 'edit',
-                            controller: 'EditModalInstanceCtrl',
-                            size: size,
-                            resolve: {
-                               items: function () {
-                                  return data;
-                               }
-                            }
-                         });
-                         modalInstance.result.then(function (data) {
-                            $http.put('/manager/accounting/update', data)
-                                    .success(function (response) {
-                                       $scope.listFood();
-                                       $scope.Response('lg', response.content);
-                                    }).error(function (response) {
-                                       console.log(response);
-                                    })
-                         }, function () {
-                         });
-                      };
-                   });
-                   app.controller('DeleteModalInstanceCtrl', function ($scope, $modalInstance, ans) {
-                      $scope.food = ans.thuc_pham;
-                      $scope.ok = function () {
-                         var data = ans;
-                         $modalInstance.close(data);
-                      };
-                      $scope.cancel = function () {
-                         $modalInstance.dismiss('cancel');
-                      };
-                   });
-                   app.controller('Response', function ($scope, $modalInstance, content) {
-                      $scope.content = content;
-                      $scope.ok = function () {
-                         $modalInstance.close();
-                      };
-                   });
-                   app.controller('controlFood', function ($scope, $http) {
-                      $scope.add = function () {
-                         $http.post('/manager/accounting/new', $scope.form)
-                                 .success(function (data) {
-                                    $scope.rp = data.content;
-                                 })
-                                 .error(function (data) {
+                    var app = angular.module('accounting', ['datatables', 'datatables.bootstrap', 'ui.bootstrap']);
+                    app.controller('getList', function ($scope, $http, $modal) {
+                        //get user list
+                        $scope.list={
+                            date: new Date()
+                        };
+                        $scope.update=function(){
+                            if($scope.list.date==null) $scope.list.date=new Date();
+                            $scope.listFood($scope.list.date);
+                        }
+                        $scope.listFood = function (date) {
+                            $scope.sum=0;
+                            var day=date.getDate();
+                            var month=date.getMonth()+1;
+                            var year=date.getFullYear();
+                            $http.get('/manager/accounting/list?day='+day+'&month='+month+'&year='+year)
+                                .success(function (data) {
+                                    if (data.type == 'success') {
+                                        var content = data.content;
+                                        content.forEach(function(val){
+                                            val.ngay=new Date(val.ngay);
+                                            $scope.sum+=val.so_luong*val.don_gia;
+                                        })
+                                        $scope.list.content = content;
+                                    }
+                                    else {
+                                    }
+                                })
+                                .error(function (data) {
                                     console.log(data);
-                                 })
-                      }
-                      $scope.reset = function () {
-                         $scope.form = angular.copy({});
-                      }
-                   });
-                   app.controller('EditModalInstanceCtrl', function ($scope, $modalInstance, items) {
-                      $scope.form = items;
-                      $scope.ok = function () {
-                         $modalInstance.close($scope.form);
-                      };
-                      $scope.cancel = function () {
-                         $modalInstance.dismiss('cancel');
-                      };
-                   });
+                                })
+                        };
+                        $scope.add = function () {
+                            $http.post('/manager/accounting/new', $scope.form)
+                                    .success(function (data) {
+                                        $scope.rp = data.content;
+                                        $scope.listFood($scope.list.date);
+                                    })
+                                    .error(function (data) {
+                                        console.log(data);
+                                    })
+                        }
+                        //run
+                        $scope.listFood($scope.list.date);
+                        //response to screen
+                        $scope.Response = function (size, content) {
+                            var modalInstance = $modal.open({
+                                templateUrl: 'response',
+                                controller: 'Response',
+                                size: size,
+                                resolve: {
+                                    content: function () {
+                                        return content;
+                                    }
+                                }
+                            });
+                        };
+                        $scope.reset = function () {
+                            $scope.form = angular.copy({});
+                        }
+                        $scope.openEdit = function (size, data) {
+                            var modalInstance = $modal.open({
+                                templateUrl: 'edit',
+                                controller: 'EditModalInstanceCtrl',
+                                size: size,
+                                resolve: {
+                                items: function () {
+                                        return data;
+                                    }
+                                }
+                            });
+                            modalInstance.result.then(function (data) {
+                                $http.put('/manager/accounting/update', data)
+                                    .success(function (response) {
+                                        $scope.listFood($scope.list.date);
+                                        $scope.Response('lg', response.content);
+                                    }).error(function (response) {
+                                        console.log(response);
+                                    })
+                                }, function () {
+                                });
+                        };
+                        //delete user
+                        $scope.openDelete = function (size, data) {
+                            var modalInstance = $modal.open({
+                                templateUrl: 'delete',
+                                controller: 'DeleteModalInstanceCtrl',
+                                size: size,
+                                resolve: {
+                                    ans: function () {
+                                        return data;
+                                    }
+                                }
+                            });
+                            modalInstance.result.then(function (data) {
+                            $http.delete('/manager/accounting/delete/' + data.id)
+                                .success(function (response) {
+                                    $scope.Response('lg', response.content);
+                                    $scope.listFood($scope.list.date);
+                                }).error(function (response) {
+                                    console.log(response);
+                                })
+                                }, function () {
+                                });
+                            };
+                        });
+                    app.controller('DeleteModalInstanceCtrl', function ($scope, $modalInstance, ans) {
+                        $scope.food = ans.thuc_pham;
+                        $scope.ok = function () {
+                        var data = ans;
+                            $modalInstance.close(data);
+                        };
+                        $scope.cancel = function () {
+                            $modalInstance.dismiss('cancel');
+                        };
+                    });
+                    app.controller('Response', function ($scope, $modalInstance, content) {
+                        $scope.content = content;
+                        $scope.ok = function () {
+                            $modalInstance.close();
+                        };
+                    });
+                    //create new food
+                    app.controller('EditModalInstanceCtrl', function ($scope, $modalInstance, items) {
+                        $scope.form = items;
+                        $scope.ok = function () {
+                            $modalInstance.close($scope.form);
+                        };
+                        $scope.cancel = function () {
+                            $modalInstance.dismiss('cancel');
+                        };
+                    });
                 script(type='text/ng-template', id='delete').
                     <div class="modal-header">
                     <h3 class="modal-title">Thông báo</h3>
@@ -250,13 +265,13 @@ block content
                     <div class="control-group">
                     <label for="number" class="control-label">Số lượng</label>
                     <div class="controls">
-                    <input id="number" type="text" placeholder="Số lượng..." ng-model="form.so_luong" class="input-xlarge"/>
+                    <input id="number" type='number' min='1' placeholder="Số lượng..." ng-model="form.so_luong" class="input-xlarge"/>
                     </div>
                     </div>
                     <div class="control-group">
                     <label for="price" class="control-label">Đơn giá</label>
                     <div class="controls">
-                    <input id="price" type="number" ng-model="form.don_gia" class="input-xlarge"/>
+                    <input id="price" type='number' min='1' ng-model="form.don_gia" class="input-xlarge"/>
                     </div>
                     </div>
                     <div class="control-group">
@@ -273,7 +288,7 @@ block content
                     <button class="btn btn-primary" ng-click="ok()">Xác Nhận</button>
                     <button class="btn btn-warning" ng-click="cancel()">Quay Lại</button>
                     </div>
-                .row-fluid.sortable.ui-sortable(ng-controller="controlFood")
+                .row-fluid.sortable.ui-sortable()
                     .box.span12
                         .box-header(data-original-title='')
                             h2
@@ -297,11 +312,11 @@ block content
                                     .control-group
                                         label.control-label(for='number') Số lượng
                                         .controls
-                                            input#number.input-xlarge(type='text',placeholder="Số lượng...",ng-model="form.so_luong")
+                                            input#number.input-xlarge(type='number',min='1',placeholder="Số lượng...",ng-model="form.so_luong")
                                     .control-group
                                         label.control-label(for='price') Đơn giá
                                         .controls
-                                           input#price.input-xlarge(type='number',ng-model="form.don_gia")
+                                           input#price.input-xlarge(type='number',min='1',ng-model="form.don_gia")
                                     .control-group
                                         label.control-label(for='date') Ngày
                                         .controls
