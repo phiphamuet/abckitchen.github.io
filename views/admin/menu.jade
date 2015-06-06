@@ -10,10 +10,10 @@ block content
             #sidebar-left.span2
                .nav-collapse.sidebar-nav
                   ul.nav.nav-tabs.nav-stacked.main-menu
-                     li
-                        a(href='/manager')
-                           i.icon-dashboard
-                           span.hidden-tablet  Dashboard
+                     //li
+                     //   a(href='/manager')
+                     //      i.icon-dashboard
+                     //      span.hidden-tablet  Dashboard
                      li
                         a(href='/manager/user')
                            i.icon-edit
@@ -58,7 +58,7 @@ block content
                      a(href='/manager') Home
                      i.icon-angle-right
                   li
-                     a(href='#') Calendar
+                     a(href='#') Thực đơn
                .row-fluid.sortable
                   .box.span12
                      .box-header(data-original-title='')
@@ -118,7 +118,7 @@ block content
                         data.push(event);
                      })
                      $.post("/manager/menu/sync",{content:JSON.stringify(data)},function(result){
-                        alert("ABC Kitchen: "+result);
+                        alert("ABC Kitchen: "+result.content);
                      });
                   });
                   $.get("/manager/menu/dish",function(data,status){

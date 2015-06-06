@@ -17,5 +17,5 @@ router.use('/track',track);
 router.use('/statistic',statistic);
 router.use('/menu',menu);
 router.use('/user',user);
-router.use('/',dashboard);
+router.use('/',user);
 module.exports = router;

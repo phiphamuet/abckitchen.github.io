@@ -32,9 +32,22 @@ router.get('/list',admin_not_logged_in,function(req,res,next){
     });
 });
 router.post('/sync',admin_not_logged_in,function(req,res,next){
-    console.log(req.body);
     var data=JSON.parse(req.body.content);
-    console.log(data);
+    data.forEach(function(content){
+        content.ngay=new Date(content.ngay);
+    });
+    //for(var i=0;i<data.length;i++){
+    //    for(var j=0;j<data.length;j++){
+    //        if(i!=j){
+    //            if(data[i].ngay-date[j].ngay<86400 || data[i].ngay-date[j].ngay>-86400){
+    //                if(data[i].ten_mon==data[j].ten_mon){
+    //                    res.json({type:'error',content:'Có món ăn trùng hoặc ở 2 hai liên tiếp'});
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+    console.log("complete for");
     async.waterfall([
         function(nextStep){
             var sql='delete from thuc_don_hang_ngay';
@@ -42,22 +55,21 @@ router.post('/sync',admin_not_logged_in,function(req,res,next){
                 nextStep();
             });
         },function(cb){
-            data.forEach(function(value){
-                var newDate=new Date(value.ngay);
+            data.forEach(function(value,index){
                 connection.query('select * from mon_an where ten_mon="'+value.ten_mon+'"',function(err,rows,fields){
                     var newDish={
-                        ngay:newDate,
+                        ngay: value.ngay,
                         ma_mon: rows[0].ma_mon
                     };
                     connection.query('insert into thuc_don_hang_ngay set ?',newDish,function(err,result){
                         if(err) console.log(err);
-                        if(value==data[data.length-1]) cb("Cập nhật thực đơn thành công!");
+                        if(index==data.length-1) cb("Cập nhật thực đơn thành công!");
                     });
                 });
             });
         }
     ],function(result){
-        res.json(result);
+        res.json({type:'success',content:result});
     })
 });
 module.exports = router;
