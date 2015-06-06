@@ -163,7 +163,7 @@ block content
                             }
                          });
                          modalInstance.result.then(function (data) {
-                            $http.put('/manager/user/update', data)
+                            $http.put('/manager/accounting/update', data)
                                     .success(function (response) {
                                        $scope.listFood();
                                        $scope.Response('lg', response.content);
@@ -192,7 +192,7 @@ block content
                    });
                    app.controller('controlFood', function ($scope, $http) {
                       $scope.add = function () {
-                         $http.post('/manager/user/new', $scope.form)
+                         $http.post('/manager/accounting/new', $scope.form)
                                  .success(function (data) {
                                     $scope.rp = data.content;
                                  })
