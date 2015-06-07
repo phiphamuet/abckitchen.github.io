@@ -6,6 +6,8 @@
 
 -  Database name `nha_hang.sql` in folder `./dbs-backup`</br>
 -  Config connection in folder `./model/config.js`
+
+
 ## Install Dependencies ##
 > Before install dependencies you must Install [node](https://nodejs.org/) or [iojs](https://iojs.org/) and npm (npm auto install when you install node or iojs)
 
